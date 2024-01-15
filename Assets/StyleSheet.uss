@@ -1,0 +1,42 @@
+.BloodSprite {
+    flex-grow: 0;
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    width: 20.8%;
+    height: 18.5%;
+    background-color: rgba(255, 255, 255, 0);
+    background-image: url('project://database/Assets/Sprites/Blood%20UI/blood%200.png?fileID=2800000&guid=d2dece67bc6e89846a34c26fe20d131c&type=3#blood 0');
+    padding-left: 0;
+    margin-left: 1%;
+}
+
+.BagSprite {
+    flex-grow: 0;
+    width: 13%;
+    height: 23.1%;
+    background-image: url('project://database/Assets/Sprites/Inventory%20UI/BagClosed.png?fileID=2800000&guid=1082162343afd71429b5e765ae58bab1&type=3#BagClosed');
+    flex-shrink: 0;
+    top: 58%;
+    left: 1%;
+    -unity-background-scale-mode: scale-to-fit;
+    align-self: flex-start;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    transition-duration: 0.5s;
+}
+
+.BagSprite:hover {
+    scale: 1.05 1.05;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+}
+
+.BagSprite--Opened {
+    background-image: url('project://database/Assets/Sprites/Inventory%20UI/BagOpened.png?fileID=2800000&guid=d6d1d86ff9bedc940aec236501a4f811&type=3#BagOpened');
+    -unity-background-scale-mode: scale-to-fit;
+}
