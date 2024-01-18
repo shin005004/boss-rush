@@ -11,7 +11,7 @@ public class BookData
     public Dictionary<string, Dictionary<string, List<string>>> BookList = new Dictionary<string, Dictionary<string, List<string>>>();
     public Dictionary<string, int> UnlockedBookLevel = new Dictionary<string, int>();
     public Dictionary<string, int> EquippedBookLevel = new Dictionary<string, int>();
-
+    
 
     public void SetBossList(){
         foreach(string bookType in BookType){
