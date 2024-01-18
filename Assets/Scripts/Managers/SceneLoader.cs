@@ -8,7 +8,31 @@ public class SceneLoader : MonoBehaviour
 {
     public GameObject BlackScreen;
     public CanvasGroup canvasGroup;
+    private static SceneLoader _Instance;
+    void Awake()
+    {
+        if (null == _Instance)
+        {
+            _Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
 
+    public static SceneLoader Instance
+    {
+        get
+        {
+            if (null == _Instance)
+            {
+                return null;
+            }
+            return _Instance;
+        }
+    }
 
     private void Start()
     {
@@ -20,9 +44,12 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(LoadSceneAsync(sceneName));
     }
 
-    public void LoadTitleScene()
+    public void LoadMainStoreScene()
     {
-        StartCoroutine(LoadSceneAsync("Title"));
+        StartCoroutine(LoadSceneAsync("MainStoreScene"));
+    }
+    public void LoadBookShelfScene(){
+        StartCoroutine(LoadSceneAsync("BookShelfScene"));
     }
 
     IEnumerator LoadSceneAsync(string levelToLoad)

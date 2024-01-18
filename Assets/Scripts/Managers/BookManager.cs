@@ -6,26 +6,32 @@ using UnityEngine;
 public class BookManager : MonoBehaviour
 {
     public string BookRoomType;
-    private void Awake(){
-        BookData.instance.SetBossList();
-        BookData.instance.SetBookList();
-    }
+
+
 
     public void SetBookRoomType(string RoomType){
         BookRoomType = RoomType;
     }
 
     public void SetUnlockedBookLevel(string BookName, int Level){
-        BookData.instance.UnlockedBookLevel[BookName] = Level;
+        BookData.Instance.UnlockedBookLevel[BookName] = Level;
     }
 
     public void SetEquippedBookLevel(string BookName, int Level){
-        BookData.instance.EquippedBookLevel[BookName] = Level;
+        BookData.Instance.EquippedBookLevel[BookName] = Level;
+    }
+
+    public void EquipBook(string BookName){
+        BookData.Instance.EquippedBook.Add(BookName);
+    }
+    public void UnequipBook(string BookName){
+        BookData.Instance.EquippedBook.Remove(name);
     }
 
     public void ResetEquippedBookLevel(){
-        foreach(string bookName in BookData.instance.EquippedBookLevel.Keys.ToList()){
-            BookData.instance.EquippedBookLevel[bookName] = 0;
+        foreach(string bookName in BookData.Instance.EquippedBookLevel.Keys.ToList()){
+            BookData.Instance.EquippedBookLevel[bookName] = 0;
+            BookData.Instance.EquippedBook = new List<string>() {};
         }
     }
 

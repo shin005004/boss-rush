@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public BookManager BookManager { get; private set; }
-    public SceneManager SceneManager { get; private set; }
     
     
     private void Awake()
@@ -23,7 +22,6 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         BookManager = GetComponentInChildren<BookManager>();
-        SceneManager = GetComponentInChildren<SceneManager>();
     }
 }
 
