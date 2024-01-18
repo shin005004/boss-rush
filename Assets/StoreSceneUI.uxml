@@ -1,11 +1,16 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/StyleSheet.uss?fileID=7433441132597879392&amp;guid=5ce8a44c533e7ac4683d67dab5164982&amp;type=3#StyleSheet" />
-    <ui:VisualElement name="BloodSprite" class="BloodSprite" style="justify-content: space-between; align-self: flex-start; align-items: flex-start; flex-shrink: 0; -unity-background-scale-mode: scale-to-fit;">
-        <ui:Label tabindex="-1" text="200" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BloodText" style="align-self: center; -unity-text-align: middle-center; flex-grow: 1; justify-content: space-around; right: 0; bottom: 0; left: 20px; -unity-font: url(&apos;project://database/Assets/Fonts/ThaleahFat.fontsettings?fileID=12800000&amp;guid=1631eb60c593e744485e550a03ad15cf&amp;type=2#ThaleahFat&apos;); font-size: 50px; color: rgb(255, 255, 255); -unity-font-style: normal; letter-spacing: 5px;" />
+    <ui:VisualElement name="BloodSprite" class="BloodSprite" style="justify-content: space-between; align-self: flex-start; align-items: flex-start; flex-shrink: 0; -unity-background-scale-mode: scale-to-fit; background-image: url(&apos;project://database/Assets/Resources/Sprites/BloodUI/blood00.png?fileID=21300000&amp;guid=d2dece67bc6e89846a34c26fe20d131c&amp;type=3#blood00&apos;);">
+        <ui:Label tabindex="-1" text="0" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BloodText" style="align-self: center; -unity-text-align: middle-center; flex-grow: 1; justify-content: space-around; left: 30px; -unity-font: url(&apos;project://database/Assets/Fonts/ThaleahFat.fontsettings?fileID=12800000&amp;guid=652f7165b7c30ab46af6c4aad90a639b&amp;type=2#ThaleahFat&apos;); font-size: 85%; color: rgb(255, 255, 255); -unity-font-style: normal; letter-spacing: 5px; -unity-font-definition: url(&apos;project://database/Assets/Fonts/Materials/ThaleahFat_TTF%20SDF.asset?fileID=11400000&amp;guid=821ae0e5d801212488aa17896de90cce&amp;type=2#ThaleahFat_TTF SDF&apos;); -unity-background-scale-mode: scale-to-fit;" />
     </ui:VisualElement>
-    <ui:VisualElement name="BagSprite" class="BagSprite BagSprite--Opened" />
-    <ui:VisualElement name="PopUpLayer" style="flex-grow: 1; width: 100%; height: 100%; position: absolute;">
-        <ui:VisualElement name="Scrim" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.47); -unity-background-scale-mode: scale-to-fit; display: flex;" />
-        <ui:VisualElement name="BookSprite" style="flex-grow: 0; width: 93.72%; height: 99.96%; flex-direction: column-reverse; justify-content: flex-end; align-items: center; align-self: center; top: 0.04%; background-image: url(&apos;project://database/Assets/Sprites/Inventory%20UI/BookOpened.png?fileID=2800000&amp;guid=8d5638858543d9949aede3f64a0ae00c&amp;type=3#BookOpened&apos;); scale: 1 1;" />
+    <ui:VisualElement name="BagSprite" class="BagSprite" />
+    <ui:VisualElement name="PopUpLayer" style="flex-grow: 1; width: 100%; height: 100%; position: absolute; display: none; justify-content: space-between; align-self: center;">
+        <ui:VisualElement name="Scrim" class="Scrim" />
+        <ui:VisualElement name="BookSprite" class="BookSprite" style="-unity-background-scale-mode: stretch-to-fill; flex-direction: row; justify-content: space-between;">
+            <ui:VisualElement name="LeftIndex" class="LeftIndex" />
+            <ui:VisualElement name="RightIndex" class="RightIndex" style="left: 1%;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="RightArrow" class="RightArrow" />
+        <ui:VisualElement name="LeftArrow" class="LeftArrow" />
     </ui:VisualElement>
 </ui:UXML>
