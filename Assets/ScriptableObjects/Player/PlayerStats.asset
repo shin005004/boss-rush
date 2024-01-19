@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c170d7b0a01a20b438da1d931535c2b5, type: 3}
+  m_Name: PlayerStats
+  m_EditorClassIdentifier: 
+  PlayerHP: 3
+  PlayerSpeed: 4
+  DashMovementModifier: 1.5
+  DashStartVelocity: 5
+  DashLengthTime: 0.5
+  DashCoolTime: 0.75
+  DashStartUp: 0
+  DashInvlunTime: 0.25
+  JustDashPrefab: {fileID: 1944093440038011308, guid: 9c3388fcf931f6748ab37067cf0b8b5d, type: 3}
+  MeleeStats: {fileID: 11400000, guid: 355f6b3c9ccb53d4ea593b18c078a3e7, type: 2}
+  RangedStats: {fileID: 11400000, guid: e1b3da47fab44324baabdd56de54bc62, type: 2}
+  WritingTime: 1
+  WriteSpeedModifier: 0.1
