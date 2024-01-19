@@ -2,15 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BookBehaviour : MonoBehaviour
-{    
-
-    public string BookName;
-
-    private void Start(){
-        BookName = gameObject.name;
-    }
-
+public class BackArrow : MonoBehaviour
+{
     private void OnMouseEnter()
     {
         gameObject.GetComponent<Renderer>().material.color = new Color(169 / 255f, 169 / 255f, 169 / 255f, 255 / 255f);
@@ -18,9 +11,10 @@ public class BookBehaviour : MonoBehaviour
 
     private void OnMouseOver()
     {
+        Debug.Log("Arrow");
         if (Input.GetMouseButtonDown(0))
         {
-            
+            SceneLoader.Instance.LoadMainStoreScene();
         }
     }
 
