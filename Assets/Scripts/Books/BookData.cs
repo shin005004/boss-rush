@@ -65,7 +65,7 @@ public class BookData: MonoBehaviour
                     string skillCount = i.ToString();
                     string bookName = $"{boss} {skillCount}";
                     BookList[bookType][boss].Add(bookName);
-                    UnlockedBookLevel[bookName] = 0;
+                    UnlockedBookLevel[bookName] = 1;
                     EquippedBookLevel[bookName] = 0;
                 }
             }
