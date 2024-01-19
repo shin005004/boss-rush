@@ -25,7 +25,8 @@ public class BookManager : MonoBehaviour
         BookData.Instance.EquippedBook.Add(BookName);
     }
     public void UnequipBook(string BookName){
-        BookData.Instance.EquippedBook.Remove(name);
+        BookData.Instance.EquippedBook.Remove(BookName);
+        BookData.Instance.EquippedBookLevel[BookName] = 0;
     }
 
     public void ResetEquippedBookLevel(){
