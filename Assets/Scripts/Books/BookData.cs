@@ -61,7 +61,7 @@ public class BookData: MonoBehaviour
             BookList[bookType] = new Dictionary<string, List<string>>();
             foreach(string boss in BossList[bookType]){
                 BookList[bookType][boss] = new List<string>();
-                for(int i = 0; i < BossData.Instance.BossSkillCount[boss]; i++){
+                for(int i = 1; i <= BossData.Instance.BossSkillCount[boss]; i++){
                     string skillCount = i.ToString();
                     string bookName = $"{boss} {skillCount}";
                     BookList[bookType][boss].Add(bookName);

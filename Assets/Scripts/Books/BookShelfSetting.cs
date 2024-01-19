@@ -19,10 +19,10 @@ public class BookShelfSetting : MonoBehaviour
     private float bookY, bookX;
     private GameObject bookObject;
     private void Start(){
-        bookY = 3f;
+        bookY = 2.8f;
 
         foreach(string boss in roomBossList){
-            bookX = -6f;
+            bookX = -5f;
             foreach(string book in BookData.Instance.BookList[roomSetting][boss]){
                 if(BookData.Instance.UnlockedBookLevel[book] > 0){
                     bookObject = Instantiate(bookPrefab);
@@ -32,7 +32,7 @@ public class BookShelfSetting : MonoBehaviour
                     
                     bookObject.name = book;
 
-                    bookX += 2f;
+                    bookX += 2.5f;
                 }
             }
             bookY -= 2f;
