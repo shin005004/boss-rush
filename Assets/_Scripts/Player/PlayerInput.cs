@@ -17,11 +17,14 @@ public class PlayerInput : MonoBehaviour
     {
         return new FrameInput
         {
-            DashDown = Input.GetKeyDown(KeyCode.Space),
+            RollDown = Input.GetKeyDown(KeyCode.Space),
+
             AttackDown = Input.GetKeyDown(KeyCode.Z) || Input.GetMouseButtonDown(0),
+            
             ShootDown = Input.GetMouseButtonDown(1),
             ShootHeld = Input.GetMouseButton(1),
             ShootUp = Input.GetMouseButtonUp(1),
+            
             Move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")),
 
             WriteDown = Input.GetKeyDown(KeyCode.F),
@@ -36,11 +39,15 @@ public struct FrameInput
 {
     public Vector2 Move;
     public Vector3 MousePosition;
-    public bool DashDown;
+
+    public bool RollDown;
+
     public bool AttackDown;
+
     public bool ShootDown;
     public bool ShootHeld;
     public bool ShootUp;
+
     public bool WriteDown;
     public bool ExampleActionHeld;
 }

@@ -2,16 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-[CreateAssetMenu]
-public class MeleeStatsSO : ScriptableObject
-{
-    [Header("MELEE")]
-    public int MeleeID = 0;
-
-    public float MeleeCoolTime = 0.5f;
-}
-
 [CreateAssetMenu]
 public class RangedStatsSO : ScriptableObject
 {

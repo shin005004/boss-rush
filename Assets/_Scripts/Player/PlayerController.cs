@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     #region EXTERNAL
     public PlayerStatSO PlayerStats;
 
-    public event Action<bool, Vector2> DashingChanged;
+    public event Action<bool, Vector2> RollingChanged;
 
     public event Action<Vector2> Attacked;
     public event Action AttackEnd;
@@ -29,35 +29,38 @@ public class PlayerController : MonoBehaviour, IPlayerController
     public Vector2 PlayerInput => currentPlayerDirection;
     public Vector2 PlayerDirection => cachedPlayerDirection;
 
-    public bool IsDashing { get; private set; }
+    public bool IsRolling { get; private set; }
     #endregion
 
+    #region SETUP
     private void Start()
     {
         _input = GetComponent<PlayerInput>();
 
         // Setup
         _playerSpeed = PlayerStats.PlayerSpeed;
-        _dashMovementModifier = PlayerStats.DashMovementModifier;
+        _rollMovementModifier = PlayerStats.RollMovementModifier;
 
-        _dashStartVelocity = PlayerStats.DashStartVelocity;
-        _dashLengthTime = PlayerStats.DashLengthTime;
-        _dashCoolTime = PlayerStats.DashCoolTime;
-        _dashStartUp = PlayerStats.DashStartUp;
-        _dashInvlunTime = PlayerStats.DashInvlunTime;
+        _rollStartVelocity = PlayerStats.RollStartVelocity;
+        _rollLengthTime = PlayerStats.RollLengthTime;
+        _rollCoolTime = PlayerStats.RollCoolTime;
+        _rollStartUp = PlayerStats.RollStartUp;
+        _rollInvlunTime = PlayerStats.RollInvlunTime;
 
-        _justDashPrefab = PlayerStats.JustDashPrefab;
+        _justRollPrefab = PlayerStats.JustRollPrefab;
     }
+    #endregion
 
     #region UPDATE
     private void Update()
     {
         GatherInput();
+        HandlePlayerFlipping();
+
         HandleMoving();
-        HandleDashing();
+        HandleRolling();
     }
     #endregion
-
 
     #region INPUT
     private void GatherInput()
@@ -65,13 +68,13 @@ public class PlayerController : MonoBehaviour, IPlayerController
         _frameInput = _input.FrameInput;
         MousePosition = (Vector2)_frameInput.MousePosition;
 
-        if (_frameInput.DashDown && !IsDashing) dashToConsume = true;
+        if (_frameInput.RollDown && !IsRolling) rollToConsume = true;
     }
     #endregion
 
     #region MOVING
     private float _playerSpeed;
-    private float _dashMovementModifier;
+    private float _rollMovementModifier;
 
     private bool canMove = true;
     private Vector2 currentPlayerDirection = new Vector3(0f, 0f, 0f);
@@ -87,86 +90,131 @@ public class PlayerController : MonoBehaviour, IPlayerController
         else
             currentPlayerDirection = Vector3.zero;
 
-        var posX = transform.position.x + (_playerSpeed / _dashMovementModifier) * currentPlayerDirection.x * Time.deltaTime;
-        var posY = transform.position.y + (_playerSpeed / _dashMovementModifier) * currentPlayerDirection.y * Time.deltaTime;
+        var posX = transform.position.x + (_playerSpeed / _rollMovementModifier) * currentPlayerDirection.x * Time.deltaTime;
+        var posY = transform.position.y + (_playerSpeed / _rollMovementModifier) * currentPlayerDirection.y * Time.deltaTime;
         transform.position = new Vector3(posX, posY, 0f);
+    }
+
+    private Vector3 normalScale = new Vector3(1f, 1f, 1f);
+    private Vector3 flippedScale = new Vector3(-1f, 1f, 1f);
+    private void HandlePlayerFlipping()
+    {
+        // Debug.Log(_playerController.PlayerInput);
+        if (Mathf.Abs(PlayerInput.x) > 0.1f)
+        {
+            if (PlayerInput.x < 0)
+                transform.localScale = flippedScale;
+            else
+                transform.localScale = normalScale;
+        }
     }
     #endregion
 
-    #region DASHING
-    private float _dashStartVelocity;   // 구르기 시작 속도
-    private float _dashLengthTime;      // 전체 구르기 시간
-    private float _dashCoolTime;        // 구르기 시작부터 쿨다운
+    #region ROLLING
+    private float _rollStartVelocity;   // 구르기 시작 속도
+    private float _rollLengthTime;      // 전체 구르기 시간
+    private float _rollCoolTime;        // 구르기 시작부터 쿨다운
 
-    private float _dashStartUp;
-    private float _dashInvlunTime;
+    private float _rollStartUp;
+    private float _rollInvlunTime;
 
-    private bool canDash = true;            // 외적으로 구르기 가능한지?
-    private bool dashToConsume = false;     // 대쉬 해야하는가?
-    private bool dashCoolDownFlag = true;   // 쿨다운으로 구르기 가능한지?
+    private bool canRoll = true;            // 외적으로 구르기 가능한지?
+    private bool rollToConsume = false;     // 대쉬 입력이 들어왔는가?
+    private bool rollCoolDownFlag = true;   // 쿨다운으로 구르기 가능한지?
 
     // 구르기 시간 확인하는 시간
-    private float dashElapsedTime = 0f;
+    private float rollElapsedTime = 0f;
 
     // 저스트 구르기 확인용
-    private GameObject _justDashPrefab;
-    private bool isDashSuccessFlag = false;
+    private GameObject _justRollPrefab;
+    private bool isRollSuccessFlag = false;
 
-    private void HandleDashing()
+    private void HandleRolling()
     {
-        if (!dashToConsume) return;
+        if (!rollToConsume) return;
 
-        if (canDash && canMove && dashCoolDownFlag)
+        if (canRoll && canMove && rollCoolDownFlag)
         {
-            dashCoolDownFlag &= false;
-            DashingChanged?.Invoke(true, cachedPlayerDirection);
-            StartCoroutine(Dash());
+            rollCoolDownFlag = false;
+            RollingChanged?.Invoke(true, cachedPlayerDirection);
+            StartCoroutine(Roll());
         }
 
-        dashToConsume = false;
+        rollToConsume = false;
     }
 
-    private void ResetDash()
+    private void ResetRoll()
     {
-
-        dashCoolDownFlag = true;
+        rollCoolDownFlag = true;
     }
 
-    private IEnumerator Dash()
+    private IEnumerator Roll()
     {
-        GameObject dashDummyObject = Instantiate(_justDashPrefab, transform.position, Quaternion.identity);
-        JustDashDummy dashDummyComponent = dashDummyObject.GetComponent<JustDashDummy>();
-        dashDummyComponent.StartUp(_dashStartUp, _dashInvlunTime, this);
+        GameObject rollDummyObject = Instantiate(_justRollPrefab, transform.position, Quaternion.identity);
+        JustRollDummy rollDummyComponent = rollDummyObject.GetComponent<JustRollDummy>();
+        rollDummyComponent.StartUp(_rollStartUp, _rollInvlunTime, this);
 
-        Vector3 dashDirection = new Vector3(cachedPlayerDirection.x, cachedPlayerDirection.y, 0f);
-        dashElapsedTime = 0f;
-        while (dashElapsedTime < _dashLengthTime)
+        Vector3 rollDirection = new Vector3(cachedPlayerDirection.x, cachedPlayerDirection.y, 0f);
+        rollElapsedTime = 0f;
+        while (rollElapsedTime < _rollLengthTime)
         {
-            float dashMovement = Mathf.Lerp(_dashStartVelocity, _dashStartVelocity * 0.75f, dashElapsedTime / _dashLengthTime);
-            transform.position += dashDirection * dashMovement * Time.deltaTime;
-            dashElapsedTime += Time.deltaTime;
+            float rollMovement = Mathf.Lerp(_rollStartVelocity, _rollStartVelocity * 0.75f, rollElapsedTime / _rollLengthTime);
+            transform.position += rollDirection * rollMovement * Time.deltaTime;
+            rollElapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        IsDashing = false;
-        yield return new WaitForSeconds(_dashCoolTime - _dashLengthTime);
-        ResetDash();
+        IsRolling = false;
+        yield return new WaitForSeconds(_rollCoolTime - _rollLengthTime);
+        ResetRoll();
     }
 
-    public void OnDashSuccess()
+    public void OnRollSuccess()
     {
-        if (!isDashSuccessFlag)
+        if (!isRollSuccessFlag)
         {
-            isDashSuccessFlag = true;
+            isRollSuccessFlag = true;
         }
     }
+    #endregion
+
+    #region ATTACKING
+
+    private float attackDelay = 0.5f;
+
+    private bool attackToConsume = false;   // 공격 입력이 들어왔는가?
+    private int isAttacking = 0;            // 몇번째 공격중인가?
+
+    private bool canAttack = true;          // 외적으로 공격이 가능한가?
+    private bool canAttackFlag = false;     // 쿨타임적으로 공격이 가능한지?
+
+    private void HandleAttacking()
+    {
+        if (!attackToConsume) return;
+
+        if (IsRolling) return;
+        
+        if (canAttack && canAttackFlag)
+        {
+            var attackDirection = new Vector2(_frameInput.MousePosition.x - transform.position.x, _frameInput.MousePosition.y - transform.position.y).normalized;
+            Attacked?.Invoke(attackDirection);
+        }
+
+        attackToConsume = false;
+    }
+
+    public void ChangePlayerStateAttack()
+    {
+
+    }
+
     #endregion
 }
 
 public interface IPlayerController
 {
-    // Dashing, Direction
-    public event Action<bool, Vector2> DashingChanged;
+    // Rolling, Direction
+    public event Action<bool, Vector2> RollingChanged;
 
     // Direction
     public event Action<Vector2> Attacked;
@@ -181,7 +229,8 @@ public interface IPlayerController
     public Vector2 PlayerInput { get; }
     public Vector2 PlayerDirection { get; }
 
-    public bool IsDashing { get; }
+    public bool IsRolling { get; }
 
-    public void OnDashSuccess();
+    public void OnRollSuccess();
+    public void ChangePlayerStateAttack();
 }
