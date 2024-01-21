@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817cd661e0808d24badc6d99476c09d5, type: 3}
   m_Name: Melee
   m_EditorClassIdentifier: 
-  MeleeID: 0
-  MeleeCoolTime: 0.5
+  MeleeID: 1
+  MaxWeaponHits: 2
+  MeleeCoolTime:
+  - 0.5
+  - 0.5
+  WeaponPrefab: {fileID: 1740121988753996321, guid: e0397f2d87cea7849af55781ffc32915, type: 3}

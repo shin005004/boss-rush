@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     #endregion
 
     #region EXTERNAL
+    public Transform PlayerVisualTransform;
     public PlayerStatSO PlayerStats;
 
     public event Action<bool, Vector2> RollingChanged;
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     public Vector2 MousePosition { get; set; }
     public Vector2 PlayerInput => currentPlayerDirection;
     public Vector2 PlayerDirection => cachedPlayerDirection;
+    public PlayerStatSO Stats => PlayerStats;
 
     public bool IsRolling { get; private set; }
     #endregion
@@ -59,6 +61,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
         HandleMoving();
         HandleRolling();
+        HandleAttacking();
     }
     #endregion
 
@@ -69,6 +72,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
         MousePosition = (Vector2)_frameInput.MousePosition;
 
         if (_frameInput.RollDown && !IsRolling) rollToConsume = true;
+        if (_frameInput.AttackDown && !IsRolling) attackToConsume = true;
     }
     #endregion
 
@@ -82,6 +86,8 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
     private void HandleMoving()
     {
+        if (!canMove) return;
+
         if (_frameInput.Move.x != 0 || _frameInput.Move.y != 0)
         {
             currentPlayerDirection = new Vector3(_frameInput.Move.x, _frameInput.Move.y).normalized;
@@ -103,9 +109,9 @@ public class PlayerController : MonoBehaviour, IPlayerController
         if (Mathf.Abs(PlayerInput.x) > 0.1f)
         {
             if (PlayerInput.x < 0)
-                transform.localScale = flippedScale;
+                PlayerVisualTransform.localScale = flippedScale;
             else
-                transform.localScale = normalScale;
+                PlayerVisualTransform.localScale = normalScale;
         }
     }
     #endregion
@@ -186,7 +192,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     private int isAttacking = 0;            // 몇번째 공격중인가?
 
     private bool canAttack = true;          // 외적으로 공격이 가능한가?
-    private bool canAttackFlag = false;     // 쿨타임적으로 공격이 가능한지?
+    private bool canAttackFlag = true;     // 쿨타임적으로 공격이 가능한지?
 
     private void HandleAttacking()
     {
@@ -203,9 +209,10 @@ public class PlayerController : MonoBehaviour, IPlayerController
         attackToConsume = false;
     }
 
-    public void ChangePlayerStateAttack()
+    public void ChangePlayerStateAttack(bool canMove, bool canRoll)
     {
-
+        this.canMove = canMove;
+        this.canRoll = canRoll;
     }
 
     #endregion
@@ -228,9 +235,10 @@ public interface IPlayerController
     public Vector2 MousePosition { get; set; }
     public Vector2 PlayerInput { get; }
     public Vector2 PlayerDirection { get; }
+    public PlayerStatSO Stats { get; }
 
     public bool IsRolling { get; }
 
     public void OnRollSuccess();
-    public void ChangePlayerStateAttack();
+    public void ChangePlayerStateAttack(bool canMove, bool canRoll);
 }
