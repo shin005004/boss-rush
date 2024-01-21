@@ -166,11 +166,6 @@
     opacity: 0;
 }
 
-.Section_BookInfo--Opened {
-    transition-duration: 1s;
-    opacity: 1;
-}
-
 .LeftSide {
     flex-grow: 0;
     flex-shrink: 0;
@@ -231,4 +226,8 @@
 .Slot_BookIcon:hover {
     scale: 1.1 1.1;
     transition-duration: 0.2s;
+}
+
+.Section_BookInfo--Opened {
+    opacity: 1;
 }
