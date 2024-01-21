@@ -152,3 +152,83 @@
     transition-duration: 0.2s;
     translate: -5px 0;
 }
+
+.Section_BookInfo--Closed {
+    flex-grow: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    align-self: center;
+    align-items: stretch;
+    transition-duration: 1s;
+    background-color: rgba(0, 0, 0, 0);
+    opacity: 0;
+}
+
+.Section_BookInfo--Opened {
+    transition-duration: 1s;
+    opacity: 1;
+}
+
+.LeftSide {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 50%;
+    height: 100%;
+    align-self: center;
+    align-items: flex-end;
+    justify-content: space-between;
+    top: 0;
+    background-image: resource('Sprites/InventoryUI/SectionSample/SampleLeftSide');
+}
+
+.RightSide {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 50%;
+    height: 100%;
+    background-image: resource('Sprites/InventoryUI/SectionSample/SampleRightSide');
+    align-items: flex-start;
+    justify-content: space-between;
+    align-self: center;
+}
+
+.Slot {
+    flex-grow: 1;
+    position: absolute;
+    width: 25%;
+    height: 30%;
+    top: 28.5%;
+    left: 31.5%;
+}
+
+.Slot_BookNumber {
+    width: 100%;
+    height: 10%;
+    -unity-font: url('project://database/Assets/Fonts/Materials/ThaleahFat_TTF.ttf?fileID=12800000&guid=585188cdc4600544eb408bee749e4b3a&type=3#ThaleahFat_TTF');
+    -unity-font-definition: url('project://database/Assets/Fonts/Materials/ThaleahFat_TTF%20SDF.asset?fileID=11400000&guid=821ae0e5d801212488aa17896de90cce&type=2#ThaleahFat_TTF SDF');
+    font-size: 40px;
+}
+
+.Slot_BookIcon {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 100%;
+    height: 66%;
+    background-image: resource('Sprites/InventoryUI/BookUI/Surtr1_1');
+}
+
+.Slot_BookName {
+    width: 100%;
+    height: 15%;
+    -unity-font: url('project://database/Assets/Fonts/Materials/ThaleahFat_TTF.ttf?fileID=12800000&guid=585188cdc4600544eb408bee749e4b3a&type=3#ThaleahFat_TTF');
+    -unity-font-definition: url('project://database/Assets/Fonts/Materials/ThaleahFat_TTF%20SDF.asset?fileID=11400000&guid=821ae0e5d801212488aa17896de90cce&type=2#ThaleahFat_TTF SDF');
+    font-size: 50px;
+    -unity-text-align: upper-center;
+}
+
+.Slot_BookIcon:hover {
+    scale: 1.1 1.1;
+    transition-duration: 0.2s;
+}

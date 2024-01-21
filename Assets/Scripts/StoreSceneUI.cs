@@ -10,11 +10,12 @@ public class StoreSceneUI : MonoBehaviour
     // Those will be changed when the whole blood management structure is completed
     [SerializeField] GameObject bookRightTurn, bookLeftTurn;
     private Animator _bookRightTurnAnim, _bookLeftTurnAnim;
-    private VisualElement _popUpLayer, _bag, _scrim, _book, _bloodSprite, _rightArrow, _leftArrow, _rightIndex, _leftIndex;
+    private VisualElement _popUpLayer, _bag, _scrim, _book, _bloodSprite, _rightArrow, _leftArrow, _rightIndex, _leftIndex, _sectionBookInfo;
     private Label _bloodText;
     private Sprite[] _bloodSprites;
     private int _bloodSpriteCount = 15;
     private int _tmpBloodAmout = 0;
+    private int _turningDirection = -1;
     #endregion
     void Awake() 
     {
@@ -36,6 +37,7 @@ public class StoreSceneUI : MonoBehaviour
         _leftArrow = root.Q<VisualElement>("LeftArrow");
         _rightIndex = root.Q<VisualElement>("RightIndex");
         _leftIndex = root.Q<VisualElement>("LeftIndex");
+        _sectionBookInfo = root.Q<VisualElement>("Section_BookInfo");
 
         _popUpLayer.style.display = DisplayStyle.None;
         _bag.RegisterCallback<ClickEvent>(OnOpenBook);
@@ -45,6 +47,8 @@ public class StoreSceneUI : MonoBehaviour
         _leftArrow.RegisterCallback<ClickEvent>(LeftPageTurn);
         _rightIndex.RegisterCallback<ClickEvent>(RightIndexTurn);
         _leftIndex.RegisterCallback<ClickEvent>(LeftIndexTurn);
+
+        _sectionBookInfo.RegisterCallback<TransitionEndEvent>(BookTurn);
 
         _tmpBloodAmout = BloodAmount;
         ChangeBlood();
@@ -58,12 +62,16 @@ public class StoreSceneUI : MonoBehaviour
             float animTime = _bookRightTurnAnim.GetCurrentAnimatorStateInfo(0).normalizedTime;
             if (animTime >= 1.0f) {
                 bookRightTurn.gameObject.SetActive(false);
+                // for test
+                _sectionBookInfo.AddToClassList("Section_BookInfo--Opened");
             }
         }
         else if (bookLeftTurn.gameObject.activeSelf) {
             float animTime = _bookLeftTurnAnim.GetCurrentAnimatorStateInfo(0).normalizedTime;
             if (animTime >= 1.0f) {
                 bookLeftTurn.gameObject.SetActive(false);
+                // for test
+                _sectionBookInfo.AddToClassList("Section_BookInfo--Opened");
             }
         }
     }
@@ -121,6 +129,16 @@ public class StoreSceneUI : MonoBehaviour
     }
     #endregion
     #region //BookTurning
+    private void BookTurn(TransitionEndEvent transitionEndEvent) {
+        if (_turningDirection == 0) {
+            _turningDirection = -1;
+            BookLeftTurn();
+        }
+        else if (_turningDirection == 1) {
+            _turningDirection = -1;
+            BookRightTurn();
+        }
+    }
     private void BookRightTurn() {
         if (!bookRightTurn.gameObject.activeSelf) {
             bookRightTurn.gameObject.SetActive(true);
@@ -132,21 +150,49 @@ public class StoreSceneUI : MonoBehaviour
         }
     }
     private void RightIndexTurn(ClickEvent clickEvent) {
-        BookRightTurn();
+        _turningDirection = 1;
+        if (_sectionBookInfo.ClassListContains("Section_BookInfo--Opened")) {
+            _sectionBookInfo.RemoveFromClassList("Section_BookInfo--Opened");
+        }
+        else {
+            _turningDirection = -1;
+            BookRightTurn();
+        }
         // TODO: change section variables
         // change page variables
     }
     private void LeftIndexTurn(ClickEvent clickEvent) {
-        BookLeftTurn();
+        _turningDirection = 0;
+        if (_sectionBookInfo.ClassListContains("Section_BookInfo--Opened")) {
+            _sectionBookInfo.RemoveFromClassList("Section_BookInfo--Opened");
+        }
+        else {
+            _turningDirection = -1;
+            BookLeftTurn();
+        }
         // TODO: change section variables
         // change page variables
     }
     private void RightPageTurn(ClickEvent clickEvent) {
-        BookRightTurn();
+        _turningDirection = 1;
+        if (_sectionBookInfo.ClassListContains("Section_BookInfo--Opened")) {
+            _sectionBookInfo.RemoveFromClassList("Section_BookInfo--Opened");
+        }
+        else {
+            _turningDirection = -1;
+            BookRightTurn();
+        }
         // TODO: change page variables
     }
     private void LeftPageTurn(ClickEvent clickEvent) {
-        BookLeftTurn();
+        _turningDirection = 0;
+        if (_sectionBookInfo.ClassListContains("Section_BookInfo--Opened")) {
+            _sectionBookInfo.RemoveFromClassList("Section_BookInfo--Opened");
+        }
+        else {
+            _turningDirection = -1;
+            BookLeftTurn();
+        }
         // TODO: change page variables
     }
     #endregion
@@ -154,6 +200,6 @@ public class StoreSceneUI : MonoBehaviour
     // (O) Change blood sprites, load the previous font in blood UI and adjust 
     // () Adjust the close book called area (sprite editing)
     // (O) Make the page turn: arrows, animation, index transition
-    // () Show illustrated guide and equipped books based on arbitrary csv file
+    // () Show illustrated guide and equipped books based on arbitrary csv file or data info
     // () Create explanation pop-up about each slot in illustrated guide book.
 }
