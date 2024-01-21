@@ -1,18 +1,13 @@
 Asia
-AsiaBoss
 
 Europe
 Thor
 Surtur
 
 NorthAmerica
-NABoss
 
 SouthAmerica
-SABoss
 
 Africa
-AfricaBoss
 
 Oceania
-OceaniaBoss

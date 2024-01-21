@@ -10,12 +10,17 @@ public class StoreSceneUI : MonoBehaviour
     // Those will be changed when the whole blood management structure is completed
     [SerializeField] GameObject bookRightTurn, bookLeftTurn;
     private Animator _bookRightTurnAnim, _bookLeftTurnAnim;
-    private VisualElement _popUpLayer, _bag, _scrim, _book, _bloodSprite, _rightArrow, _leftArrow, _rightIndex, _leftIndex, _sectionBookInfo;
+    private VisualElement _popUpLayer, _bag, _scrim, _book, _bloodSprite, _rightArrow, _leftArrow, _rightIndex, _leftIndex;
     private Label _bloodText;
     private Sprite[] _bloodSprites;
     private int _bloodSpriteCount = 15;
     private int _tmpBloodAmout = 0;
     private int _turningDirection = -1;
+    #endregion
+    #region //variables--pages
+    private VisualElement _sectionBookIndex, _sectionBookInfo, _sectionBookEquipped;
+    private BookUIPage _bookUIPage = new BookUIPage();
+    private int _tmpSection = 0, _tmpPage = 1;
     #endregion
     void Awake() 
     {
@@ -23,6 +28,8 @@ public class StoreSceneUI : MonoBehaviour
         _bloodSpriteCount = _bloodSprites.Length;
         _bookRightTurnAnim = bookRightTurn.GetComponent<Animator>();
         _bookLeftTurnAnim = bookLeftTurn.GetComponent<Animator>();
+
+        _bookUIPage.SetPageList();
     }
     void Start()
     {
@@ -196,10 +203,88 @@ public class StoreSceneUI : MonoBehaviour
         // TODO: change page variables
     }
     #endregion
-    // TODO
-    // (O) Change blood sprites, load the previous font in blood UI and adjust 
-    // () Adjust the close book called area (sprite editing)
-    // (O) Make the page turn: arrows, animation, index transition
-    // () Show illustrated guide and equipped books based on arbitrary csv file or data info
-    // () Create explanation pop-up about each slot in illustrated guide book.
+    #region //PageUI
+    private void PagePlus() {
+        if (_tmpPage == _bookUIPage.Pages[_tmpSection] && _tmpSection != _bookUIPage.Pages.Length) {
+            _tmpSection++;
+            ChangeSectionUI();
+            _tmpPage = 1;
+        }
+        else if (_tmpPage != _bookUIPage.Pages[_tmpSection]) {
+            _tmpPage++;
+        }
+    }
+    private void PageMinus() {
+        if (_tmpPage == 1 && _tmpSection != 0) {
+            _tmpSection--;
+            ChangeSectionUI();
+            _tmpPage = _bookUIPage.Pages[_tmpSection];
+        }
+        else if (_tmpPage != 1) {
+            _tmpPage--;
+        }
+    }
+    private void ChangeSectionUI() {
+        _sectionBookIndex.style.display = DisplayStyle.None;
+        _sectionBookInfo.style.display = DisplayStyle.None;
+        _sectionBookEquipped.style.display = DisplayStyle.None;
+        switch (_tmpSection) {
+            case 0:
+                _sectionBookIndex.style.display = DisplayStyle.Flex;
+                break;
+            case 1:
+                _sectionBookInfo.style.display = DisplayStyle.Flex;
+                break;
+            case 2:
+                _sectionBookEquipped.style.display = DisplayStyle.Flex;
+                break;
+            default:
+                break;
+        }
+    }
+    private void ChangePageUI() {
+        if (_tmpSection == 0) {
+
+        }
+        else if (_tmpSection == 1) {
+            ChangeBookInfoPageUI();
+        }
+        else if (_tmpSection == 2) {
+
+        }
+    }
+    private void ChangeBookInfoPageUI() {
+        string bookNumber = _tmpPage.ToString();
+        switch (bookNumber.Length) {
+            case 1:
+                bookNumber = "00" + bookNumber;
+                break;
+            case 2:
+                bookNumber = "0" + bookNumber;
+                break;
+            default:
+                break;
+        }
+        string bookFullName = _bookUIPage.InfoPages[_tmpPage];
+        int bookLevel = int.Parse(bookFullName.Substring(bookFullName.IndexOf("_") + 1, 1));
+        string bookName = bookFullName.Substring(0, bookFullName.IndexOf("_"));
+        Sprite bookIcon = Resources.Load<Sprite>("Sprites/InventoryUI/BookUI/Unknown" + bookLevel);
+        if (BookData.Instance.UnlockedBookLevel[bookName] == 2) {
+            bookIcon = Resources.Load<Sprite>("Sprites/InventoryUI/BookUI/" + bookFullName);
+        }
+        else if (BookData.Instance.UnlockedBookLevel[bookName] == 1) {
+            if (bookLevel == 1) {
+                bookIcon = Resources.Load<Sprite>("Sprites/InventoryUI/BookUI/" + bookFullName);
+            }
+            else if (bookLevel == 2) {
+                bookIcon = Resources.Load<Sprite>("Sprites/InventoryUI/BookUI/Unknown" + bookLevel);
+            }
+        }
+        
+        Label bookNumberElement = _sectionBookInfo.Q<Label>("BookNumber");
+        VisualElement bookIconElement = _sectionBookInfo.Q<VisualElement>("BookIcon");
+        bookNumberElement.text = bookNumber;
+        bookIconElement.style.backgroundImage = new StyleBackground(bookIcon);
+    }
+    #endregion
 }
