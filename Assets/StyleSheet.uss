@@ -1,0 +1,234 @@
+.BloodSprite {
+    flex-grow: 0;
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    width: 20.8%;
+    height: 18.5%;
+    background-color: rgba(255, 255, 255, 0);
+    background-image: url('project://database/Assets/Resources/Sprites/BloodUI/blood00.png?fileID=21300000&guid=d2dece67bc6e89846a34c26fe20d131c&type=3#blood00');
+    padding-left: 0;
+    margin-left: 1%;
+}
+
+.BagSprite {
+    flex-grow: 0;
+    width: 13%;
+    height: 23.1%;
+    background-image: url('project://database/Assets/Resources/Sprites/InventoryUI/BagClosed.png?fileID=2800000&guid=1082162343afd71429b5e765ae58bab1&type=3#BagClosed');
+    flex-shrink: 0;
+    top: 58%;
+    left: 1%;
+    -unity-background-scale-mode: scale-to-fit;
+    align-self: flex-start;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    transition-duration: 0.5s;
+}
+
+.BagSprite:hover {
+    scale: 1.05 1.05;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+}
+
+.BagSprite--Opened {
+    background-image: url('project://database/Assets/Resources/Sprites/InventoryUI/BagOpened.png?fileID=2800000&guid=d6d1d86ff9bedc940aec236501a4f811&type=3#BagOpened');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.Scrim {
+    flex-grow: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-scale-mode: scale-to-fit;
+    display: flex;
+    transition-duration: 1s;
+}
+
+.Scrim--FadeIn {
+    background-color: rgba(0, 0, 0, 0.47);
+}
+
+.BookSprite--Opened {
+    flex-grow: 0;
+    width: 93.72%;
+    height: 99.96%;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    align-self: center;
+    top: 100.04%;
+    background-image: url('project://database/Assets/Resources/Sprites/InventoryUI/BookOpened.png?fileID=2800000&guid=8d5638858543d9949aede3f64a0ae00c&type=3#BookOpened');
+    -unity-background-scale-mode: scale-to-fit;
+    transition-duration: 0.5s;
+    translate: 0 -100%;
+}
+
+.BookSprite {
+    display: flex;
+    background-image: url('project://database/Assets/Resources/Sprites/InventoryUI/BookOpened.png?fileID=2800000&guid=8d5638858543d9949aede3f64a0ae00c&type=3#BookOpened');
+    transition-duration: 0.5s;
+    top: 100.04%;
+    width: 93.72%;
+    height: 99.96%;
+    -unity-background-scale-mode: scale-to-fit;
+    align-self: center;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+}
+
+.LeftIndex {
+    flex-grow: 0;
+    flex-direction: row;
+    flex-shrink: 0;
+    bottom: 6%;
+    width: 16%;
+    height: 26.7%;
+    background-image: resource('Sprites/InventoryUI/RightIndexDefault');
+    -unity-background-scale-mode: scale-to-fit;
+    left: -1%;
+}
+
+.RightIndex {
+    flex-grow: 0;
+    flex-direction: row;
+    background-image: resource('Sprites/InventoryUI/LeftIndexDefault');
+    -unity-background-scale-mode: scale-to-fit;
+    width: 16%;
+    height: 26.7%;
+    flex-shrink: 0;
+    left: 1%;
+    bottom: 6%;
+    justify-content: flex-start;
+}
+
+.LeftIndex:hover {
+    background-image: resource('Sprites/InventoryUI/RightIndexClicked');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.RightIndex:hover {
+    background-image: resource('Sprites/InventoryUI/LeftIndexClicked');
+}
+
+.RightArrow {
+    flex-grow: 1;
+    position: absolute;
+    background-image: resource('Sprites/InventoryUI/RightArrow');
+    -unity-background-scale-mode: scale-to-fit;
+    width: 15%;
+    height: 25%;
+    top: 79%;
+    left: 87%;
+    transition-duration: 0.2s;
+}
+
+.RightArrow:hover {
+    translate: 5px 0;
+    transition-duration: 0.2s;
+}
+
+.LeftArrow {
+    flex-grow: 1;
+    position: absolute;
+    width: 15%;
+    height: 25%;
+    top: 79%;
+    left: -2%;
+    background-image: resource('Sprites/InventoryUI/LeftArrow');
+    -unity-background-scale-mode: scale-to-fit;
+    transition-duration: 0.2s;
+}
+
+.LeftArrow:hover {
+    transition-duration: 0.2s;
+    translate: -5px 0;
+}
+
+.Section_BookInfo--Closed {
+    flex-grow: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    align-self: center;
+    align-items: stretch;
+    transition-duration: 1s;
+    background-color: rgba(0, 0, 0, 0);
+    opacity: 0;
+}
+
+.Section_BookInfo--Opened {
+    transition-duration: 1s;
+    opacity: 1;
+}
+
+.LeftSide {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 50%;
+    height: 100%;
+    align-self: center;
+    align-items: flex-end;
+    justify-content: space-between;
+    top: 0;
+    background-image: resource('Sprites/InventoryUI/SectionSample/SampleLeftSide');
+}
+
+.RightSide {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 50%;
+    height: 100%;
+    background-image: resource('Sprites/InventoryUI/SectionSample/SampleRightSide');
+    align-items: flex-start;
+    justify-content: space-between;
+    align-self: center;
+}
+
+.Slot {
+    flex-grow: 1;
+    position: absolute;
+    width: 25%;
+    height: 30%;
+    top: 28.5%;
+    left: 31.5%;
+}
+
+.Slot_BookNumber {
+    width: 100%;
+    height: 10%;
+    -unity-font: url('project://database/Assets/Fonts/Materials/ThaleahFat_TTF.ttf?fileID=12800000&guid=585188cdc4600544eb408bee749e4b3a&type=3#ThaleahFat_TTF');
+    -unity-font-definition: url('project://database/Assets/Fonts/Materials/ThaleahFat_TTF%20SDF.asset?fileID=11400000&guid=821ae0e5d801212488aa17896de90cce&type=2#ThaleahFat_TTF SDF');
+    font-size: 40px;
+}
+
+.Slot_BookIcon {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 100%;
+    height: 66%;
+    background-image: resource('Sprites/InventoryUI/BookUI/Surtr1_1');
+}
+
+.Slot_BookName {
+    width: 100%;
+    height: 15%;
+    -unity-font: url('project://database/Assets/Fonts/Materials/ThaleahFat_TTF.ttf?fileID=12800000&guid=585188cdc4600544eb408bee749e4b3a&type=3#ThaleahFat_TTF');
+    -unity-font-definition: url('project://database/Assets/Fonts/Materials/ThaleahFat_TTF%20SDF.asset?fileID=11400000&guid=821ae0e5d801212488aa17896de90cce&type=2#ThaleahFat_TTF SDF');
+    font-size: 50px;
+    -unity-text-align: upper-center;
+}
+
+.Slot_BookIcon:hover {
+    scale: 1.1 1.1;
+    transition-duration: 0.2s;
+}

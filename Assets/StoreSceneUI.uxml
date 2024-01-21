@@ -1,0 +1,68 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/StyleSheet.uss?fileID=7433441132597879392&amp;guid=5ce8a44c533e7ac4683d67dab5164982&amp;type=3#StyleSheet" />
+    <ui:VisualElement name="BloodSprite" class="BloodSprite" style="justify-content: space-between; align-self: flex-start; align-items: flex-start; flex-shrink: 0; -unity-background-scale-mode: scale-to-fit; background-image: url(&apos;project://database/Assets/Resources/Sprites/BloodUI/blood00.png?fileID=21300000&amp;guid=d2dece67bc6e89846a34c26fe20d131c&amp;type=3#blood00&apos;);">
+        <ui:Label tabindex="-1" text="0" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BloodText" style="align-self: center; -unity-text-align: middle-center; flex-grow: 1; justify-content: space-around; left: 30px; -unity-font: url(&apos;project://database/Assets/Fonts/ThaleahFat.fontsettings?fileID=12800000&amp;guid=652f7165b7c30ab46af6c4aad90a639b&amp;type=2#ThaleahFat&apos;); font-size: 85%; color: rgb(255, 255, 255); -unity-font-style: normal; letter-spacing: 5px; -unity-font-definition: url(&apos;project://database/Assets/Fonts/Materials/ThaleahFat_TTF%20SDF.asset?fileID=11400000&amp;guid=821ae0e5d801212488aa17896de90cce&amp;type=2#ThaleahFat_TTF SDF&apos;); -unity-background-scale-mode: scale-to-fit;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="BagSprite" class="BagSprite" />
+    <ui:VisualElement name="PopUpLayer" style="flex-grow: 1; width: 100%; height: 100%; position: absolute; display: flex; justify-content: space-between; align-self: center;">
+        <ui:VisualElement name="Scrim" class="Scrim" />
+        <ui:VisualElement name="BookSprite" class="BookSprite" style="-unity-background-scale-mode: stretch-to-fill; flex-direction: row; justify-content: space-between;">
+            <ui:VisualElement name="Section_BookInfo" class="Section_BookInfo--Closed" style="opacity: 0;">
+                <ui:VisualElement name="LeftSide_BookInfo" class="LeftSide">
+                    <ui:VisualElement name="Continent" style="flex-grow: 0; width: 70%; height: 5%; flex-shrink: 0; flex-direction: row; top: 20%;">
+                        <ui:VisualElement name="ContinentIcon" style="flex-grow: 0; width: 9%; height: 100%; background-image: resource(&apos;Sprites/InventoryUI/SectionSample/SampleContinent&apos;);" />
+                        <ui:Label tabindex="-1" text="EUROPE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ContinentName" style="-unity-font: url(&apos;project://database/Assets/Fonts/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/Materials/ThaleahFat_TTF%20SDF.asset?fileID=11400000&amp;guid=821ae0e5d801212488aa17896de90cce&amp;type=2#ThaleahFat_TTF SDF&apos;); height: 100%; -unity-text-align: middle-left; left: 3%; font-size: 50px;" />
+                    </ui:VisualElement>
+                    <ui:Label tabindex="0" text="001" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookNumber" style="width: 70%; height: 5%; top: 8%; -unity-text-align: middle-left; -unity-font: url(&apos;project://database/Assets/Fonts/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&apos;); font-size: 50px; -unity-font-definition: url(&apos;project://database/Assets/Fonts/Materials/ThaleahFat_TTF%20SDF.asset?fileID=11400000&amp;guid=821ae0e5d801212488aa17896de90cce&amp;type=2#ThaleahFat_TTF SDF&apos;);" />
+                    <ui:VisualElement name="BookIcon" style="flex-grow: 0; flex-shrink: 0; width: 50%; height: 42%; right: 15%; top: 0; background-image: resource(&apos;Sprites/InventoryUI/BookUI/Attack2&apos;);" />
+                    <ui:Label tabindex="-1" text="Book Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookName" style="width: 60%; height: 10%; bottom: 5%; -unity-font: url(&apos;project://database/Assets/Fonts/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/Materials/ThaleahFat_TTF%20SDF.asset?fileID=11400000&amp;guid=821ae0e5d801212488aa17896de90cce&amp;type=2#ThaleahFat_TTF SDF&apos;); font-size: 90px; -unity-text-align: middle-center; right: 10%;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="RightSide_BookInfo" class="RightSide">
+                    <ui:VisualElement name="Illustration" style="flex-grow: 0; width: 55%; flex-shrink: 0; height: 30%; left: 12%; top: 22%; background-image: resource(&apos;Sprites/InventoryUI/SectionSample/SampleIllustration&apos;);" />
+                    <ui:Label tabindex="-1" text="Book Description&#10;Book Description&#10;Book Description&#10;Book Description" parse-escape-sequences="true" display-tooltip-when-elided="true" name="IllustrationText" style="width: 60%; height: 20%; -unity-font: url(&apos;project://database/Assets/Fonts/ThaleahFat.fontsettings?fileID=12800000&amp;guid=652f7165b7c30ab46af6c4aad90a639b&amp;type=2#ThaleahFat&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/Materials/ThaleahFat_TTF%20SDF.asset?fileID=11400000&amp;guid=821ae0e5d801212488aa17896de90cce&amp;type=2#ThaleahFat_TTF SDF&apos;); font-size: 50px; -unity-text-align: middle-center; align-self: flex-start; left: 10%; top: 7%;" />
+                    <ui:VisualElement name="BookPrice" style="flex-grow: 0; flex-shrink: 0; width: 50%; height: 5%; bottom: 6.5%; left: 15%; flex-direction: row;">
+                        <ui:VisualElement name="PriceBlood" style="flex-grow: 0; width: 24%; height: 200%; flex-shrink: 0; background-image: resource(&apos;Sprites/InventoryUI/SectionSample/SampleBlood&apos;); align-self: center; left: 12%;" />
+                        <ui:Label tabindex="-1" text="200" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PriceText" style="font-size: 80px; -unity-font: url(&apos;project://database/Assets/Fonts/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/Materials/ThaleahFat_TTF%20SDF.asset?fileID=11400000&amp;guid=821ae0e5d801212488aa17896de90cce&amp;type=2#ThaleahFat_TTF SDF&apos;); -unity-text-align: middle-center; flex-shrink: 1; width: 60%; align-self: auto; color: rgb(242, 60, 60);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Section_BookIndex" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; flex-direction: row; display: none;">
+                <ui:VisualElement name="LeftSide_BookIndex" class="LeftSide" style="flex-grow: 1; background-image: resource(&apos;Sprites/InventoryUI/SectionSample/SampleLeftSide2&apos;);">
+                    <ui:VisualElement name="LeftSlot1" class="Slot">
+                        <ui:Label tabindex="-1" text="001" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookNumber" class="Slot_BookNumber" />
+                        <ui:VisualElement name="BookIcon" class="Slot_BookIcon" />
+                        <ui:Label tabindex="-1" text="Book Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookName" class="Slot_BookName" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="LeftSlot2" class="Slot" style="flex-grow: 1; left: 61.5%;">
+                        <ui:Label tabindex="-1" text="002" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookNumber" class="Slot_BookNumber" />
+                        <ui:VisualElement name="BookIcon" class="Slot_BookIcon" style="flex-grow: 0; background-image: resource(&apos;Sprites/InventoryUI/BookUI/Surtr1_2&apos;);" />
+                        <ui:Label tabindex="-1" text="Book Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookName" class="Slot_BookName" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="LeftSlot3" class="Slot" style="flex-grow: 1; top: 63.5%;">
+                        <ui:Label tabindex="-1" text="003" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookNumver" class="Slot_BookNumber" />
+                        <ui:VisualElement name="BookIcon" class="Slot_BookIcon" style="flex-grow: 0; background-image: resource(&apos;Sprites/InventoryUI/BookUI/Surtr2_1&apos;);" />
+                        <ui:Label tabindex="-1" text="Book Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookName" class="Slot_BookName" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="LeftSlot4" class="Slot" style="flex-grow: 1; top: 63.5%; left: 61.5%;">
+                        <ui:Label tabindex="-1" text="004&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookNumber" class="Slot_BookNumber" />
+                        <ui:VisualElement name="BookIcon" class="Slot_BookIcon" style="flex-grow: 0; flex-basis: auto; background-image: resource(&apos;Sprites/InventoryUI/BookUI/Unknown2&apos;);" />
+                        <ui:Label tabindex="-1" text="???" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookName" class="Slot_BookName" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="RightSide_BookIndex" class="RightSide" style="flex-grow: 1; background-image: resource(&apos;Sprites/InventoryUI/SectionSample/SampleRightSide2&apos;);">
+                    <ui:VisualElement name="RightSlot1" class="Slot" style="flex-grow: 0; flex-shrink: 0; left: 13.5%;">
+                        <ui:Label tabindex="-1" text="005" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookNumber" class="Slot_BookNumber" />
+                        <ui:VisualElement name="BookIcon" class="Slot_BookIcon" style="flex-grow: 0; background-image: resource(&apos;Sprites/InventoryUI/BookUI/Surtr3_1&apos;);" />
+                        <ui:Label tabindex="-1" text="Book Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookName" class="Slot_BookName" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Section_BookEquipped" style="flex-grow: 1; position: absolute; width: 100%; height: 100%;" />
+            <ui:VisualElement name="Section_BookAchievement" style="flex-grow: 1; position: absolute; width: 100%; height: 100%;" />
+            <ui:VisualElement name="LeftIndex" class="LeftIndex" />
+            <ui:VisualElement name="RightIndex" class="RightIndex" style="left: 1%;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="RightArrow" class="RightArrow" />
+        <ui:VisualElement name="LeftArrow" class="LeftArrow" />
+    </ui:VisualElement>
+</ui:UXML>
