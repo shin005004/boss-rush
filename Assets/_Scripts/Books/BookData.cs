@@ -91,7 +91,7 @@ public class BookData: MonoBehaviour
                 BookList[bookType][boss] = new List<string>();
                 for(int i = 1; i <= BossSkillCount[boss]; i++){
                     string skillCount = i.ToString();
-                    string bookName = $"{boss} {skillCount}";
+                    string bookName = $"{boss}{skillCount}";
                     BookList[bookType][boss].Add(bookName);
                     UnlockedBookLevel[bookName] = 1;
                     EquippedBookLevel[bookName] = 0;

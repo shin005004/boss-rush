@@ -153,7 +153,7 @@
     translate: -5px 0;
 }
 
-.Section_BookInfo--Closed {
+.Section_BookInfo {
     flex-grow: 1;
     position: absolute;
     width: 100%;
@@ -163,7 +163,7 @@
     align-items: stretch;
     transition-duration: 1s;
     background-color: rgba(0, 0, 0, 0);
-    opacity: 0;
+    opacity: 1;
 }
 
 .LeftSide {
@@ -228,6 +228,17 @@
     transition-duration: 0.2s;
 }
 
-.Section_BookInfo--Opened {
+.BookSection--Closed {
+    flex-grow: 0;
+    position: absolute;
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition-duration: 1s;
+}
+
+.BookSection--Opened {
     opacity: 1;
+    transition-duration: 1s;
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -18,9 +19,9 @@ public class StoreSceneUI : MonoBehaviour
     private int _turningDirection = -1;
     #endregion
     #region //variables--pages
-    private VisualElement _sectionBookIndex, _sectionBookInfo, _sectionBookEquipped;
+    private VisualElement _bookSection, _sectionBookIndex, _sectionBookInfo, _sectionBookEquipped;
     private BookUIPage _bookUIPage = new BookUIPage();
-    private int _tmpSection = 0, _tmpPage = 1;
+    private int _tmpSection = 1, _tmpPage = 1;
     #endregion
     void Awake() 
     {
@@ -28,8 +29,6 @@ public class StoreSceneUI : MonoBehaviour
         _bloodSpriteCount = _bloodSprites.Length;
         _bookRightTurnAnim = bookRightTurn.GetComponent<Animator>();
         _bookLeftTurnAnim = bookLeftTurn.GetComponent<Animator>();
-
-        _bookUIPage.SetPageList();
     }
     void Start()
     {
@@ -44,7 +43,11 @@ public class StoreSceneUI : MonoBehaviour
         _leftArrow = root.Q<VisualElement>("LeftArrow");
         _rightIndex = root.Q<VisualElement>("RightIndex");
         _leftIndex = root.Q<VisualElement>("LeftIndex");
-        _sectionBookInfo = root.Q<VisualElement>("Section_BookInfo");
+
+        _bookSection = root.Q<VisualElement>("BookSection");
+        _sectionBookIndex = _bookSection.Q<VisualElement>("Section_BookIndex");
+        _sectionBookInfo = _bookSection.Q<VisualElement>("Section_BookInfo");
+        _sectionBookEquipped = _bookSection.Q<VisualElement>("Section_BookEquipped");
 
         _popUpLayer.style.display = DisplayStyle.None;
         _bag.RegisterCallback<ClickEvent>(OnOpenBook);
@@ -55,10 +58,16 @@ public class StoreSceneUI : MonoBehaviour
         _rightIndex.RegisterCallback<ClickEvent>(RightIndexTurn);
         _leftIndex.RegisterCallback<ClickEvent>(LeftIndexTurn);
 
-        _sectionBookInfo.RegisterCallback<TransitionEndEvent>(BookTurn);
+        _bookUIPage.SetPageList(_bookUIPage.InfoPages, _bookUIPage.Pages);
+        _bookSection.RegisterCallback<TransitionEndEvent>(BookTurn);
+        _bookSection.AddToClassList("BookSection--Opened");
+        ChangeSectionUI();
 
         _tmpBloodAmout = BloodAmount;
         ChangeBlood();
+
+        //Debug.Log(_bookUIPage.InfoPages.Count);
+        //Debug.Log(_bookUIPage.Pages[0]);
     }
     void Update() {
         if (_tmpBloodAmout != BloodAmount) {
@@ -70,7 +79,7 @@ public class StoreSceneUI : MonoBehaviour
             if (animTime >= 1.0f) {
                 bookRightTurn.gameObject.SetActive(false);
                 // for test
-                _sectionBookInfo.AddToClassList("Section_BookInfo--Opened");
+                _bookSection.AddToClassList("BookSection--Opened");
             }
         }
         else if (bookLeftTurn.gameObject.activeSelf) {
@@ -78,7 +87,7 @@ public class StoreSceneUI : MonoBehaviour
             if (animTime >= 1.0f) {
                 bookLeftTurn.gameObject.SetActive(false);
                 // for test
-                _sectionBookInfo.AddToClassList("Section_BookInfo--Opened");
+                _bookSection.AddToClassList("BookSection--Opened");
             }
         }
     }
@@ -139,10 +148,12 @@ public class StoreSceneUI : MonoBehaviour
     private void BookTurn(TransitionEndEvent transitionEndEvent) {
         if (_turningDirection == 0) {
             _turningDirection = -1;
+            ChangeSectionUI();
             BookLeftTurn();
         }
         else if (_turningDirection == 1) {
             _turningDirection = -1;
+            ChangeSectionUI();
             BookRightTurn();
         }
     }
@@ -158,48 +169,26 @@ public class StoreSceneUI : MonoBehaviour
     }
     private void RightIndexTurn(ClickEvent clickEvent) {
         _turningDirection = 1;
-        if (_sectionBookInfo.ClassListContains("Section_BookInfo--Opened")) {
-            _sectionBookInfo.RemoveFromClassList("Section_BookInfo--Opened");
-        }
-        else {
-            _turningDirection = -1;
-            BookRightTurn();
-        }
+        _bookSection.RemoveFromClassList("BookSection--Opened");
         // TODO: change section variables
         // change page variables
     }
     private void LeftIndexTurn(ClickEvent clickEvent) {
         _turningDirection = 0;
-        if (_sectionBookInfo.ClassListContains("Section_BookInfo--Opened")) {
-            _sectionBookInfo.RemoveFromClassList("Section_BookInfo--Opened");
-        }
-        else {
-            _turningDirection = -1;
-            BookLeftTurn();
-        }
+        _bookSection.RemoveFromClassList("BookSection--Opened");
         // TODO: change section variables
         // change page variables
     }
     private void RightPageTurn(ClickEvent clickEvent) {
         _turningDirection = 1;
-        if (_sectionBookInfo.ClassListContains("Section_BookInfo--Opened")) {
-            _sectionBookInfo.RemoveFromClassList("Section_BookInfo--Opened");
-        }
-        else {
-            _turningDirection = -1;
-            BookRightTurn();
-        }
+        _bookSection.RemoveFromClassList("BookSection--Opened");
+        PagePlus();
         // TODO: change page variables
     }
     private void LeftPageTurn(ClickEvent clickEvent) {
         _turningDirection = 0;
-        if (_sectionBookInfo.ClassListContains("Section_BookInfo--Opened")) {
-            _sectionBookInfo.RemoveFromClassList("Section_BookInfo--Opened");
-        }
-        else {
-            _turningDirection = -1;
-            BookLeftTurn();
-        }
+        _bookSection.RemoveFromClassList("BookSection--Opened");
+        PageMinus();
         // TODO: change page variables
     }
     #endregion
@@ -207,7 +196,6 @@ public class StoreSceneUI : MonoBehaviour
     private void PagePlus() {
         if (_tmpPage == _bookUIPage.Pages[_tmpSection] && _tmpSection != _bookUIPage.Pages.Length) {
             _tmpSection++;
-            ChangeSectionUI();
             _tmpPage = 1;
         }
         else if (_tmpPage != _bookUIPage.Pages[_tmpSection]) {
@@ -234,23 +222,13 @@ public class StoreSceneUI : MonoBehaviour
                 break;
             case 1:
                 _sectionBookInfo.style.display = DisplayStyle.Flex;
+                ChangeBookInfoPageUI();
                 break;
             case 2:
                 _sectionBookEquipped.style.display = DisplayStyle.Flex;
                 break;
             default:
                 break;
-        }
-    }
-    private void ChangePageUI() {
-        if (_tmpSection == 0) {
-
-        }
-        else if (_tmpSection == 1) {
-            ChangeBookInfoPageUI();
-        }
-        else if (_tmpSection == 2) {
-
         }
     }
     private void ChangeBookInfoPageUI() {
@@ -265,7 +243,7 @@ public class StoreSceneUI : MonoBehaviour
             default:
                 break;
         }
-        string bookFullName = _bookUIPage.InfoPages[_tmpPage];
+        string bookFullName = _bookUIPage.InfoPages[_tmpPage - 1];
         int bookLevel = int.Parse(bookFullName.Substring(bookFullName.IndexOf("_") + 1, 1));
         string bookName = bookFullName.Substring(0, bookFullName.IndexOf("_"));
         Sprite bookIcon = Resources.Load<Sprite>("Sprites/InventoryUI/BookUI/Unknown" + bookLevel);
@@ -283,8 +261,10 @@ public class StoreSceneUI : MonoBehaviour
         
         Label bookNumberElement = _sectionBookInfo.Q<Label>("BookNumber");
         VisualElement bookIconElement = _sectionBookInfo.Q<VisualElement>("BookIcon");
+        Label bookNameElement = _sectionBookInfo.Q<Label>("BookName");
         bookNumberElement.text = bookNumber;
         bookIconElement.style.backgroundImage = new StyleBackground(bookIcon);
+        bookNameElement.text = bookFullName;
     }
     #endregion
 }
