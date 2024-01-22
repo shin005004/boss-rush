@@ -60,12 +60,11 @@ public class BookData: MonoBehaviour
             }
         }
 
-
-
-        SetBookList();
+        SetBossList();
+        ReadFiles();
     }
-    /*
-    private void Start(){
+
+    private void ReadFiles(){
         bossListLines = File.ReadAllLines(bossListFilePath);
         bossSkillCountLines = File.ReadAllLines(bossSkillCountFilePath);
 
@@ -98,7 +97,7 @@ public class BookData: MonoBehaviour
 
         SetBookList();
     }
-    */
+    
     public List<string> BookType = new List<string>() {"Asia", "Europe", "NorthAmerica", "SouthAmerica", "Africa", "Oceania"};
     public Dictionary<string, List<string>> BossList = new Dictionary<string, List<string>>();
     public Dictionary<string, Dictionary<string, List<string>>> BookList = new Dictionary<string, Dictionary<string, List<string>>>();
