@@ -66,8 +66,8 @@ public class StoreSceneUI : MonoBehaviour
         _tmpBloodAmout = BloodAmount;
         ChangeBlood();
 
-        //Debug.Log(_bookUIPage.InfoPages.Count);
-        //Debug.Log(_bookUIPage.Pages[0]);
+        Debug.Log(_bookUIPage.InfoPages.Count);
+        Debug.Log(_bookUIPage.Pages[0]);
     }
     void Update() {
         if (_tmpBloodAmout != BloodAmount) {

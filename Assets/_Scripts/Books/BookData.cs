@@ -32,8 +32,39 @@ public class BookData: MonoBehaviour
         
         // Debug.Log(File.Exists(bossListFilePath));
         // Debug.Log(File.Exists(bossSkillCountFilePath));
-    }
+        bossListLines = File.ReadAllLines(bossListFilePath);
+        bossSkillCountLines = File.ReadAllLines(bossSkillCountFilePath);
 
+        currentType = "";
+        foreach(string line in bossListLines){
+            if(string.IsNullOrWhiteSpace(line) || (currentType == "" && !BookType.Contains(line))){
+                // Debug.Log("Invalid Line");
+            }
+            else if(BookType.Contains(line)){
+                currentType = line;
+                // Debug.Log("Type: " + line);
+            }
+            else{
+                BossList[currentType].Add(line);
+                // Debug.Log("Name: " + line);
+            }
+        }
+
+        foreach(string line in bossSkillCountLines){
+            string[] parts = line.Split(' ');
+
+            if (parts.Length == 2 && int.TryParse(parts[1], out int count))
+            {
+                // Debug.Log(parts[0] + ": " + count.ToString());
+                BossSkillCount[parts[0]] = count;
+            }
+        }
+
+
+
+        SetBookList();
+    }
+    /*
     private void Start(){
         bossListLines = File.ReadAllLines(bossListFilePath);
         bossSkillCountLines = File.ReadAllLines(bossSkillCountFilePath);
@@ -67,7 +98,7 @@ public class BookData: MonoBehaviour
 
         SetBookList();
     }
-
+    */
     public List<string> BookType = new List<string>() {"Asia", "Europe", "NorthAmerica", "SouthAmerica", "Africa", "Oceania"};
     public Dictionary<string, List<string>> BossList = new Dictionary<string, List<string>>();
     public Dictionary<string, Dictionary<string, List<string>>> BookList = new Dictionary<string, Dictionary<string, List<string>>>();
