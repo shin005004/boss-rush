@@ -30,7 +30,7 @@ public class BookManager : MonoBehaviour
     }
 
     public void ResetEquippedBookLevel(){
-        foreach(string bookName in BookData.Instance.EquippedBookLevel.Keys.ToList()){
+        foreach(string bookName in BookData.Instance.BookNameList){
             BookData.Instance.EquippedBookLevel[bookName] = 0;
             BookData.Instance.EquippedBook = new List<string>() {};
         }

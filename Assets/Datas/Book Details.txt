@@ -1,0 +1,40 @@
+Thor1
+Name: Thor 1
+Blood: 100
+Description: This is Thor 1 Book
+
+Thor2
+Name: Thor 2
+Blood: 100
+Description: This is Thor 2 Book
+
+Thor3
+Name: Thor 3
+Blood: 100
+Description: This is Thor 3 Book
+
+Thor4
+Name: Thor 4
+Blood: 100
+Description: This is Thor 4 Book
+
+Surtur1
+Name: Surtur 1
+Blood: 100
+Description: This is Surtur 1 Book
+
+Surtur2
+Name: Surtur 2
+Blood: 100
+Description: This is Surtur 2 Book
+
+Surtur3
+Name: Surtur 3
+Blood: 100
+Description: This is Surtur 3 Book
+
+Surtur4
+Name: Surtur 4
+Blood: 100
+Description: This is Surtur 4 Book
+
