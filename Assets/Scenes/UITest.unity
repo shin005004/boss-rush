@@ -460,6 +460,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1222145111}
   m_CullTransparentMesh: 1
+--- !u!1 &1381744736
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1381744738}
+  - component: {fileID: 1381744737}
+  m_Layer: 0
+  m_Name: BookData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1381744737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381744736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d458a35258cef149b062bb99e0e1a5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BookType:
+  - Asia
+  - Europe
+  - NorthAmerica
+  - SouthAmerica
+  - Africa
+  - Oceania
+  BookNameList: []
+  EquippedBook: []
+--- !u!4 &1381744738
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381744736}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1501010387
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,3 +767,4 @@ SceneRoots:
   - {fileID: 1608257466}
   - {fileID: 300505411}
   - {fileID: 1545245578}
+  - {fileID: 1381744738}
