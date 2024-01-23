@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using Unity.VisualScripting;
 
 public class SceneLoader : MonoBehaviour
 {
@@ -37,6 +38,21 @@ public class SceneLoader : MonoBehaviour
     private void Start()
     {
         canvasGroup = BlackScreen.GetComponent<CanvasGroup>();
+    }
+
+    private void OnEnable(){
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    private void OnDisable(){
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
+        if (scene.name == "MainStoreScene"){
+            GameObject Player = GameObject.Find("Player");
+            GameObject Portal = GameObject.Find("Portal " + GameManager.Instance.BookManager.BookRoomType);
+            if (Player != null && Portal != null)
+                Player.transform.position = Portal.transform.position;
+        }
     }
 
     public void LoadScene(string sceneName)
