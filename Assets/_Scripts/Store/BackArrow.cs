@@ -11,7 +11,7 @@ public class BackArrow : MonoBehaviour
 
     private void OnMouseOver()
     {
-        Debug.Log("Arrow");
+        // Debug.Log("Arrow");
         if (Input.GetMouseButtonDown(0))
         {
             SceneLoader.Instance.LoadMainStoreScene();

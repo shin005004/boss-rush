@@ -28,6 +28,12 @@ public class BookData: MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
+
+        bossListFilePath = Path.Combine(Application.dataPath, "Datas", "Boss List.txt");
+        bossSkillCountFilePath = Path.Combine(Application.dataPath, "Datas", "Boss Skill Count.txt");
+        bookDetailsFilePath = Path.Combine(Application.dataPath, "Datas", "Book Details.txt");
+
+
         ReadFiles();
     }
 
@@ -94,11 +100,11 @@ public class BookData: MonoBehaviour
                 string[] detail = line.Split(':').Select(s => s.Trim()).ToArray();;
                 string detailKey = detail[0];
                 if(detailKey == "Blood"){
-                    BookDetails[currentBook]["Blood"] = new List<int>();
+                    BookDetails[currentBook]["Blood"] = new List<int>() {};
                     string[] bloodPrices = detail[1].Split(' ');
                     foreach(string bloodPriceString in bloodPrices){
                         if(int.TryParse(bloodPriceString, out bloodPrice)){
-                            BookDetails[currentBook].Add("Blood", bloodPrice);
+                            ((List<int>)BookDetails[currentBook]["Blood"]).Add(bloodPrice);
                         }
                     }
                 }
