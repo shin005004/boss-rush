@@ -69,6 +69,9 @@ public class WeaponController : MonoBehaviour
         if (!attackPreInputFlag || isAttacking >= _meleeStatsSO.MaxWeaponHits) return;
         attackToConsume = true;
         _cachedAttackDirection = attackDirection;
+
+        string boolName = "Attack" + (isAttacking + 1).ToString();
+        _swordWeapon.WeaponAnimator.SetBool(boolName, true);
     }
 
     private IEnumerator AttackInputDelay(float delayTime)
@@ -80,7 +83,7 @@ public class WeaponController : MonoBehaviour
         _swordWeapon.WeaponAnimator.SetBool(boolName, false);
 
         yield return new WaitForSeconds(0.25f);
-        attackCoolFlag = true;
+        attackCoolFlag = true;        
     }
 
     private void HandleAttacking()
@@ -100,10 +103,8 @@ public class WeaponController : MonoBehaviour
 
         isAttacking += 1;
 
-        Debug.Log(isAttacking);
-
-        string boolName = "Attack" + isAttacking.ToString();
-        _swordWeapon.WeaponAnimator.SetBool(boolName, true);
+        //string boolName = "Attack" + isAttacking.ToString();
+        //_swordWeapon.WeaponAnimator.SetBool(boolName, true);
 
         StartCoroutine(AttackInputDelay(_meleeStatsSO.MeleeCoolTime[isAttacking - 1]));
 

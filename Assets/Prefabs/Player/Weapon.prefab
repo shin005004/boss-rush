@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponAnimator: {fileID: 5048375022064201416}
-  SpawnOffset: {x: 0.833, y: -0.416, z: 0}
+  SpawnOffset: {x: 0.5, y: -0.1, z: 0}
   SwordSlashVFX: {fileID: 9000257579443338074, guid: bd85b5d17ec010744a783984bc9249a7, type: 3}
 --- !u!95 &5048375022064201416
 Animator:
@@ -87,7 +87,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5401815728352650920
 Transform:
   m_ObjectHideFlags: 0
