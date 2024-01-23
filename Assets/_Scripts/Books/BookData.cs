@@ -97,16 +97,17 @@ public class BookData: MonoBehaviour
             }
             else{
                 if(!BookDetails.ContainsKey(currentBook)) { BookDetails[currentBook] = new Dictionary<string, object>(); }
-                string[] detail = line.Split(':').Select(s => s.Trim()).ToArray();;
+                string[] detail = line.Split(':').Select(s => s.Trim()).ToArray();
                 string detailKey = detail[0];
                 if(detailKey == "Blood"){
-                    BookDetails[currentBook]["Blood"] = new List<int>() {};
-                    string[] bloodPrices = detail[1].Split(' ');
-                    foreach(string bloodPriceString in bloodPrices){
-                        if(int.TryParse(bloodPriceString, out bloodPrice)){
-                            ((List<int>)BookDetails[currentBook]["Blood"]).Add(bloodPrice);
-                        }
-                    }
+                    BookDetails[currentBook].Add("Blood", detail[1]);
+                    // BookDetails[currentBook]["Blood"] = new List<int>() {};
+                    // string[] bloodPrices = detail[1].Split(' ');
+                    // foreach(string bloodPriceString in bloodPrices){
+                    //     if(int.TryParse(bloodPriceString, out bloodPrice)){
+                    //         ((List<int>)BookDetails[currentBook]["Blood"]).Add(bloodPrice);
+                    //     }
+                    // }
                 }
                 else if(detailKey == "Description"){
                     BookDetails[currentBook].Add("Description", detail[1]);
@@ -127,7 +128,8 @@ public class BookData: MonoBehaviour
                     string skillCount = i.ToString();
                     string bookName = $"{boss}{skillCount}";
                     BookList[bookType][boss].Add(bookName);
-                    BookNameList.Add(bookName);
+                    BookNameList.Add(bookName+"_1");
+                    BookNameList.Add(bookName+"_2");
                     UnlockedBookLevel[bookName] = 1;
                     EquippedBookLevel[bookName] = 0;
                 }

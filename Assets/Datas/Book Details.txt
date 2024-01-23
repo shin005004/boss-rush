@@ -1,40 +1,83 @@
-Thor1
-Name: Thor 1
+Thor1_1
+Name: Thor 1 (1)
 Blood: 100
-Description: This is Thor 1 Book
+Description: This is Thor 1_1 Book
 
-Thor2
-Name: Thor 2
+Thor1_2
+Name: Thor 1 (2)
 Blood: 100
-Description: This is Thor 2 Book
+Description: This is Thor 1_2 Book
 
-Thor3
-Name: Thor 3
+Thor2_1
+Name: Thor 2 (1)
 Blood: 100
-Description: This is Thor 3 Book
+Description: This is Thor 2_1 Book
 
-Thor4
-Name: Thor 4
+Thor2_2
+Name: Thor 2 (2)
 Blood: 100
-Description: This is Thor 4 Book
+Description: This is Thor 2_2 Book
 
-Surtur1
-Name: Surtur 1
+Thor3_1
+Name: Thor 3 (1)
 Blood: 100
-Description: This is Surtur 1 Book
+Description: This is Thor 3_1 Book
 
-Surtur2
-Name: Surtur 2
+Thor3_2
+Name: Thor 3 (2)
 Blood: 100
-Description: This is Surtur 2 Book
+Description: This is Thor 3_2 Book
 
-Surtur3
-Name: Surtur 3
+Thor4_1
+Name: Thor 4 (1)
 Blood: 100
-Description: This is Surtur 3 Book
+Description: This is Thor 4_1 Book
 
-Surtur4
-Name: Surtur 4
+Thor4_2
+Name: Thor 4 (2)
 Blood: 100
-Description: This is Surtur 4 Book
+Description: This is Thor 4_2 Book
+
+
+
+
+Surtur1_1
+Name: Surtur 1 (1)
+Blood: 100
+Description: This is Surtur 1_1 Book
+
+Surtur1_2
+Name: Surtur 1 (2)
+Blood: 100
+Description: This is Surtur 1_2 Book
+
+Surtur2_1
+Name: Surtur 2 (1)
+Blood: 100
+Description: This is Surtur 2_1 Book
+
+Surtur2_2
+Name: Surtur 2 (2)
+Blood: 100
+Description: This is Surtur 2_2 Book
+
+Surtur3_1
+Name: Surtur 3 (1)
+Blood: 100
+Description: This is Surtur 3_1 Book
+
+Surtur3_2
+Name: Surtur 3 (2)
+Blood: 100
+Description: This is Surtur 3_2 Book
+
+Surtur4_1
+Name: Surtur 4 (1)
+Blood: 100
+Description: This is Surtur 4_1 Book
+
+Surtur4_2
+Name: Surtur 4 (2)
+Blood: 100
+Description: This is Surtur 4_2 Book
 
