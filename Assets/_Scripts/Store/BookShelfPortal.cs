@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Portal : MonoBehaviour
+public class BookShelfPortal : MonoBehaviour
 {
-    [SerializeField] private string destination;
+    private GameObject bookShelf;
+    private string destination;
+
+    private void Start(){
+        bookShelf = gameObject.transform.parent.gameObject;
+        destination = bookShelf.GetComponent<BookShelf>().destination;
+    }
 
     private void OnTriggerStay2D(Collider2D other){
         if(other.gameObject.name.Equals("Player")){
