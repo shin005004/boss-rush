@@ -212,6 +212,7 @@
     width: 100%;
     height: 66%;
     background-image: resource('Sprites/InventoryUI/BookUI/Surtr1_1');
+    transition-duration: 0.3s;
 }
 
 .Slot_BookName {
@@ -221,11 +222,6 @@
     -unity-font-definition: url('project://database/Assets/Fonts/Materials/ThaleahFat_TTF%20SDF.asset?fileID=11400000&guid=821ae0e5d801212488aa17896de90cce&type=2#ThaleahFat_TTF SDF');
     font-size: 50px;
     -unity-text-align: upper-center;
-}
-
-.Slot_BookIcon:hover {
-    scale: 1.1 1.1;
-    transition-duration: 0.2s;
 }
 
 .BookSection--Closed {
@@ -240,5 +236,10 @@
 
 .BookSection--Opened {
     opacity: 1;
-    transition-duration: 1s;
+}
+
+.Slot_BookIcon:hover {
+    flex-shrink: 0;
+    scale: 1.1 1.1;
+    transition-duration: 0.5s;
 }

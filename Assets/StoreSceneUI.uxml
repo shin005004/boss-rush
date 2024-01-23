@@ -7,8 +7,8 @@
     <ui:VisualElement name="PopUpLayer" style="flex-grow: 1; width: 100%; height: 100%; position: absolute; display: flex; justify-content: space-between; align-self: center;">
         <ui:VisualElement name="Scrim" class="Scrim" />
         <ui:VisualElement name="BookSprite" class="BookSprite" style="-unity-background-scale-mode: stretch-to-fill; flex-direction: row; justify-content: space-between;">
-            <ui:VisualElement name="BookSection" class="BookSection--Closed">
-                <ui:VisualElement name="Section_BookInfo" class="Section_BookInfo" style="display: none;">
+            <ui:VisualElement name="BookSection" class="BookSection--Closed BookSection--Opened">
+                <ui:VisualElement name="Section_BookInfo" class="Section_BookInfo" style="display: flex;">
                     <ui:VisualElement name="LeftSide_BookInfo" class="LeftSide">
                         <ui:VisualElement name="Continent" style="flex-grow: 0; width: 70%; height: 5%; flex-shrink: 0; flex-direction: row; top: 20%;">
                             <ui:VisualElement name="ContinentIcon" style="flex-grow: 0; width: 9%; height: 100%; background-image: resource(&apos;Sprites/InventoryUI/SectionSample/SampleContinent&apos;);" />
@@ -27,39 +27,54 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Section_BookIndex" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; flex-direction: row; display: none;">
-                    <ui:VisualElement name="LeftSide_BookIndex" class="LeftSide" style="flex-grow: 1; background-image: resource(&apos;Sprites/InventoryUI/SectionSample/SampleLeftSide2&apos;);">
-                        <ui:VisualElement name="LeftSlot1" class="Slot">
+                <ui:VisualElement name="Section_BookIndex" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; flex-direction: row; display: flex;">
+                    <ui:VisualElement name="LeftSide_BookIndex" class="LeftSide" style="flex-grow: 1; background-image: resource(&apos;Sprites/InventoryUI/SectionSample/SampleLeftSide2&apos;); display: flex;">
+                        <ui:VisualElement name="Slot1" class="Slot">
                             <ui:Label tabindex="-1" text="001" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookNumber" class="Slot_BookNumber" />
                             <ui:VisualElement name="BookIcon" class="Slot_BookIcon" style="background-image: resource(&apos;Sprites/InventoryUI/BookUI/Surtur1_1&apos;);" />
                             <ui:Label tabindex="-1" text="Book Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookName" class="Slot_BookName" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="LeftSlot2" class="Slot" style="flex-grow: 1; left: 61.5%;">
+                        <ui:VisualElement name="Slot2" class="Slot" style="flex-grow: 1; left: 61.5%;">
                             <ui:Label tabindex="-1" text="002" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookNumber" class="Slot_BookNumber" />
                             <ui:VisualElement name="BookIcon" class="Slot_BookIcon" style="flex-grow: 0; background-image: resource(&apos;Sprites/InventoryUI/BookUI/Surtur1_2&apos;);" />
                             <ui:Label tabindex="-1" text="Book Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookName" class="Slot_BookName" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="LeftSlot3" class="Slot" style="flex-grow: 1; top: 63.5%;">
-                            <ui:Label tabindex="-1" text="003" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookNumver" class="Slot_BookNumber" />
+                        <ui:VisualElement name="Slot3" class="Slot" style="flex-grow: 1; top: 63.5%;">
+                            <ui:Label tabindex="-1" text="003" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookNumber" class="Slot_BookNumber" />
                             <ui:VisualElement name="BookIcon" class="Slot_BookIcon" style="flex-grow: 0; background-image: resource(&apos;Sprites/InventoryUI/BookUI/Surtur2_1&apos;);" />
                             <ui:Label tabindex="-1" text="Book Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookName" class="Slot_BookName" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="LeftSlot4" class="Slot" style="flex-grow: 1; top: 63.5%; left: 61.5%;">
+                        <ui:VisualElement name="Slot4" class="Slot" style="flex-grow: 1; top: 63.5%; left: 61.5%;">
                             <ui:Label tabindex="-1" text="004&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookNumber" class="Slot_BookNumber" />
                             <ui:VisualElement name="BookIcon" class="Slot_BookIcon" style="flex-grow: 0; flex-basis: auto; background-image: resource(&apos;Sprites/InventoryUI/BookUI/Unknown2&apos;);" />
                             <ui:Label tabindex="-1" text="???" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookName" class="Slot_BookName" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="RightSide_BookIndex" class="RightSide" style="flex-grow: 1; background-image: resource(&apos;Sprites/InventoryUI/SectionSample/SampleRightSide2&apos;);">
-                        <ui:VisualElement name="RightSlot1" class="Slot" style="flex-grow: 0; flex-shrink: 0; left: 13.5%;">
+                        <ui:VisualElement name="Slot5" class="Slot" style="flex-grow: 0; flex-shrink: 0; left: 13.5%;">
                             <ui:Label tabindex="-1" text="005" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookNumber" class="Slot_BookNumber" />
                             <ui:VisualElement name="BookIcon" class="Slot_BookIcon" style="flex-grow: 0; background-image: resource(&apos;Sprites/InventoryUI/BookUI/Surtur3_1&apos;);" />
                             <ui:Label tabindex="-1" text="Book Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookName" class="Slot_BookName" />
                         </ui:VisualElement>
+                        <ui:VisualElement name="Slot6" class="Slot" style="flex-grow: 1; left: 43.5%;">
+                            <ui:Label tabindex="-1" text="006" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookNumber" class="Slot_BookNumber" />
+                            <ui:VisualElement name="BookIcon" class="Slot_BookIcon" style="flex-grow: 0; background-image: resource(&apos;Sprites/InventoryUI/BookUI/Surtur3_2&apos;);" />
+                            <ui:Label tabindex="-1" text="Book Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookName" class="Slot_BookName" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Slot7" class="Slot" style="flex-grow: 1; left: 13.5%; top: 63.5%;">
+                            <ui:Label tabindex="-1" text="007" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookNumber" class="Slot_BookNumber" />
+                            <ui:VisualElement name="BookIcon" class="Slot_BookIcon" style="flex-grow: 0; background-image: resource(&apos;Sprites/InventoryUI/BookUI/Surtur4_1&apos;);" />
+                            <ui:Label tabindex="-1" text="Book Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookName" class="Slot_BookName" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Slot8" class="Slot" style="flex-grow: 1; left: 43.5%; top: 63.5%;">
+                            <ui:Label tabindex="-1" text="008" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookNumber" class="Slot_BookNumber" />
+                            <ui:VisualElement name="BookIcon" class="Slot_BookIcon" style="flex-grow: 0; background-image: resource(&apos;Sprites/InventoryUI/BookUI/Surtur4_2&apos;);" />
+                            <ui:Label tabindex="-1" text="Book Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookName" class="Slot_BookName" />
+                        </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Section_BookEquipped" style="flex-grow: 1; position: absolute; width: 100%; height: 100%;" />
-                <ui:VisualElement name="Section_BookAchievement" style="flex-grow: 1; position: absolute; width: 100%; height: 100%;" />
+                <ui:VisualElement name="Section_BookEquipped" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; display: none;" />
+                <ui:VisualElement name="Section_BookAchievement" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; display: none;" />
             </ui:VisualElement>
             <ui:VisualElement name="LeftIndex" class="LeftIndex" />
             <ui:VisualElement name="RightIndex" class="RightIndex" style="left: 1%;" />
