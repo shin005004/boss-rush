@@ -6,9 +6,11 @@ public class BookShelfSetting : MonoBehaviour
 {
     [SerializeField] private GameObject bookPrefab;
     [SerializeField] private GameObject bookObjects;
+    [SerializeField] private int bookLevel;
 
     private string roomSetting;
     private List<string> roomBossList;
+    private List<GameObject> bookObjectList = new List<GameObject>();
 
     private void Awake()
     {
@@ -20,22 +22,43 @@ public class BookShelfSetting : MonoBehaviour
     private GameObject bookObject;
     private void Start(){
         bookY = 3f;
+        bookLevel = 1;
 
         foreach(string boss in roomBossList){
             bookX = -6.5f;
             foreach(string book in BookData.Instance.BookList[roomSetting][boss]){
+                bookObject = Instantiate(bookPrefab);
+                bookObject.SetActive(false);
+                bookObjectList.Add(bookObject);
+
                 if(BookData.Instance.UnlockedBookLevel[book] > 0){
-                    bookObject = Instantiate(bookPrefab);
-                    
+                    if(BookData.Instance.UnlockedBookLevel[book] > bookLevel){
+                        bookLevel = BookData.Instance.UnlockedBookLevel[book];
+                    }
+
+                    bookObject.SetActive(true);
+
                     bookObject.transform.SetParent(bookObjects.transform, false);
                     bookObject.transform.position = new Vector3(bookX, bookY, 0f);
                     
                     bookObject.name = book;
-
-                    bookX += 1.3f;
                 }
+                bookX += 1.3f;
             }
             bookY -= 1.6f;
+        }
+
+        SetBookLevel();
+    }
+
+    private void SetBookLevel(){
+        foreach(GameObject bookObject in bookObjectList){
+            if(bookLevel <= BookData.Instance.UnlockedBookLevel[bookObject.name]){
+                bookObject.SetActive(true);
+            }
+            else{
+                bookObject.SetActive(true);
+            }
         }
     }
     
