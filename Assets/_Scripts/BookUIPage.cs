@@ -29,5 +29,6 @@ public class BookUIPage : MonoBehaviour
         }
         pages[(int)Section.Index] = (infoPages.Count - 1) / SlotNumber + 1;
         pages[(int)Section.Info] = infoPages.Count;
+        pages[(int)Section.Equipped] = (BookData.Instance.EquippedBook.Count - 1) / SlotNumber + 1;
     }
 }

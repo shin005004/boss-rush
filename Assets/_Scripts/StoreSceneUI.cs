@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -20,7 +21,7 @@ public class StoreSceneUI : MonoBehaviour
     #endregion
     #region //variables--pages
     private VisualElement _bookSection, _sectionBookIndex, _sectionBookInfo, _sectionBookEquipped;
-    private VisualElement[] _slots = new VisualElement[8];
+    private VisualElement[] _indexSlots = new VisualElement[8], _equippedSlots = new VisualElement[8];
     private BookUIPage _bookUIPage = new BookUIPage();
     private int _tmpSection = 1, _tmpPage = 1;
     #endregion
@@ -65,12 +66,20 @@ public class StoreSceneUI : MonoBehaviour
         ChangeSectionUI();
 
         for (int i = 1; i <= _bookUIPage.SlotNumber; i++) {
-            _slots[i - 1] = _sectionBookIndex.Q<VisualElement>("Slot" + i.ToString());
-            _slots[i - 1].RegisterCallback<ClickEvent, VisualElement>(IndexToInfoSection, _slots[i - 1]);
+            _indexSlots[i - 1] = _sectionBookIndex.Q<VisualElement>("Slot" + i.ToString());
+            _indexSlots[i - 1].RegisterCallback<ClickEvent, VisualElement>(IndexToInfoSection, _indexSlots[i - 1]);
+            _equippedSlots[i - 1] = _sectionBookEquipped.Q<VisualElement>("Slot" + i.ToString());
+            _equippedSlots[i - 1].RegisterCallback<ClickEvent, VisualElement>(EquippedToInfoSection, _equippedSlots[i - 1]);
         }
 
         _tmpBloodAmout = BloodAmount;
         ChangeBlood();
+
+        // for test
+        BookData.Instance.EquippedBook.Add("Thor1");
+        BookData.Instance.EquippedBook.Add("Surtur3");
+        BookData.Instance.EquippedBookLevel["Thor1"] = 2;
+        BookData.Instance.EquippedBookLevel["Surtur3"] = 1;
     }
     void Update() {
         if (_tmpBloodAmout != BloodAmount) {
@@ -201,7 +210,7 @@ public class StoreSceneUI : MonoBehaviour
     #endregion
     #region //PageUI
     private bool PagePlus() {
-        if (_tmpPage == _bookUIPage.Pages[_tmpSection] && _tmpSection != _bookUIPage.Pages.Length) {
+        if (_tmpPage == _bookUIPage.Pages[_tmpSection] && _tmpSection != _bookUIPage.Pages.Length - 1) {
             _tmpSection++;
             _tmpPage = 1;
             return true;
@@ -245,7 +254,7 @@ public class StoreSceneUI : MonoBehaviour
                 break;
         }
     }
-    private void ChangeBookIndexPageUI() {
+    private void ChangeBookIndexPageUI() { // need to be revised
         Sprite[] bookIconSprites = new Sprite[_bookUIPage.InfoPages.Count];
         string[] bookNumberStrings = new string[_bookUIPage.InfoPages.Count];
         string[] bookNumbers = new string[_bookUIPage.InfoPages.Count];
@@ -298,11 +307,11 @@ public class StoreSceneUI : MonoBehaviour
             Label bookNameElement = slot.Q<Label>("BookName");
             bookNumberElement.text = bookNumberStrings[slotIndex - 1];
             bookIconElement.style.backgroundImage = new StyleBackground(bookIcon);
-            slot.viewDataKey = bookNumbers[slotIndex - 1];
+            slot.viewDataKey = (_bookUIPage.InfoPages.IndexOf(bookFullName) + 1).ToString();
             bookNameElement.text = bookFullName;
         }
     }
-    private void ChangeBookInfoPageUI() {
+    private void ChangeBookInfoPageUI() { // need to be revised
         string bookNumber = _tmpPage.ToString();
         switch (bookNumber.Length) {
             case 1:
@@ -337,13 +346,46 @@ public class StoreSceneUI : MonoBehaviour
         bookIconElement.style.backgroundImage = new StyleBackground(bookIcon);
         bookNameElement.text = bookFullName;
     }
-    private void ChangeBookEquippedPageUI() {
+    private void ChangeBookEquippedPageUI() { // need to be revised
+        for (int i = 1; i <= _bookUIPage.SlotNumber; i++) {
+            VisualElement slot = _sectionBookEquipped.Q<VisualElement>("Slot" + i.ToString());
+            int slotIndex = i + (_tmpPage - 1) * _bookUIPage.SlotNumber;
 
+            if (BookData.Instance.EquippedBook.Count < slotIndex) {
+                slot.style.display = DisplayStyle.None;
+                continue;
+            }
+            slot.style.display = DisplayStyle.Flex;
+
+            string bookName = BookData.Instance.EquippedBook[slotIndex - 1];
+            string bookFullName = bookName;
+            if (BookData.Instance.EquippedBookLevel[bookName] == 1) {
+                bookFullName += "_1";
+            }
+            else if (BookData.Instance.EquippedBookLevel[bookName] == 2) {
+                bookFullName += "_2";
+            }
+            Sprite bookIcon = Resources.Load<Sprite>("Sprites/InventoryUI/BookUI/" + bookFullName);
+
+            Label bookNumberElement = slot.Q<Label>("BookNumber");
+            VisualElement bookIconElement = slot.Q<VisualElement>("BookIcon");
+            Label bookNameElement = slot.Q<Label>("BookName");
+            bookNumberElement.text = slotIndex.ToString();
+            bookIconElement.style.backgroundImage = new StyleBackground(bookIcon);
+            slot.viewDataKey = (_bookUIPage.InfoPages.IndexOf(bookFullName) + 1).ToString();
+            bookNameElement.text = BookData.Instance.BookDetails[bookFullName]["Name"].ToString();
+        }
     }
     private void IndexToInfoSection(ClickEvent clickEvent, VisualElement visualElement) {
         _tmpSection = 1;
         _tmpPage = int.Parse(visualElement.viewDataKey);
         _turningDirection = 1;
+        _bookSection.RemoveFromClassList("BookSection--Opened");
+    }
+    private void EquippedToInfoSection(ClickEvent clickEvent, VisualElement visualElement) {
+        _tmpSection = 1;
+        _tmpPage = int.Parse(visualElement.viewDataKey);
+        _turningDirection = 0;
         _bookSection.RemoveFromClassList("BookSection--Opened");
     }
     #endregion
