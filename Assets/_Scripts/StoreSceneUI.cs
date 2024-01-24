@@ -23,7 +23,12 @@ public class StoreSceneUI : MonoBehaviour
     private VisualElement _bookSection, _sectionBookIndex, _sectionBookInfo, _sectionBookEquipped;
     private VisualElement[] _indexSlots = new VisualElement[8], _equippedSlots = new VisualElement[8];
     private BookUIPage _bookUIPage = new BookUIPage();
+    private int _baseSection = 1, _basePage = 1;
     private int _tmpSection = 1, _tmpPage = 1;
+    private BookUIState _tmpState;
+    // for interaction with gameobject in store scene
+    public static string StoreBookName;
+    public static int StoreBookLevel;
     #endregion
     void Awake() 
     {
@@ -52,7 +57,7 @@ public class StoreSceneUI : MonoBehaviour
         _sectionBookEquipped = _bookSection.Q<VisualElement>("Section_BookEquipped");
 
         _popUpLayer.style.display = DisplayStyle.None;
-        _bag.RegisterCallback<ClickEvent>(OnOpenBook);
+        _bag.RegisterCallback<ClickEvent>(OnOpenBookForClick);
         _scrim.RegisterCallback<ClickEvent>(OnCloseBook);
         _book.RegisterCallback<TransitionEndEvent>(ClosePopUp);
         _rightArrow.RegisterCallback<ClickEvent>(RightPageTurn);
@@ -75,11 +80,18 @@ public class StoreSceneUI : MonoBehaviour
         _tmpBloodAmout = BloodAmount;
         ChangeBlood();
 
+        _tmpState = GameManager.Instance.GameStateManager.BookUIState;
+
         // for test
         //BookData.Instance.EquippedBook.Add("Thor1");
         //BookData.Instance.EquippedBook.Add("Surtur3");
         //BookData.Instance.EquippedBookLevel["Thor1"] = 2;
         //BookData.Instance.EquippedBookLevel["Surtur3"] = 1;
+
+        // for test
+        //StoreBookName = "Thor2";
+        //StoreBookLevel = 2;
+        //GameManager.Instance.GameStateManager.ChangeBookUIState();
     }
     void Update() {
         if (_tmpBloodAmout != BloodAmount) {
@@ -90,7 +102,6 @@ public class StoreSceneUI : MonoBehaviour
             float animTime = _bookRightTurnAnim.GetCurrentAnimatorStateInfo(0).normalizedTime;
             if (animTime >= 1.0f) {
                 bookRightTurn.gameObject.SetActive(false);
-                // for test
                 _bookSection.AddToClassList("BookSection--Opened");
             }
         }
@@ -98,14 +109,29 @@ public class StoreSceneUI : MonoBehaviour
             float animTime = _bookLeftTurnAnim.GetCurrentAnimatorStateInfo(0).normalizedTime;
             if (animTime >= 1.0f) {
                 bookLeftTurn.gameObject.SetActive(false);
-                // for test
                 _bookSection.AddToClassList("BookSection--Opened");
+            }
+        }
+        if (_tmpState != GameManager.Instance.GameStateManager.BookUIState) {
+            _tmpState = GameManager.Instance.GameStateManager.BookUIState;
+            switch (_tmpState) {
+                case BookUIState.Guide:
+                    InformToGuide();
+                    break;
+                case BookUIState.Inform:
+                    GuideToInform(StoreBookName, StoreBookLevel);
+                    OnOpenBook();
+                    break;
+                
             }
         }
     }
     #region //PopUp
-    private void OnOpenBook(ClickEvent evt) 
+    private void OnOpenBookForClick(ClickEvent evt) 
     {
+        OnOpenBook();
+    }
+    private void OnOpenBook() {
         _bag.AddToClassList("BagSprite--Opened");
         _popUpLayer.style.display = DisplayStyle.Flex;
 
@@ -116,6 +142,10 @@ public class StoreSceneUI : MonoBehaviour
         _bag.RemoveFromClassList("BagSprite--Opened");
         _scrim.RemoveFromClassList("Scrim--FadeIn");
         _book.RemoveFromClassList("BookSprite--Opened");
+        if (GameManager.Instance.GameStateManager.BookUIState == BookUIState.Inform) {
+            GameManager.Instance.GameStateManager.ChangeBookUIState();
+            _tmpState = GameManager.Instance.GameStateManager.BookUIState;
+        }
     }
     private void ActiveBook() 
     {
@@ -391,6 +421,32 @@ public class StoreSceneUI : MonoBehaviour
         _tmpPage = int.Parse(visualElement.viewDataKey);
         _turningDirection = 0;
         _bookSection.RemoveFromClassList("BookSection--Opened");
+    }
+    #endregion
+    #region //BookUI--guide--inform
+    private void GuideToInform(string bookName, int bookLevel) {
+        Sprite bookNewSprite = Resources.Load<Sprite>("Sprites/InventoryUI/BookOpened2");
+        _book.style.backgroundImage = new StyleBackground(bookNewSprite);
+        _leftArrow.style.display = DisplayStyle.None;
+        _rightArrow.style.display = DisplayStyle.None;
+        _tmpSection = 1;
+        string bookFullName = bookName;
+        if (bookLevel == 1) {
+            bookFullName += "_1";
+        }
+        else if (bookLevel == 2) {
+            bookFullName += "_2";
+        }
+        _tmpPage = _bookUIPage.InfoPages.IndexOf(bookFullName) + 1;
+        ChangeSectionUI();
+    }
+    private void InformToGuide() {
+        _book.style.backgroundImage = StyleKeyword.Null;
+        _leftArrow.style.display = StyleKeyword.Null;
+        _rightArrow.style.display = StyleKeyword.Null;
+        _tmpSection = _baseSection;
+        _tmpPage = _basePage;
+        ChangeSectionUI();
     }
     #endregion
 }

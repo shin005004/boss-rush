@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     public BookManager BookManager { get; private set; }
     public BloodManager BloodManager { get; private set; }
+    public GameStateManager GameStateManager { get; private set; }
 
 
     private void Awake()
@@ -24,5 +25,6 @@ public class GameManager : MonoBehaviour
 
         BookManager = GetComponentInChildren<BookManager>();
         BloodManager = GetComponentInChildren<BloodManager>();
+        GameStateManager = GetComponentInChildren<GameStateManager>();
     }
 }
