@@ -5,7 +5,7 @@
     </ui:VisualElement>
     <ui:VisualElement name="BagSprite" class="BagSprite" />
     <ui:VisualElement name="PopUpLayer" style="flex-grow: 1; width: 100%; height: 100%; position: absolute; display: flex; justify-content: space-between; align-self: center;">
-        <ui:VisualElement name="Scrim" class="Scrim" style="display: none;" />
+        <ui:VisualElement name="Scrim" class="Scrim" />
         <ui:VisualElement name="BookSprite" class="BookSprite" style="-unity-background-scale-mode: stretch-to-fill; flex-direction: row; justify-content: space-between;">
             <ui:VisualElement name="BookSection" class="BookSection--Closed BookSection--Opened">
                 <ui:VisualElement name="Section_BookIndex" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; flex-direction: row; display: flex;">

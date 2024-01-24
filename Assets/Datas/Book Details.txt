@@ -1,7 +1,7 @@
 Thor1_1
 Name: Thor 1 (1)
 Blood: 100
-Description: This is Thor 1_1 Book
+Description: This is Thor 1_1 Book\nand this is the line\nbreak for testing
 
 Thor1_2
 Name: Thor 1 (2)

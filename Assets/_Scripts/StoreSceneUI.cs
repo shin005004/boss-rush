@@ -76,10 +76,10 @@ public class StoreSceneUI : MonoBehaviour
         ChangeBlood();
 
         // for test
-        BookData.Instance.EquippedBook.Add("Thor1");
-        BookData.Instance.EquippedBook.Add("Surtur3");
-        BookData.Instance.EquippedBookLevel["Thor1"] = 2;
-        BookData.Instance.EquippedBookLevel["Surtur3"] = 1;
+        //BookData.Instance.EquippedBook.Add("Thor1");
+        //BookData.Instance.EquippedBook.Add("Surtur3");
+        //BookData.Instance.EquippedBookLevel["Thor1"] = 2;
+        //BookData.Instance.EquippedBookLevel["Surtur3"] = 1;
     }
     void Update() {
         if (_tmpBloodAmout != BloodAmount) {
@@ -342,9 +342,13 @@ public class StoreSceneUI : MonoBehaviour
         Label bookNumberElement = _sectionBookInfo.Q<Label>("BookNumber");
         VisualElement bookIconElement = _sectionBookInfo.Q<VisualElement>("BookIcon");
         Label bookNameElement = _sectionBookInfo.Q<Label>("BookName");
+        Label priceTextElement = _sectionBookInfo.Q<Label>("PriceText");
+        Label illustrationTextElement = _sectionBookInfo.Q<Label>("IllustrationText");
         bookNumberElement.text = bookNumber;
         bookIconElement.style.backgroundImage = new StyleBackground(bookIcon);
-        bookNameElement.text = bookFullName;
+        bookNameElement.text = BookData.Instance.BookDetails[bookFullName]["Name"].ToString();
+        priceTextElement.text = BookData.Instance.BookDetails[bookFullName]["Blood"].ToString();
+        illustrationTextElement.text = BookData.Instance.BookDetails[bookFullName]["Description"].ToString().Replace("\\n", "\n");
     }
     private void ChangeBookEquippedPageUI() { // need to be revised
         for (int i = 1; i <= _bookUIPage.SlotNumber; i++) {
