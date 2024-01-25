@@ -6,7 +6,7 @@
     <ui:VisualElement name="BagSprite" class="BagSprite" />
     <ui:VisualElement name="PopUpLayer" style="flex-grow: 1; width: 100%; height: 100%; position: absolute; display: flex; justify-content: space-between; align-self: center;">
         <ui:VisualElement name="Scrim" class="Scrim" />
-        <ui:VisualElement name="BookSprite" class="BookSprite" style="-unity-background-scale-mode: stretch-to-fill; flex-direction: row; justify-content: space-between;">
+        <ui:VisualElement name="BookSprite" class="BookSprite" style="-unity-background-scale-mode: stretch-to-fill; flex-direction: column; justify-content: flex-start;">
             <ui:VisualElement name="BookSection" class="BookSection--Closed BookSection--Opened">
                 <ui:VisualElement name="Section_BookIndex" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; flex-direction: row; display: flex;">
                     <ui:VisualElement name="LeftSide_BookIndex" class="LeftSide" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Sprites/UI/SectionSample/SampleLeftSide2.png?fileID=2800000&amp;guid=ca53e3b57d04e2b48bd3d499ce1b7b36&amp;type=3#SampleLeftSide2&apos;); display: flex;">
@@ -120,10 +120,11 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="LeftIndex" class="LeftIndex" />
-            <ui:VisualElement name="RightIndex" class="RightIndex" style="left: 1%;" />
+            <ui:VisualElement name="Index1" class="Index Index1" />
+            <ui:VisualElement name="Index2" class="Index Index2" />
+            <ui:VisualElement name="Index3" class="Index Index3" />
         </ui:VisualElement>
-        <ui:VisualElement name="RightArrow" class="RightArrow" style="background-image: url(&apos;project://database/Assets/Sprites/UI/RightArrow.png?fileID=2800000&amp;guid=642b230b8d208e543b77077b88878d52&amp;type=3#RightArrow&apos;);" />
-        <ui:VisualElement name="LeftArrow" class="LeftArrow" style="background-image: url(&apos;project://database/Assets/Sprites/UI/LeftArrow.png?fileID=2800000&amp;guid=88831402d255f3a43b332fccf186b456&amp;type=3#LeftArrow&apos;);" />
+        <ui:VisualElement name="RightArrow" class="RightArrow" />
+        <ui:VisualElement name="LeftArrow" class="LeftArrow" />
     </ui:VisualElement>
 </ui:UXML>

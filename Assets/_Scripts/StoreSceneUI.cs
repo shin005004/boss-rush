@@ -12,7 +12,7 @@ public class StoreSceneUI : MonoBehaviour
     // Those will be changed when the whole blood management structure is completed
     [SerializeField] GameObject bookRightTurn, bookLeftTurn;
     private Animator _bookRightTurnAnim, _bookLeftTurnAnim;
-    private VisualElement _popUpLayer, _bag, _scrim, _book, _bloodSprite, _rightArrow, _leftArrow, _rightIndex, _leftIndex;
+    private VisualElement _popUpLayer, _bag, _scrim, _book, _bloodSprite, _rightArrow, _leftArrow;
     private Label _bloodText;
     private Sprite[] _bloodSprites;
     private int _bloodSpriteCount = 15;
@@ -21,6 +21,7 @@ public class StoreSceneUI : MonoBehaviour
     #endregion
     #region //variables--pages
     private VisualElement _bookSection, _sectionBookIndex, _sectionBookInfo, _sectionBookEquipped;
+    private VisualElement[] _indexs = new VisualElement[3];
     private VisualElement[] _indexSlots = new VisualElement[8], _equippedSlots = new VisualElement[8];
     private BookUIPage _bookUIPage = new BookUIPage();
     private int _baseSection = 1, _basePage = 1;
@@ -48,8 +49,6 @@ public class StoreSceneUI : MonoBehaviour
         _bloodText = root.Q<Label>("BloodText");
         _rightArrow = root.Q<VisualElement>("RightArrow");
         _leftArrow = root.Q<VisualElement>("LeftArrow");
-        _rightIndex = root.Q<VisualElement>("RightIndex");
-        _leftIndex = root.Q<VisualElement>("LeftIndex");
 
         _bookSection = root.Q<VisualElement>("BookSection");
         _sectionBookIndex = _bookSection.Q<VisualElement>("Section_BookIndex");
@@ -62,8 +61,11 @@ public class StoreSceneUI : MonoBehaviour
         _book.RegisterCallback<TransitionEndEvent>(ClosePopUp);
         _rightArrow.RegisterCallback<ClickEvent>(RightPageTurn);
         _leftArrow.RegisterCallback<ClickEvent>(LeftPageTurn);
-        _rightIndex.RegisterCallback<ClickEvent>(RightIndexTurn);
-        _leftIndex.RegisterCallback<ClickEvent>(LeftIndexTurn);
+
+        for (int j = 1; j <= 3; j++) {
+            _indexs[j - 1] = root.Q<VisualElement>("Index" + j.ToString());
+            _indexs[j - 1].RegisterCallback<ClickEvent, VisualElement>(IndexTurn, _indexs[j - 1]);
+        }
 
         _bookUIPage.SetPageList(_bookUIPage.InfoPages, _bookUIPage.Pages);
         _bookSection.RegisterCallback<TransitionEndEvent>(BookTurn);
@@ -199,6 +201,26 @@ public class StoreSceneUI : MonoBehaviour
             BookRightTurn();
         }
     }
+    private void IndexTurn(ClickEvent clickEvent, VisualElement visualElement) {
+        int index = int.Parse(visualElement.name.Substring(5, 1)) - 1;
+        if (_tmpSection > index) {
+            _turningDirection = 0;
+        }
+        else if (_tmpSection < index) {
+            _turningDirection = 1;
+        }
+        else {
+            if (_tmpPage > _basePage) {
+                _turningDirection = 0;
+            }
+            else {
+                return;
+            }
+        }
+        _tmpSection = index;
+        _tmpPage = _basePage;
+        _bookSection.RemoveFromClassList("BookSection--Opened");
+    }
     private void BookRightTurn() {
         if (!bookRightTurn.gameObject.activeSelf) {
             bookRightTurn.gameObject.SetActive(true);
@@ -209,25 +231,12 @@ public class StoreSceneUI : MonoBehaviour
             bookLeftTurn.gameObject.SetActive(true);
         }
     }
-    private void RightIndexTurn(ClickEvent clickEvent) {
-        _turningDirection = 1;
-        _bookSection.RemoveFromClassList("BookSection--Opened");
-        // TODO: change section variables
-        // change page variables
-    }
-    private void LeftIndexTurn(ClickEvent clickEvent) {
-        _turningDirection = 0;
-        _bookSection.RemoveFromClassList("BookSection--Opened");
-        // TODO: change section variables
-        // change page variables
-    }
     private void RightPageTurn(ClickEvent clickEvent) {
         if (!PagePlus()) {
             return;
         }
         _turningDirection = 1;
         _bookSection.RemoveFromClassList("BookSection--Opened");
-        // TODO: change page variables
     }
     private void LeftPageTurn(ClickEvent clickEvent) {
         if (!PageMinus()) {
@@ -235,7 +244,6 @@ public class StoreSceneUI : MonoBehaviour
         }
         _turningDirection = 0;
         _bookSection.RemoveFromClassList("BookSection--Opened");
-        // TODO: change page variables
     }
     #endregion
     #region //PageUI
@@ -267,6 +275,12 @@ public class StoreSceneUI : MonoBehaviour
         _sectionBookIndex.style.display = DisplayStyle.None;
         _sectionBookInfo.style.display = DisplayStyle.None;
         _sectionBookEquipped.style.display = DisplayStyle.None;
+        for (int i = 0; i < 3; i++) {
+            _indexs[i].style.backgroundImage = StyleKeyword.Null;
+        }
+        Sprite newIndex = Resources.Load<Sprite>("Sprites/InventoryUI/IndexUI/" + 
+        _indexs[_tmpSection].name + "_Selected");
+        _indexs[_tmpSection].style.backgroundImage = new StyleBackground(newIndex);
         switch (_tmpSection) {
             case 0:
                 _sectionBookIndex.style.display = DisplayStyle.Flex;

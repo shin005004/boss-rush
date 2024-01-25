@@ -85,44 +85,10 @@
     flex-shrink: 0;
 }
 
-.LeftIndex {
-    flex-grow: 0;
-    flex-direction: row;
-    flex-shrink: 0;
-    bottom: 6%;
-    width: 16%;
-    height: 26.7%;
-    background-image: resource('Sprites/InventoryUI/RightIndexDefault');
-    -unity-background-scale-mode: scale-to-fit;
-    left: -1%;
-}
-
-.RightIndex {
-    flex-grow: 0;
-    flex-direction: row;
-    background-image: resource('Sprites/InventoryUI/LeftIndexDefault');
-    -unity-background-scale-mode: scale-to-fit;
-    width: 16%;
-    height: 26.7%;
-    flex-shrink: 0;
-    left: 1%;
-    bottom: 6%;
-    justify-content: flex-start;
-}
-
-.LeftIndex:hover {
-    background-image: resource('Sprites/InventoryUI/RightIndexClicked');
-    -unity-background-scale-mode: scale-to-fit;
-}
-
-.RightIndex:hover {
-    background-image: resource('Sprites/InventoryUI/LeftIndexClicked');
-}
-
 .RightArrow {
     flex-grow: 1;
     position: absolute;
-    background-image: resource('Sprites/InventoryUI/RightArrow');
+    background-image: url('project://database/Assets/Sprites/UI/RightArrow.png?fileID=2800000&guid=642b230b8d208e543b77077b88878d52&type=3#RightArrow');
     -unity-background-scale-mode: scale-to-fit;
     width: 15%;
     height: 25%;
@@ -143,7 +109,7 @@
     height: 25%;
     top: 79%;
     left: -2%;
-    background-image: resource('Sprites/InventoryUI/LeftArrow');
+    background-image: url('project://database/Assets/Sprites/UI/LeftArrow.png?fileID=2800000&guid=88831402d255f3a43b332fccf186b456&type=3#LeftArrow');
     -unity-background-scale-mode: scale-to-fit;
     transition-duration: 0.2s;
 }
@@ -175,7 +141,6 @@
     align-items: flex-end;
     justify-content: space-between;
     top: 0;
-    background-image: resource('Sprites/InventoryUI/SectionSample/SampleLeftSide');
 }
 
 .RightSide {
@@ -183,7 +148,6 @@
     flex-shrink: 0;
     width: 50%;
     height: 100%;
-    background-image: resource('Sprites/InventoryUI/SectionSample/SampleRightSide');
     align-items: flex-start;
     justify-content: space-between;
     align-self: center;
@@ -230,7 +194,7 @@
     width: 100%;
     height: 100%;
     opacity: 0;
-    transition-duration: 1s;
+    transition-duration: 0.3s;
 }
 
 .BookSection--Opened {
@@ -241,4 +205,45 @@
     flex-shrink: 0;
     scale: 1.1 1.1;
     transition-duration: 0.5s;
+}
+
+.Index {
+    flex-grow: 0;
+    background-image: resource('Sprites/InventoryUI/IndexUI/Index1');
+    -unity-background-scale-mode: scale-to-fit;
+    width: 8%;
+    height: 13.4%;
+    right: 43%;
+    top: 30%;
+}
+
+.Index1 {
+}
+
+.Index2 {
+    flex-grow: 0;
+    flex-shrink: 0;
+    translate: 0 4%;
+    background-image: resource('Sprites/InventoryUI/IndexUI/Index2');
+}
+
+.Index3 {
+    flex-grow: 0;
+    translate: 0 8%;
+    background-image: resource('Sprites/InventoryUI/IndexUI/Index3');
+}
+
+.Index1:hover {
+    -unity-background-scale-mode: scale-to-fit;
+    background-image: resource('Sprites/InventoryUI/IndexUI/Index1_Selected');
+}
+
+.Index2:hover {
+    -unity-background-scale-mode: scale-to-fit;
+    background-image: resource('Sprites/InventoryUI/IndexUI/Index2_Selected');
+}
+
+.Index3:hover {
+    -unity-background-scale-mode: scale-to-fit;
+    background-image: resource('Sprites/InventoryUI/IndexUI/Index3_Selected');
 }
