@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 public class StoreSceneUI : MonoBehaviour
 {
     #region //variables
+
     public int BloodAmount = 0;
     public int MaxBloodAmout = 200;
     // Those will be changed when the whole blood management structure is completed
@@ -16,21 +17,20 @@ public class StoreSceneUI : MonoBehaviour
     private VisualElement _popUpLayer, _bag, _scrim, _book, _bloodSprite, _rightArrow, _leftArrow;
     private Label _bloodText;
     private Sprite[] _bloodSprites;
-    private int _bloodSpriteCount = 15;
-    private int _tmpBloodAmout = 0;
-    private int _turningDirection = -1;
+    private int _bloodSpriteCount = 15, _tmpBloodAmout = 0, _turningDirection = -1;
+
     #endregion
     #region //variables--pages
+
     private VisualElement _bookSection, _sectionBookIndex, _sectionBookInfo, _sectionBookEquipped;
-    private VisualElement[] _indexs = new VisualElement[3];
-    private VisualElement[] _indexSlots = new VisualElement[8], _equippedSlots = new VisualElement[8];
+    private VisualElement[] _indexs = new VisualElement[3], _indexSlots = new VisualElement[8], _equippedSlots = new VisualElement[8];
     private BookUIPage _bookUIPage = new BookUIPage();
-    private int _baseSection = 1, _basePage = 1;
-    private int _tmpSection = 1, _tmpPage = 1;
+    private int _baseSection = 1, _basePage = 1, _tmpSection = 1, _tmpPage = 1;
     private BookUIState _tmpState;
-    // for interaction with gameobject in store scene
     public static string StoreBookName;
     public static int StoreBookLevel;
+    // for interaction with gameobject in store scene
+    
     #endregion
     void Awake() 
     {

@@ -1,0 +1,96 @@
+.Scrim {
+    flex-grow: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition-duration: 0.5s;
+}
+
+.Scrim--Opened {
+    opacity: 1;
+    transition-duration: 0.5s;
+}
+
+.Map--Closed {
+    flex-grow: 1;
+    position: absolute;
+    width: 65.1%;
+    height: 92.6%;
+    background-image: url('project://database/Assets/Sprites/UI/WorldMapUI/Map.png?fileID=2800000&guid=556aa02d6eb9b66468b2f09dbcfa0d24&type=3#Map');
+    translate: 100% 100%;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-cubic;
+}
+
+.Map--Opened {
+    translate: 0 0;
+    transition-timing-function: ease-out-cubic;
+    transition-duration: 0.5s;
+}
+
+.MapInfo--Closed {
+    flex-grow: 1;
+    position: absolute;
+    align-self: center;
+    left: 18%;
+    width: 31.25%;
+    height: 92.6%;
+    bottom: 7.4%;
+    background-image: url('project://database/Assets/Sprites/UI/WorldMapUI/StageInfo.png?fileID=2800000&guid=28553b411bc1e754b9db4af3d94bb875&type=3#StageInfo');
+    translate: 0 -101%;
+    transition-duration: 0.5s;
+}
+
+.MapInfo--Opened {
+    translate: 0 0;
+    transition-duration: 0.5s;
+}
+
+.Stage {
+    flex-grow: 1;
+    position: absolute;
+    width: 5.42%;
+    height: 6.775%;
+    background-image: url('project://database/Assets/Sprites/UI/WorldMapUI/Stage.png?fileID=2800000&guid=2ffaccee35b50d64c8ffd10011334bfc&type=3#Stage');
+    top: 35%;
+    left: 25%;
+    -unity-background-scale-mode: scale-to-fit;
+    transition-duration: 0.5s;
+}
+
+.Stage:hover {
+    scale: 1.07 1.07;
+    transition-duration: 0.5s;
+}
+
+.CloseButton {
+    flex-grow: 0;
+    width: 15%;
+    height: 9%;
+    background-image: url('project://database/Assets/Sprites/UI/WorldMapUI/CloseButton.png?fileID=2800000&guid=99885cd39274f354c89e85a65bac2059&type=3#CloseButton');
+    top: 2%;
+    left: 4%;
+    transition-duration: 0.3s;
+}
+
+.CloseButton:hover {
+    transition-duration: 0.3s;
+    scale: 1.07 1.07;
+}
+
+.MapInfoButton {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 80%;
+    height: 18%;
+    top: 70%;
+    left: 5%;
+    background-image: url('project://database/Assets/Sprites/UI/WorldMapUI/StageInfoButton.png?fileID=2800000&guid=3635fe2c577033349afb2bc24095b910&type=3#StageInfoButton');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.MapInfoButton:hover {
+    background-image: url('project://database/Assets/Sprites/UI/WorldMapUI/StageInfoButton_Clicked.png?fileID=2800000&guid=35889b403d1514347a552439b2f00807&type=3#StageInfoButton_Clicked');
+}
