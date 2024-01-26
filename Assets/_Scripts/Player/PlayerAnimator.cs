@@ -68,7 +68,7 @@ public class PlayerAnimator : MonoBehaviour
             // Dash
             if (isRolling)
             {
-                if (playerDirectionDegree < 90f || playerDirectionDegree > 360f - 90f)
+                if (rollingDirectionDegree < 90f || rollingDirectionDegree > 360f - 90f)
                     return LockState(DodgeForward, rollingAnimationTime);
                 return LockState(DodgeBackward, rollingAnimationTime);
             }

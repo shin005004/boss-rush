@@ -23,8 +23,8 @@ public class PlayerController : MonoBehaviour, IPlayerController
     public event Action<Vector2> Attacked;
     public event Action AttackEnd;
 
-    public event Action<bool> ShootStanceChanged;
-    public event Action<bool, Vector2> Shotted;
+    //public event Action<bool> ShootStanceChanged;
+    //public event Action<bool, Vector2> Shotted;
 
     public Vector2 MousePosition { get; set; }
     public Vector2 PlayerInput => currentPlayerDirection;
@@ -186,10 +186,10 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
     #region ATTACKING
 
-    private float attackDelay = 0.5f;
+    // private float attackDelay = 0.5f;
 
     private bool attackToConsume = false;   // 공격 입력이 들어왔는가?
-    private int isAttacking = 0;            // 몇번째 공격중인가?
+    // private int isAttacking = 0;            // 몇번째 공격중인가?
 
     private bool canAttack = true;          // 외적으로 공격이 가능한가?
     private bool canAttackFlag = true;     // 쿨타임적으로 공격이 가능한지?
@@ -229,8 +229,8 @@ public interface IPlayerController
 
     // IsStance
     // haveBullet, Direction
-    public event Action<bool> ShootStanceChanged;
-    public event Action<bool, Vector2> Shotted;
+    //public event Action<bool> ShootStanceChanged;
+    //public event Action<bool, Vector2> Shotted;
 
     public Vector2 MousePosition { get; set; }
     public Vector2 PlayerInput { get; }
