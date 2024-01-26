@@ -9,7 +9,7 @@ public class BookShelfPortal : MonoBehaviour
 
     private void Start(){
         bookShelf = gameObject.transform.parent.gameObject;
-        destination = bookShelf.GetComponent<BookShelf>().destination;
+        destination = bookShelf.GetComponent<MiniBookShelf>().destination;
     }
 
     private void OnTriggerStay2D(Collider2D other){

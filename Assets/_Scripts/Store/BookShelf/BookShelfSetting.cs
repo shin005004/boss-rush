@@ -6,9 +6,11 @@ public class BookShelfSetting : MonoBehaviour
 {
     [SerializeField] private GameObject bookPrefab;
     [SerializeField] private GameObject bookObjects;
-    [SerializeField] private int bookLevel;
+    [SerializeField] private int bookShelfLevel;
     [SerializeField] private int maxBookLevel;
-    public int BookShelfLevel => bookLevel;
+    [SerializeField] private GameObject bookShelfLevelObject;
+    [SerializeField] private Sprite[] bookShelfLevelSprites;
+    public int BookShelfLevel => bookShelfLevel;
 
     private string roomSetting;
     private List<string> roomBossList;
@@ -24,7 +26,7 @@ public class BookShelfSetting : MonoBehaviour
     private GameObject bookObject;
     private void Start(){
         bookY = 3f;
-        bookLevel = 1;
+        bookShelfLevel = 1;
 
         foreach(string boss in roomBossList){
             bookX = -6.5f;
@@ -34,8 +36,8 @@ public class BookShelfSetting : MonoBehaviour
                 bookObjectList.Add(bookObject);
 
                 if(BookData.Instance.UnlockedBookLevel[book] > 0){
-                    if(BookData.Instance.UnlockedBookLevel[book] > bookLevel){
-                        bookLevel = BookData.Instance.UnlockedBookLevel[book];
+                    if(BookData.Instance.UnlockedBookLevel[book] > bookShelfLevel){
+                        bookShelfLevel = BookData.Instance.UnlockedBookLevel[book];
                     }
 
                     bookObject.SetActive(true);
@@ -55,25 +57,27 @@ public class BookShelfSetting : MonoBehaviour
 
     private void SetBookLevel(){
         foreach(GameObject bookObject in bookObjectList){
-            if(bookLevel <= BookData.Instance.UnlockedBookLevel[bookObject.name]){
+            if(bookShelfLevel <= BookData.Instance.UnlockedBookLevel[bookObject.name]){
                 bookObject.SetActive(true);
             }
             else{
                 bookObject.SetActive(false);
             }
         }
+
+        bookShelfLevelObject.GetComponent<SpriteRenderer>().sprite = bookShelfLevelSprites[bookShelfLevel-1];
     }
 
     public void IncreaseBookLevel(){
-        if(bookLevel != maxBookLevel){
-            bookLevel += 1;
+        if(bookShelfLevel != maxBookLevel){
+            bookShelfLevel += 1;
             SetBookLevel();
         }
     }
 
     public void DecreaseBookLevel(){
-        if(bookLevel != 0){
-            bookLevel -= 1;
+        if(bookShelfLevel != 0){
+            bookShelfLevel -= 1;
             SetBookLevel();
         }
     }
