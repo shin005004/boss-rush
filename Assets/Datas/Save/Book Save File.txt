@@ -1,0 +1,21 @@
+Unlocked Book Level
+Thor1: 1
+Thor2: 0
+Thor3: 1
+Thor4: 0
+Surtur1: 0
+Surtur2: 1
+Surtur3: 0
+Surtur4: 1
+
+Equipped Book Level
+Thor1: 0
+Thor2: 0
+Thor3: 0
+Thor4: 0
+Surtur1: 0
+Surtur2: 0
+Surtur3: 0
+Surtur4: 0
+
+Equipped Book

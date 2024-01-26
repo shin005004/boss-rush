@@ -7,6 +7,7 @@ using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using System.Diagnostics.Tracing;
 
 public class BookData: MonoBehaviour
 {
@@ -35,6 +36,7 @@ public class BookData: MonoBehaviour
 
 
         ReadFiles();
+        LoadSaveFile();
     }
 
 
@@ -45,6 +47,7 @@ public class BookData: MonoBehaviour
     public Dictionary<string, List<string>> BossList = new Dictionary<string, List<string>>();
     public Dictionary<string, Dictionary<string, List<string>>> BookList = new Dictionary<string, Dictionary<string, List<string>>>();
     public List<string> BookNameList = new List<string>();
+    public List<string> BookNameLevelList = new List<string>();
 
     public Dictionary<string, int> UnlockedBookLevel = new Dictionary<string, int>();
     public Dictionary<string, int> EquippedBookLevel = new Dictionary<string, int>();
@@ -55,7 +58,7 @@ public class BookData: MonoBehaviour
     #endregion
 
 
-    #region Reading Text Files
+    #region Reading Boss Data Text Files
     private void ReadFiles(){
         foreach(string bookType in BookType){ BossList[bookType] = new List<string>() {}; }
 
@@ -89,10 +92,10 @@ public class BookData: MonoBehaviour
 
         currentBook = "";
         foreach(string line in bookDetailsLines){
-            if(string.IsNullOrWhiteSpace(line) || (currentBook == "" && !BookNameList.Contains(line))){
+            if(string.IsNullOrWhiteSpace(line) || (currentBook == "" && !BookNameLevelList.Contains(line))){
                 
             }
-            else if(BookNameList.Contains(line)){
+            else if(BookNameLevelList.Contains(line)){
                 currentBook = line;
             }
             else{
@@ -128,14 +131,86 @@ public class BookData: MonoBehaviour
                     string skillCount = i.ToString();
                     string bookName = $"{boss}{skillCount}";
                     BookList[bookType][boss].Add(bookName);
-                    BookNameList.Add(bookName+"_1");
-                    BookNameList.Add(bookName+"_2");
-                    UnlockedBookLevel[bookName] = 1;
+                    BookNameLevelList.Add(bookName+"_1");
+                    BookNameLevelList.Add(bookName+"_2");
+                    BookNameList.Add(bookName);
+                    UnlockedBookLevel[bookName] = 0;
                     EquippedBookLevel[bookName] = 0;
                 }
             }
         }
     }
+    #endregion
+
+    #region Reading Save Data Text Files
+    private string bookSaveFilePath;
+    private string[] bookSaveFileLines, fileBookList;
+    private string saveFileType, fileBookName; 
+    private int fileBookLevel;
+
+    public void LoadSaveFile(){
+        bookSaveFilePath = Path.Combine(Application.dataPath, "Datas", "Save", "Book Save File.txt");
+        bookSaveFileLines = File.ReadAllLines(bookSaveFilePath);
+
+        saveFileType = "";
+        foreach(string line in bookSaveFileLines){
+            if(string.IsNullOrWhiteSpace(line.Trim())){ saveFileType = ""; }
+            else if(saveFileType == ""){
+                if(line.Trim() == "Unlocked Book Level"){ saveFileType = "Unlocked Book Level"; }
+                else if(line.Trim() == "Equipped Book Level"){ saveFileType = "Equipped Book Level"; }
+                else if(line.Trim() == "Equipped Book"){ saveFileType = "Equipped Book"; }
+            }
+            else if(saveFileType == "Unlocked Book Level"){
+                fileBookName = line.Split(':')[0].Trim();
+                fileBookLevel = Convert.ToInt32(line.Split(':')[1].Trim());
+                UnlockedBookLevel[fileBookName] = fileBookLevel;
+            }
+            else if(saveFileType == "Equipped Book Level"){
+                fileBookName = line.Split(':')[0].Trim();
+                fileBookLevel = Convert.ToInt32(line.Split(':')[1].Trim());
+                EquippedBookLevel[fileBookName] = fileBookLevel;
+            }
+            else if(saveFileType == "Equipped Book"){
+                fileBookList = line.Split(' ');
+                foreach(string fileBookName in fileBookList){
+                    EquippedBook.Add(fileBookName.Trim());
+                }
+            }
+        }
+    }
+
+    private List<string> newSaveFileLines = new List<string>();
+    public void UpdateSaveFile(){
+        bookSaveFilePath = Path.Combine(Application.dataPath, "Datas", "Save", "Book Save File.txt");
+
+        newSaveFileLines = new List<string>();
+
+        newSaveFileLines.Add("Unlocked Book Level");
+        foreach(string bookName in BookNameList){
+            newSaveFileLines.Add(bookName + ": " + UnlockedBookLevel[bookName].ToString());
+        }
+        newSaveFileLines.Add("");
+        
+        newSaveFileLines.Add("Equipped Book Level");
+        foreach(string bookName in BookNameList){
+            newSaveFileLines.Add(bookName + ": " + EquippedBookLevel[bookName].ToString());
+        }
+        newSaveFileLines.Add("");
+
+        string equippedBookListString = "";
+        newSaveFileLines.Add("Equipped Book");
+        foreach(string equippedBookString in EquippedBook){
+            equippedBookListString += equippedBookString;
+            equippedBookListString += " ";
+        }
+
+        File.WriteAllLines(bookSaveFilePath, newSaveFileLines.ToArray());
+
+        GameManager.Instance.BloodManager.UpdateBloodSaveFile();
+    }
+
+    
+
     #endregion
 
 }

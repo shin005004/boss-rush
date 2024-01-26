@@ -6,21 +6,28 @@ using UnityEngine;
 
 public class BloodManager : MonoBehaviour
 {
-    public int Blood;
+    private int blood;
+    public int Blood => blood;
 
     private string bloodFilePath;
     private string bloodData;
 
     private void Awake(){
-        bloodFilePath = Path.Combine(Application.dataPath, "Datas", "Blood Data.txt");
+        bloodFilePath = Path.Combine(Application.dataPath, "Datas", "Save", "Blood Data.txt");
         bloodData = File.ReadAllText(bloodFilePath);
-        int.TryParse(bloodData, out Blood);
+        int.TryParse(bloodData, out blood);
     }
 
     public void AddBlood(int amount){
-        Blood += amount;
+        blood += amount;
     }
     public void UseBlood(int amount){
-        Blood -= amount;
+        blood -= amount;
+    }
+
+    public void UpdateBloodSaveFile(){
+        bloodFilePath = Path.Combine(Application.dataPath, "Datas", "Save", "Blood Data.txt");
+        bloodData = blood.ToString();
+        File.WriteAllText(bloodFilePath, bloodData);
     }
 }
