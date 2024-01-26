@@ -6,8 +6,7 @@ using UnityEngine;
 public class BookManager : MonoBehaviour
 {
     public string BookRoomType;
-
-
+    
 
     public void SetBookRoomType(string RoomType){
         BookRoomType = RoomType;
