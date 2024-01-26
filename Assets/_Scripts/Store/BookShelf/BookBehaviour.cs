@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.IO;
 using UnityEngine;
+using System;
 
 public class BookBehaviour : MonoBehaviour
 {    
@@ -29,10 +31,31 @@ public class BookBehaviour : MonoBehaviour
                 GameManager.Instance.GameStateManager.ChangeBookUIState();
             }
         }
+        else if (Input.GetMouseButtonDown(1)){
+            string bookNameLevel = BookName + "_" + (bookShelfSetting.BookShelfLevel + 1).ToString();
+            if(BookData.Instance.EquippedBookLevel[BookName] == 0){
+                int neededBlood = Convert.ToInt32(BookData.Instance.BookDetails[bookNameLevel]["Blood"]);
+                if(GameManager.Instance.BloodManager.Blood >= neededBlood){
+                    BookData.Instance.EquippedBookLevel[BookName] = bookShelfSetting.BookShelfLevel;
+                    GameManager.Instance.BloodManager.UseBlood(neededBlood);
+                    if(!BookData.Instance.EquippedBook.Contains(BookName)){ BookData.Instance.EquippedBook.Add(BookName); }
+                }
+            }
+            else if(BookData.Instance.EquippedBookLevel[BookName] < bookShelfSetting.BookShelfLevel){
+                string equippedBookNameLevel = BookName + "_" + BookData.Instance.EquippedBookLevel[BookName].ToString();
+                int neededBlood = Convert.ToInt32(BookData.Instance.BookDetails[bookNameLevel]["Blood"]) - Convert.ToInt32(BookData.Instance.BookDetails[equippedBookNameLevel]["Blood"]);
+                if(GameManager.Instance.BloodManager.Blood >= neededBlood){
+                    BookData.Instance.EquippedBookLevel[BookName] = bookShelfSetting.BookShelfLevel;
+                    GameManager.Instance.BloodManager.UseBlood(neededBlood);
+                    if(!BookData.Instance.EquippedBook.Contains(BookName)){ BookData.Instance.EquippedBook.Add(BookName); }
+                }
+            }
+        }
     }
 
     private void OnMouseExit()
     {
-        gameObject.GetComponent<Renderer>().material.color = Color.white;
+        if(BookData.Instance.EquippedBookLevel[BookName] < bookShelfSetting.BookShelfLevel) gameObject.GetComponent<Renderer>().material.color = Color.white;
+        else gameObject.GetComponent<Renderer>().material.color = new Color(169 / 255f, 169 / 255f, 169 / 255f, 255 / 255f);
     }
 }

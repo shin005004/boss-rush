@@ -57,6 +57,21 @@ public class BookData: MonoBehaviour
     public Dictionary<string, int> BossSkillCount = new Dictionary<string, int>();
     #endregion
 
+    #region Reset Equipped Books
+    public void ResetEquippedBook(){
+        foreach(string bookType in BookType){
+            foreach(string boss in BossList[bookType]){
+                for(int i = 1; i <= BossSkillCount[boss]; i++){
+                    string skillCount = i.ToString();
+                    string bookName = $"{boss}{skillCount}";
+                    EquippedBookLevel[bookName] = 0;
+                }
+            }
+        }
+        EquippedBook = new List<string>();
+    }
+
+    #endregion
 
     #region Reading Boss Data Text Files
     private void ReadFiles(){
