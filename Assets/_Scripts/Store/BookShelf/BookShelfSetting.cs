@@ -7,6 +7,8 @@ public class BookShelfSetting : MonoBehaviour
     [SerializeField] private GameObject bookPrefab;
     [SerializeField] private GameObject bookObjects;
     [SerializeField] private int bookLevel;
+    [SerializeField] private int maxBookLevel;
+    public int BookShelfLevel => bookLevel;
 
     private string roomSetting;
     private List<string> roomBossList;
@@ -57,9 +59,23 @@ public class BookShelfSetting : MonoBehaviour
                 bookObject.SetActive(true);
             }
             else{
-                bookObject.SetActive(true);
+                bookObject.SetActive(false);
             }
         }
     }
-    
+
+    public void IncreaseBookLevel(){
+        if(bookLevel != maxBookLevel){
+            bookLevel += 1;
+            SetBookLevel();
+        }
+    }
+
+    public void DecreaseBookLevel(){
+        if(bookLevel != 0){
+            bookLevel -= 1;
+            SetBookLevel();
+        }
+    }
+
 }

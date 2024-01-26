@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BookShelf : MonoBehaviour
+public class MiniBookShelf : MonoBehaviour
 {
     public string destination;
 

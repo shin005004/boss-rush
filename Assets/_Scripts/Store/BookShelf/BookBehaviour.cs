@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class BookBehaviour : MonoBehaviour
 {    
 
     public string BookName;
+    private BookShelfSetting bookShelfSetting;
 
     private void Start(){
         BookName = gameObject.name;
+        bookShelfSetting = GameObject.Find("BookShelf").GetComponent<BookShelfSetting>();
     }
 
     private void OnMouseEnter()
@@ -20,7 +23,11 @@ public class BookBehaviour : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            
+            StoreSceneUI.StoreBookName = BookName;
+            StoreSceneUI.StoreBookLevel = bookShelfSetting.BookShelfLevel;
+            if(GameManager.Instance.GameStateManager.BookUIState == BookUIState.Guide){
+                GameManager.Instance.GameStateManager.ChangeBookUIState();
+            }
         }
     }
 
