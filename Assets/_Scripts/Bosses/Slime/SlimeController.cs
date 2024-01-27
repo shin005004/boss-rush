@@ -218,8 +218,8 @@ public class SlimeController : BossController, ISlimeController
 
             case SlimeAction.Move:
 
-                currentActionId = SlimeAction.Stomp;
-                nextActionId = SlimeAction.Stomp;
+                currentActionId = SlimeAction.BigJump;
+                nextActionId = SlimeAction.BigJump;
 
                 break;
 
