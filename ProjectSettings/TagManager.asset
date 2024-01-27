@@ -14,8 +14,8 @@ TagManager:
   - 
   - PlayerHibox
   - BossHitbox
-  - 
-  - 
+  - PlayerHurtbox
+  - BossHurtbox
   - 
   - 
   - 

@@ -16,6 +16,7 @@ public class SlimeAnimator : MonoBehaviour
     {
         _slimeController.ChangeSlimeAction += OnSlimeActionChanged;
         _slimeController.BigJumpAnimationEvent += BigJumpAnimationChanged;
+        _slimeController.StompAnimationEvent += StompAnimationChanged;
     }
 
     #region UPDATE
@@ -28,14 +29,18 @@ public class SlimeAnimator : MonoBehaviour
     #endregion
 
     #region BRAIN
-    
+    private SlimeAction currentAction;
     private void OnSlimeActionChanged(SlimeAction slimeAction, float animationTime)
     {
+        currentAction = slimeAction;
+
         switch (slimeAction)
         {
-            case SlimeAction.BigJump:
-                isJumping = true;
+            case SlimeAction.BigJump:        
                 bigJumpAnimationTime = animationTime;
+                break;
+            case SlimeAction.Stomp:
+                stompAnimationTime = animationTime;
                 break;
         }
     }
@@ -44,14 +49,25 @@ public class SlimeAnimator : MonoBehaviour
 
     #region JUMP
 
-    private bool isJumping = false;
-    private float bigJumpAnimationTime = 1f;
+    
+    private float bigJumpAnimationTime = 0.5f;
 
     private void BigJumpAnimationChanged(int animationNumber)
     {
         _anim.SetTrigger("BigJump");
     }
 
+    #endregion
+
+
+    #region STOMP
+
+    private float stompAnimationTime = 1f;
+
+    private void StompAnimationChanged(int animationNumber)
+    {
+        _anim.SetTrigger("Stomp");
+    }
     #endregion
 
     #region ANIMATION
@@ -73,14 +89,19 @@ public class SlimeAnimator : MonoBehaviour
             if (Time.time < lockedTill) return currentState;
 
             // BigJump
-            if (isJumping)
+            if (currentAction == SlimeAction.BigJump)
                 return LockState(Jump, bigJumpAnimationTime);
+
+            // Stomp
+            if (currentAction == SlimeAction.Stomp)
+                return LockState(Jump, stompAnimationTime);
+
 
             // Idle and Run
             if (_slimeController.CurrentAction == SlimeAction.Move)
                 return Move;
 
-            return Idle;
+            return currentState;
 
             int LockState(int s, float t)
             {
@@ -91,7 +112,7 @@ public class SlimeAnimator : MonoBehaviour
 
         void ResetFlags()
         {
-            isJumping = false;
+            currentAction = SlimeAction.Idle;
         }
     }
 

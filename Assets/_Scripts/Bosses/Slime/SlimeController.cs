@@ -10,6 +10,7 @@ public class SlimeController : BossController, ISlimeController
     public SlimeAction CurrentAction => currentActionId;
     public event Action<SlimeAction, float> ChangeSlimeAction;
     public event Action<int> BigJumpAnimationEvent;
+    public event Action<int> StompAnimationEvent;
     #endregion
 
     protected int BossHP;
@@ -34,9 +35,10 @@ public class SlimeController : BossController, ISlimeController
         HandleBrain();
         MoveTowardPlayer();
         HandleBigJump();
+        HandleStomp();
     }
 
-    #region JUMP
+    #region JUMP_ATTACK
 
     private bool isJumping = false;
     private float maxJumpDistance = 4f;
@@ -91,6 +93,65 @@ public class SlimeController : BossController, ISlimeController
         }
 
         yield return new WaitForSeconds(1f);
+
+        isJumping = false;
+        chooseNextAction = true;
+    }
+
+    #endregion
+
+    #region STOMP_ATTACK
+
+    private void HandleStomp()
+    {
+        if (nextActionId != SlimeAction.Stomp) return;
+        if (isJumping) return;
+        nextActionId = SlimeAction.Idle;
+
+        isJumping = true;
+
+        jumpStartPosition = transform.position;
+        jumpDestination = _player.transform.position;
+
+        ChangeSlimeAction?.Invoke(SlimeAction.Stomp, 10f);
+        StartCoroutine(StompAttack());
+    }
+
+    private IEnumerator StompAttack()
+    {
+        StompAnimationEvent?.Invoke(1);
+        yield return new WaitForSeconds(1f);
+
+        StompAnimationEvent?.Invoke(2);
+        float totalTime = 2f;
+        for (float elapsedTime = 0; elapsedTime < totalTime; elapsedTime += Time.deltaTime)
+        {
+            Vector3 targetPosition = transform.position;
+
+            targetPosition.y += 50f / totalTime * Time.deltaTime;
+            transform.position = targetPosition;
+
+            yield return null;
+        }
+
+        Vector3 destination = jumpDestination;
+        destination.y += 50f;
+        transform.position = destination;
+
+        StompAnimationEvent?.Invoke(3);
+        totalTime = 1f;
+        for (float elapsedTime = 0; elapsedTime < totalTime; elapsedTime += Time.deltaTime)
+        {
+            Vector3 targetPosition = transform.position;
+
+            targetPosition.y -= 50f / totalTime * Time.deltaTime;
+            transform.position = targetPosition;
+
+            yield return null;
+        }
+
+        StompAnimationEvent?.Invoke(4);
+        yield return new WaitForSeconds(3f);
 
         isJumping = false;
         chooseNextAction = true;
@@ -157,12 +218,19 @@ public class SlimeController : BossController, ISlimeController
 
             case SlimeAction.Move:
 
-                currentActionId = SlimeAction.BigJump;
-                nextActionId = SlimeAction.BigJump;
+                currentActionId = SlimeAction.Stomp;
+                nextActionId = SlimeAction.Stomp;
 
                 break;
 
             case SlimeAction.BigJump:
+
+                currentActionId = SlimeAction.Move;
+                nextActionId = SlimeAction.Move;
+
+                break;
+
+            case SlimeAction.Stomp:
 
                 currentActionId = SlimeAction.Move;
                 nextActionId = SlimeAction.Move;
@@ -181,7 +249,7 @@ public enum SlimeAction
     Move = 1,
     Attack = 2,
     BigJump = 3,
-    JumpAttack = 4,
+    Stomp = 4,
 }
 
 public interface ISlimeController
@@ -189,6 +257,7 @@ public interface ISlimeController
     public SlimeAction CurrentAction { get; }
     public event Action<SlimeAction, float> ChangeSlimeAction;
     public event Action<int> BigJumpAnimationEvent;
+    public event Action<int> StompAnimationEvent;
 }
 
 public class BossStatsSO

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Sword : MonoBehaviour
@@ -10,6 +11,9 @@ public class Sword : MonoBehaviour
     [Header("VFX")]
     public Vector3 SpawnOffset;
     public GameObject SwordSlashVFX;
+
+    [Header("WeaponHitbox")]
+    public Transform[] colliderTransforms;
 
     public void SpawnVFX(int vfxID)
     {
@@ -31,5 +35,23 @@ public class Sword : MonoBehaviour
                 break;
         }
         
+    }
+
+    public void SetColliderOn(int index)
+    {
+        var colliderList = colliderTransforms[index].GetComponents<Collider2D>();
+        foreach (var collider in colliderList)
+        {
+            collider.enabled = true;
+        }
+    }
+
+    public void SetColliderOff(int index)
+    {
+        var colliderList = colliderTransforms[index].GetComponents<Collider2D>();
+        foreach (var collider in colliderList)
+        {
+            collider.enabled = false;
+        }
     }
 }
