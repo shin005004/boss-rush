@@ -10,8 +10,11 @@ public class MapUI : MonoBehaviour
 
     private VisualElement _popUpLayer, _scrim, _map, _mapInfo, _closeButton, _mapInfoButton;
     private VisualElement[] _stages = new VisualElement[3];
+    private Label _mapNameElement;
     private int _tmpStage = 0;
     private bool _stageChange = false;
+    private List<string> _mapNames = new List<string>() {"tutorial", "Thor", "Surtur"}; // this may be expanded as data file
+    private List<bool> _mapUnlocked = new List<bool>() {true, false, false}; // this may be expanded as data file
     public bool MapAppear = false;
 
     #endregion
@@ -30,11 +33,12 @@ public class MapUI : MonoBehaviour
 
         _closeButton = _mapInfo.Q<VisualElement>("CloseButton");
         _mapInfoButton = _mapInfo.Q<VisualElement>("MapInfoButton");
+        _mapNameElement = _mapInfo.Q<Label>("MapName");
 
         _scrim.RegisterCallback<ClickEvent>(OnCloseMap);
         _scrim.RegisterCallback<TransitionEndEvent>(ClosePopUp);
         _closeButton.RegisterCallback<ClickEvent>(OnCloseMapInfo);
-        _mapInfoButton.RegisterCallback<ClickEvent>(MapMove);
+        _mapInfoButton.RegisterCallback<ClickEvent, VisualElement>(MapMove, _mapInfoButton);
         _mapInfo.RegisterCallback<TransitionEndEvent>(MapInfoStageChange);
 
         _popUpLayer.style.display = DisplayStyle.None;
@@ -91,8 +95,18 @@ public class MapUI : MonoBehaviour
     #endregion
     private void SetMapInfo() {
         // Change Map Information
+        _mapInfoButton.viewDataKey = _tmpStage.ToString();
+        if (!_mapUnlocked[_tmpStage]) {
+            _mapNameElement.text = "???";
+        }
+        else {
+            _mapNameElement.text = _mapNames[_tmpStage];
+        }
     }
-    private void MapMove(ClickEvent clickEvent) {
+    private void MapMove(ClickEvent clickEvent, VisualElement visualElement) {
         // Scene moving
+        if (_mapUnlocked[_tmpStage]) {    
+            Debug.Log(visualElement.viewDataKey);
+        }
     }
 }
