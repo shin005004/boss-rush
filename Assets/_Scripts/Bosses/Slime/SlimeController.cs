@@ -93,7 +93,7 @@ public class SlimeController : BossController, ISlimeController
         yield return new WaitForSeconds(1f);
 
         isJumping = false;
-        isActionEnd = true;
+        chooseNextAction = true;
     }
 
     #endregion
@@ -102,6 +102,11 @@ public class SlimeController : BossController, ISlimeController
     [SerializeField] private float bossSpeed = 10f;
     private void MoveTowardPlayer()
     {
+        if (nextActionId == SlimeAction.Move)
+        {
+            nextActionId = SlimeAction.Idle;
+            StartCoroutine(MoveReset());
+        }
         if (currentActionId != SlimeAction.Move) return;
 
         var destination = _player.transform.position;
@@ -120,19 +125,26 @@ public class SlimeController : BossController, ISlimeController
         else
             SlimeVisualTransform.localScale = normalScale;
     }
+
+    private IEnumerator MoveReset()
+    {
+        yield return new WaitForSeconds(3f);
+
+        chooseNextAction = true;
+    }
     #endregion
 
     #region BRAIN
-    private bool isActionEnd = true;
+    private bool chooseNextAction = true;
     private SlimeAction nextActionId = 0;
     private SlimeAction currentActionId = 0;
     //private float currentActionTime = 0f;
 
     private void HandleBrain()
     {
-        if (!isActionEnd) return;
+        if (!chooseNextAction) return;
 
-        isActionEnd = false;
+        chooseNextAction = false;
 
         switch (currentActionId)
         {
