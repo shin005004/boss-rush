@@ -9,7 +9,9 @@
         </ui:VisualElement>
         <ui:VisualElement name="MapInfo" class="MapInfo--Closed" style="flex-direction: row-reverse;">
             <ui:VisualElement name="CloseButton" class="CloseButton" />
-            <ui:VisualElement name="MapInfoButton" class="MapInfoButton" />
+            <ui:VisualElement name="MapInfoButton" class="MapInfoButton">
+                <ui:Label tabindex="-1" text="Move" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Move" style="width: 100%; height: 80%; -unity-font: url(&apos;project://database/Assets/Fonts/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/Materials/ThaleahFat_TTF%20SDF.asset?fileID=11400000&amp;guid=821ae0e5d801212488aa17896de90cce&amp;type=2#ThaleahFat_TTF SDF&apos;); -unity-text-align: middle-center; font-size: 100px; bottom: 10%;" />
+            </ui:VisualElement>
             <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MapName" style="position: absolute; width: 100%; height: 12%; font-size: 80px; -unity-font: url(&apos;project://database/Assets/Fonts/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/Materials/ThaleahFat_TTF%20SDF.asset?fileID=11400000&amp;guid=821ae0e5d801212488aa17896de90cce&amp;type=2#ThaleahFat_TTF SDF&apos;); -unity-text-align: middle-center; top: 8%; -unity-background-scale-mode: scale-to-fit;" />
         </ui:VisualElement>
     </ui:VisualElement>

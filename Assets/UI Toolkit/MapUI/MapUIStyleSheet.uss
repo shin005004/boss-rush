@@ -89,6 +89,7 @@
     left: 5%;
     background-image: url('project://database/Assets/Sprites/UI/WorldMapUI/StageInfoButton.png?fileID=2800000&guid=3635fe2c577033349afb2bc24095b910&type=3#StageInfoButton');
     -unity-background-scale-mode: scale-to-fit;
+    flex-direction: column-reverse;
 }
 
 .MapInfoButton:hover {
