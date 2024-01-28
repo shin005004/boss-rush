@@ -49,10 +49,17 @@ public class MapUI : MonoBehaviour
             OnOpenMap();
             MapAppear = false;
         }
+        if (!GameManager.Instance.GameStateManager.UIOpened && _popUpLayer.style.display.Equals(DisplayStyle.Flex)) {
+            GameManager.Instance.GameStateManager.UIOpened = true; // to handle overlap problem 
+            Debug.Log(GameManager.Instance.GameStateManager.UIOpened);
+        }
     }
     #region //PopUpManagement
     private void OnOpenMap() {
         _popUpLayer.style.display = DisplayStyle.Flex;
+        GameManager.Instance.GameStateManager.UIOpened = true; // UI State Open
+
+        Debug.Log(GameManager.Instance.GameStateManager.UIOpened);
 
         Invoke("ActiveMap", 0.1f);
     }
@@ -68,6 +75,9 @@ public class MapUI : MonoBehaviour
     private void ClosePopUp(TransitionEndEvent transitionEndEvent) {
         if (!_scrim.ClassListContains("Scrim--Opened")) {
             _popUpLayer.style.display = DisplayStyle.None;
+            GameManager.Instance.GameStateManager.UIOpened = false; // UI State Close
+
+            Debug.Log(GameManager.Instance.GameStateManager.UIOpened);
         }
     }
     private void OnOpenMapInfo(ClickEvent clickEvent, VisualElement visualElement) {

@@ -138,6 +138,9 @@ public class StoreSceneUI : MonoBehaviour
         _bag.AddToClassList("BagSprite--Opened");
         _popUpLayer.style.display = DisplayStyle.Flex;
 
+        GameManager.Instance.GameStateManager.UIOpened = true; // UI State Open
+        Debug.Log(GameManager.Instance.GameStateManager.UIOpened);
+
         Invoke("ActiveBook", 0.1f);
     }
     private void OnCloseBook(ClickEvent evt)
@@ -159,6 +162,9 @@ public class StoreSceneUI : MonoBehaviour
         if (!_book.ClassListContains("BookSprite--Opened")) 
         {
             _popUpLayer.style.display = DisplayStyle.None;
+
+            GameManager.Instance.GameStateManager.UIOpened = false; // UI State Close
+            Debug.Log(GameManager.Instance.GameStateManager.UIOpened);
         }
     }
     #endregion

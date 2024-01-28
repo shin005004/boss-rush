@@ -13,6 +13,7 @@ public enum BookUIState {
 public class GameStateManager : MonoBehaviour 
 {   
     public BookUIState BookUIState {get; private set;}
+    public bool UIOpened = false;
     void Start()
     {
         BookUIState = BookUIState.Guide;
