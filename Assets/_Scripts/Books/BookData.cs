@@ -47,7 +47,6 @@ public class BookData: MonoBehaviour
     public Dictionary<string, List<string>> BossList = new Dictionary<string, List<string>>();
     public Dictionary<string, Dictionary<string, List<string>>> BookList = new Dictionary<string, Dictionary<string, List<string>>>();
     public List<string> BookNameList = new List<string>();
-    public List<string> BookNameLevelList = new List<string>();
 
     public Dictionary<string, int> UnlockedBookLevel = new Dictionary<string, int>();
     public Dictionary<string, int> EquippedBookLevel = new Dictionary<string, int>();
@@ -107,10 +106,10 @@ public class BookData: MonoBehaviour
 
         currentBook = "";
         foreach(string line in bookDetailsLines){
-            if(string.IsNullOrWhiteSpace(line) || (currentBook == "" && !BookNameLevelList.Contains(line))){
+            if(string.IsNullOrWhiteSpace(line) || (currentBook == "" && !BookNameList.Contains(line))){
                 
             }
-            else if(BookNameLevelList.Contains(line)){
+            else if(BookNameList.Contains(line)){
                 currentBook = line;
             }
             else{
@@ -146,8 +145,6 @@ public class BookData: MonoBehaviour
                     string skillCount = i.ToString();
                     string bookName = $"{boss}{skillCount}";
                     BookList[bookType][boss].Add(bookName);
-                    BookNameLevelList.Add(bookName+"_1");
-                    BookNameLevelList.Add(bookName+"_2");
                     BookNameList.Add(bookName);
                     UnlockedBookLevel[bookName] = 0;
                     EquippedBookLevel[bookName] = 0;
@@ -171,16 +168,16 @@ public class BookData: MonoBehaviour
         foreach(string line in bookSaveFileLines){
             if(string.IsNullOrWhiteSpace(line.Trim())){ saveFileType = ""; }
             else if(saveFileType == ""){
-                if(line.Trim() == "Unlocked Book Level"){ saveFileType = "Unlocked Book Level"; }
-                else if(line.Trim() == "Equipped Book Level"){ saveFileType = "Equipped Book Level"; }
+                if(line.Trim() == "Unlocked Book List"){ saveFileType = "Unlocked Book List"; }
+                else if(line.Trim() == "Equipped Book List"){ saveFileType = "Equipped Book List"; }
                 else if(line.Trim() == "Equipped Book"){ saveFileType = "Equipped Book"; }
             }
-            else if(saveFileType == "Unlocked Book Level"){
+            else if(saveFileType == "Unlocked Book List"){
                 fileBookName = line.Split(':')[0].Trim();
                 fileBookLevel = Convert.ToInt32(line.Split(':')[1].Trim());
                 UnlockedBookLevel[fileBookName] = fileBookLevel;
             }
-            else if(saveFileType == "Equipped Book Level"){
+            else if(saveFileType == "Equipped Book List"){
                 fileBookName = line.Split(':')[0].Trim();
                 fileBookLevel = Convert.ToInt32(line.Split(':')[1].Trim());
                 EquippedBookLevel[fileBookName] = fileBookLevel;
@@ -200,13 +197,13 @@ public class BookData: MonoBehaviour
 
         newSaveFileLines = new List<string>();
 
-        newSaveFileLines.Add("Unlocked Book Level");
+        newSaveFileLines.Add("Unlocked Book List");
         foreach(string bookName in BookNameList){
             newSaveFileLines.Add(bookName + ": " + UnlockedBookLevel[bookName].ToString());
         }
         newSaveFileLines.Add("");
         
-        newSaveFileLines.Add("Equipped Book Level");
+        newSaveFileLines.Add("Equipped Book List");
         foreach(string bookName in BookNameList){
             newSaveFileLines.Add(bookName + ": " + EquippedBookLevel[bookName].ToString());
         }

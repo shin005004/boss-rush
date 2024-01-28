@@ -8,9 +8,9 @@ public class BookShelfSetting : MonoBehaviour
     [SerializeField] private GameObject bookObjects;
     [SerializeField] private int bookShelfLevel;
     [SerializeField] private int maxBookLevel;
-    [SerializeField] private GameObject bookShelfLevelObject;
-    [SerializeField] private Sprite[] bookShelfLevelSprites;
-    public int BookShelfLevel => bookShelfLevel;
+    // [SerializeField] private GameObject bookShelfLevelObject;
+    // [SerializeField] private Sprite[] bookShelfLevelSprites;
+    // public int BookShelfLevel => bookShelfLevel;
 
     private string roomSetting;
     private List<string> roomBossList;
@@ -51,10 +51,10 @@ public class BookShelfSetting : MonoBehaviour
             bookY -= 1.6f;
         }
 
-        SetBookLevel();
+        SetBookActive();
     }
 
-    private void SetBookLevel(){
+    private void SetBookActive(){
         foreach(GameObject bookObject in bookObjectList){
             if(bookShelfLevel <= BookData.Instance.UnlockedBookLevel[bookObject.name]){
                 bookObject.SetActive(true);
@@ -64,21 +64,21 @@ public class BookShelfSetting : MonoBehaviour
             }
         }
 
-        bookShelfLevelObject.GetComponent<SpriteRenderer>().sprite = bookShelfLevelSprites[bookShelfLevel-1];
+        // bookShelfLevelObject.GetComponent<SpriteRenderer>().sprite = bookShelfLevelSprites[bookShelfLevel-1];
     }
 
-    public void IncreaseBookLevel(){
-        if(bookShelfLevel != maxBookLevel){
-            bookShelfLevel += 1;
-            SetBookLevel();
-        }
-    }
+    // public void IncreaseBookLevel(){
+    //     if(bookShelfLevel != maxBookLevel){
+    //         bookShelfLevel += 1;
+    //         SetBookLevel();
+    //     }
+    // }
 
-    public void DecreaseBookLevel(){
-        if(bookShelfLevel != 1){
-            bookShelfLevel -= 1;
-            SetBookLevel();
-        }
-    }
+    // public void DecreaseBookLevel(){
+    //     if(bookShelfLevel != 1){
+    //         bookShelfLevel -= 1;
+    //         SetBookLevel();
+    //     }
+    // }
 
 }

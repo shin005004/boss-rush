@@ -22,16 +22,16 @@ public class BookLevelArrow : MonoBehaviour
         gameObject.GetComponent<Renderer>().material.color = Color.white;
     }
     
-    private void OnMouseOver()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            if(arrowType == "Left"){
-                bookShelfSetting.DecreaseBookLevel();
-            }
-            else if(arrowType == "Right"){
-                bookShelfSetting.IncreaseBookLevel();    
-            }
-        }
-    }
+    // private void OnMouseOver()
+    // {
+    //     if (Input.GetMouseButtonDown(0))
+    //     {
+    //         if(arrowType == "Left"){
+    //             bookShelfSetting.DecreaseBookLevel();
+    //         }
+    //         else if(arrowType == "Right"){
+    //             bookShelfSetting.IncreaseBookLevel();    
+    //         }
+    //     }
+    // }
 }

@@ -1,4 +1,4 @@
-Unlocked Book Level
+Unlocked Book List
 Thor1: 1
 Thor2: 0
 Thor3: 1
@@ -8,7 +8,7 @@ Surtur2: 1
 Surtur3: 0
 Surtur4: 1
 
-Equipped Book Level
+Equipped Book List
 Thor1: 0
 Thor2: 0
 Thor3: 0
