@@ -119,11 +119,11 @@ public class StoreSceneUI : MonoBehaviour
             _tmpState = GameManager.Instance.GameStateManager.BookUIState;
             switch (_tmpState) {
                 case BookUIState.Guide:
-                    InformToGuide();
+                    Invoke("InformToGuide", 0.5f);
                     break;
                 case BookUIState.Inform:
-                    GuideToInform(StoreBookName, StoreBookLevel);
-                    OnOpenBook();
+                    GuideToInform();
+                    Invoke("OnOpenBook", 0.1f);
                     break;
                 
             }
@@ -147,7 +147,6 @@ public class StoreSceneUI : MonoBehaviour
         _book.RemoveFromClassList("BookSprite--Opened");
         if (GameManager.Instance.GameStateManager.BookUIState == BookUIState.Inform) {
             GameManager.Instance.GameStateManager.ChangeBookUIState();
-            _tmpState = GameManager.Instance.GameStateManager.BookUIState;
         }
     }
     private void ActiveBook() 
@@ -435,26 +434,33 @@ public class StoreSceneUI : MonoBehaviour
     }
     #endregion
     #region //BookUI--guide--inform
-    private void GuideToInform(string bookName, int bookLevel) {
+    private void GuideToInform() {
         Sprite bookNewSprite = Resources.Load<Sprite>("Sprites/InventoryUI/BookOpened2");
         _book.style.backgroundImage = new StyleBackground(bookNewSprite);
         _leftArrow.style.display = DisplayStyle.None;
         _rightArrow.style.display = DisplayStyle.None;
+        for (int i = 0; i < _indexs.Length; i++) {
+            _indexs[i].style.display = DisplayStyle.None;
+        }
         _tmpSection = 1;
-        string bookFullName = bookName;
-        if (bookLevel == 1) {
+        string bookFullName = StoreBookName;
+        if (StoreBookLevel == 1) {
             bookFullName += "_1";
         }
-        else if (bookLevel == 2) {
+        else if (StoreBookLevel == 2) {
             bookFullName += "_2";
         }
         _tmpPage = _bookUIPage.InfoPages.IndexOf(bookFullName) + 1;
         ChangeSectionUI();
     }
     private void InformToGuide() {
-        _book.style.backgroundImage = StyleKeyword.Null;
-        _leftArrow.style.display = StyleKeyword.Null;
-        _rightArrow.style.display = StyleKeyword.Null;
+        Sprite bookPreSprite = Resources.Load<Sprite>("Sprites/InventoryUI/BookOpened");
+        _book.style.backgroundImage = new StyleBackground(bookPreSprite);
+        _leftArrow.style.display = DisplayStyle.Flex;
+        _rightArrow.style.display = DisplayStyle.Flex;
+        for (int i = 0; i < _indexs.Length; i++) {
+            _indexs[i].style.display = DisplayStyle.Flex;
+        }
         _tmpSection = _baseSection;
         _tmpPage = _basePage;
         ChangeSectionUI();

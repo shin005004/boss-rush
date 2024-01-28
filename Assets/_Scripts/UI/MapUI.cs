@@ -14,7 +14,7 @@ public class MapUI : MonoBehaviour
     private int _tmpStage = 0;
     private bool _stageChange = false;
     private List<string> _mapNames = new List<string>() {"tutorial", "Thor", "Surtur"}; // this may be expanded as data file
-    private List<bool> _mapUnlocked = new List<bool>() {true, false, false}; // this may be expanded as data file
+    private List<bool> _mapUnlocked = new List<bool>() {false, true, true}; // this may be expanded as data file
     public bool MapAppear = false;
 
     #endregion
@@ -96,7 +96,7 @@ public class MapUI : MonoBehaviour
     private void SetMapInfo() {
         // Change Map Information
         _mapInfoButton.viewDataKey = _tmpStage.ToString();
-        if (!_mapUnlocked[_tmpStage]) {
+        if (_mapUnlocked[_tmpStage]) {
             _mapNameElement.text = "???";
         }
         else {
