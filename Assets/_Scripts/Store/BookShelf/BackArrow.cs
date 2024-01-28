@@ -1,25 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class BackArrow : MonoBehaviour
+public class BackArrow : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
-    private void OnMouseEnter()
+    private Image image;
+
+    private void Awake()
     {
-        gameObject.GetComponent<Renderer>().material.color = new Color(169 / 255f, 169 / 255f, 169 / 255f, 255 / 255f);
+        image = GetComponent<Image>();
     }
 
-    private void OnMouseOver()
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        // Debug.Log("Arrow");
-        if (Input.GetMouseButtonDown(0))
-        {
-            SceneLoader.Instance.LoadMainStoreScene();
-        }
+        image.color = new Color(169 / 255f, 169 / 255f, 169 / 255f, 1f);
     }
 
-    private void OnMouseExit()
+    public void OnPointerExit(PointerEventData eventData)
     {
-        gameObject.GetComponent<Renderer>().material.color = Color.white;
+        image.color = Color.white;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        SceneLoader.Instance.LoadMainStoreScene();
     }
 }
