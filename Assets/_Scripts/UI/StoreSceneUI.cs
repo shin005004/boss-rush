@@ -309,7 +309,7 @@ public class StoreSceneUI : MonoBehaviour
         string[] bookNumberStrings = new string[_bookUIPage.InfoPages.Count];
         string[] bookNumbers = new string[_bookUIPage.InfoPages.Count];
         for (int i = 0; i < _bookUIPage.InfoPages.Count; i++) {
-            string spritePath = "Sprites/InventoryUI/BookUI/" + _bookUIPage.InfoPages[i];
+            string spritePath = "Sprites/InventoryUI/BookUI/" + _bookUIPage.InfoPages[i] + "_1";
             bookIconSprites[i] = Resources.Load<Sprite>(spritePath);
             string bookNumber = (i + 1).ToString();
             bookNumbers[i] = bookNumber;
@@ -336,18 +336,12 @@ public class StoreSceneUI : MonoBehaviour
             }
             slot.style.display = DisplayStyle.Flex;
 
-            string bookFullName = _bookUIPage.InfoPages[slotIndex - 1];
-            int bookLevel = int.Parse(bookFullName.Substring(bookFullName.IndexOf("_") + 1, 1));
-            string bookName = bookFullName.Substring(0, bookFullName.IndexOf("_"));
+            string bookName = _bookUIPage.InfoPages[slotIndex - 1];
             string bookDetailedName = "???";
-            Sprite bookIcon = Resources.Load<Sprite>("Sprites/InventoryUI/BookUI/Unknown" + bookLevel);
-            if (BookData.Instance.UnlockedBookLevel[bookName] == 2) {
+            Sprite bookIcon = Resources.Load<Sprite>("Sprites/InventoryUI/BookUI/Unknown1");
+            if (BookData.Instance.UnlockedBookLevel[bookName] == 1) {
                 bookIcon = bookIconSprites[slotIndex - 1];
-                bookDetailedName = BookData.Instance.BookDetails[bookFullName]["Name"].ToString();
-            }
-            else if (BookData.Instance.UnlockedBookLevel[bookName] == 1 && bookLevel == 1) {
-                bookIcon = bookIconSprites[slotIndex - 1];
-                bookDetailedName = BookData.Instance.BookDetails[bookFullName]["Name"].ToString();
+                bookDetailedName = BookData.Instance.BookDetails[bookName]["Name"].ToString();
             }
         
             Label bookNumberElement = slot.Q<Label>("BookNumber");
@@ -355,7 +349,7 @@ public class StoreSceneUI : MonoBehaviour
             Label bookNameElement = slot.Q<Label>("BookName");
             bookNumberElement.text = bookNumberStrings[slotIndex - 1];
             bookIconElement.style.backgroundImage = new StyleBackground(bookIcon);
-            slot.viewDataKey = (_bookUIPage.InfoPages.IndexOf(bookFullName) + 1).ToString();
+            slot.viewDataKey = (_bookUIPage.InfoPages.IndexOf(bookName) + 1).ToString();
             bookNameElement.text = bookDetailedName;
         }
     }
@@ -371,18 +365,16 @@ public class StoreSceneUI : MonoBehaviour
             default:
                 break;
         }
-        string bookFullName = _bookUIPage.InfoPages[_tmpPage - 1];
-        int bookLevel = int.Parse(bookFullName.Substring(bookFullName.IndexOf("_") + 1, 1));
-        string bookName = bookFullName.Substring(0, bookFullName.IndexOf("_"));
+        string bookName = _bookUIPage.InfoPages[_tmpPage - 1];
         string bookDetailedName = "???";
         string bookDetailedBlood = "???";
         string bookDetailedDescription = "???";
-        Sprite bookIcon = Resources.Load<Sprite>("Sprites/InventoryUI/BookUI/Unknown" + bookLevel);
-        if (BookData.Instance.UnlockedBookLevel[bookName] == 2 || BookData.Instance.UnlockedBookLevel[bookName] == 1 && bookLevel == 1) {
-            bookIcon = Resources.Load<Sprite>("Sprites/InventoryUI/BookUI/" + bookFullName);
-            bookDetailedName = BookData.Instance.BookDetails[bookFullName]["Name"].ToString();
-            bookDetailedBlood = BookData.Instance.BookDetails[bookFullName]["Blood"].ToString();
-            bookDetailedDescription = BookData.Instance.BookDetails[bookFullName]["Description"].ToString().Replace("\\n", "\n");
+        Sprite bookIcon = Resources.Load<Sprite>("Sprites/InventoryUI/BookUI/Unknown1");
+        if (BookData.Instance.UnlockedBookLevel[bookName] == 1) {
+            bookIcon = Resources.Load<Sprite>("Sprites/InventoryUI/BookUI/" + bookName + "_1");
+            bookDetailedName = BookData.Instance.BookDetails[bookName]["Name"].ToString();
+            bookDetailedBlood = BookData.Instance.BookDetails[bookName]["Blood"].ToString();
+            bookDetailedDescription = BookData.Instance.BookDetails[bookName]["Description"].ToString().Replace("\\n", "\n");
         }
         
         Label bookNumberElement = _sectionBookInfo.Q<Label>("BookNumber");

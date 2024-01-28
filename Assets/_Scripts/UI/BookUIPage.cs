@@ -16,17 +16,7 @@ public class BookUIPage : MonoBehaviour
     public int[] Pages = {1, 1, 1};
     public int SlotNumber = 8;
     public void SetPageList(List<string> infoPages, int[] pages) {
-        foreach (string bookType in BookData.Instance.BookType) {
-            foreach (string boss in BookData.Instance.BossList[bookType]) {
-                    for(int i = 1; i <= BookData.Instance.BossSkillCount[boss]; i++){
-                        string skillCount = i.ToString();
-                        string bookName1 = $"{boss}{skillCount}" + "_1";
-                        string bookName2 = $"{boss}{skillCount}" + "_2";
-                        infoPages.Add(bookName1);
-                        infoPages.Add(bookName2);
-                }
-            }
-        }
+        InfoPages = BookData.Instance.BookNameList;
         pages[(int)Section.Index] = (infoPages.Count - 1) / SlotNumber + 1;
         pages[(int)Section.Info] = infoPages.Count;
         pages[(int)Section.Equipped] = (BookData.Instance.EquippedBook.Count - 1) / SlotNumber + 1;
