@@ -15,7 +15,7 @@ public class MapUI : MonoBehaviour
     private bool _stageChange = false;
     private List<string> _mapNames = new List<string>() {"tutorial", "Thor", "Surtur"}; // this may be expanded as data file
     private List<bool> _mapUnlocked = new List<bool>() {false, true, true}; // this may be expanded as data file
-    public bool MapAppear = false;
+    public static bool MapAppear = false;
 
     #endregion
     void Start()
