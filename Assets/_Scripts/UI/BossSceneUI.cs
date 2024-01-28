@@ -68,4 +68,7 @@ public class BossSceneUI : MonoBehaviour
             else { bullet.GetComponent<UnityEngine.UI.Image>().color = Color.grey; }
         }
     }
+    #region //quest
+    
+    #endregion
 }
