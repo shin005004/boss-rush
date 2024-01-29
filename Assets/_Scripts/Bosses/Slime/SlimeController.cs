@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SlimeController : BossController, ISlimeController
@@ -148,7 +149,7 @@ public class SlimeController : BossController, ISlimeController
     {
         StompAnimationEvent?.Invoke(1);
 
-        _slimeWarner.ShowStompWarner(jumpDestination + new Vector2(0f, -2.15f), true);
+        _slimeWarner.ShowStompWarner(jumpDestination + new Vector2(0f, -1.4f), true);
         yield return new WaitForSeconds(1f);
 
         bossCollider.enabled = false;
@@ -173,18 +174,18 @@ public class SlimeController : BossController, ISlimeController
         totalTime = 1f;
         for (float elapsedTime = 0; elapsedTime < totalTime; elapsedTime += Time.deltaTime)
         {
-            Vector3 targetPosition = transform.position;
+            Vector2 targetOffset = Vector2.zero;
 
-            targetPosition.y -= 50f / totalTime * Time.deltaTime;
-            transform.position = targetPosition;
+            targetOffset.y = 50f - elapsedTime * 50f;
+            transform.position = jumpDestination + targetOffset;
 
             yield return null;
         }
 
         bossCollider.enabled = true;
 
-        _slimeWarner.ShowStompWarner(jumpDestination + new Vector2(0f, -2.15f), false);
-        Instantiate(DustShockwave, jumpDestination + new Vector2(0f, -2.15f), Quaternion.identity);
+        _slimeWarner.ShowStompWarner(jumpDestination + new Vector2(0f, -1.4f), false);
+        Instantiate(DustShockwave, jumpDestination + new Vector2(0f, -1.4f), Quaternion.identity);
 
         StompAnimationEvent?.Invoke(4);
         yield return new WaitForSeconds(3f);
@@ -410,6 +411,7 @@ public class SlimeController : BossController, ISlimeController
             if (currentActionId == SlimeAction.Move)
                 StartCoroutine(HitKnockback());
 
+            OnBossHit();
             BossHP--;
 
             if (BossHP == 0)
@@ -417,6 +419,15 @@ public class SlimeController : BossController, ISlimeController
             Debug.Log("BossHit");
         }
     }
+
+    [SerializeField] private BossSceneUI bossSceneUI;
+
+    private void OnBossHit()
+    {
+        bossSceneUI.Blood -= 2;
+    }
+
+
 
     private float knockbackStartVelocity = 6f;
 
