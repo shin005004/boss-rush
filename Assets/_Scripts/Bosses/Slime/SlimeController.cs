@@ -425,6 +425,7 @@ public class SlimeController : BossController, ISlimeController
     private void OnBossHit()
     {
         bossSceneUI.Blood -= 2;
+        GameManager.Instance.BloodManager.AddBlood(5);
     }
 
 

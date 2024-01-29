@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     #region UPDATE
     private void FixedUpdate()
     {
-        if (InstanceManager.Instance.GameStateManager.UIOpened)
+        if (GameManager.Instance.GameStateManager.UIOpened)
             return;
 
         GatherInput();

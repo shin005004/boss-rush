@@ -13,7 +13,7 @@ public class BookShelfPortal : MonoBehaviour
     }
 
     private void OnTriggerStay2D(Collider2D other){
-        if(other.gameObject.name.Equals("Player")){
+        if(other.transform.root.name.Equals("Player")){
             if(Input.GetKey(KeyCode.E)){
                 GameManager.Instance.BookManager.SetBookRoomType(destination);
                 SceneLoader.Instance.LoadBookShelfScene();
