@@ -23,7 +23,7 @@ public class SlimeController : BossController, ISlimeController
     [SerializeField] private GameObject GroundShockwave;
     #endregion
 
-    protected int BossHP;
+    protected int BossHP = 100;
     protected PlayerController _player;
     protected IPlayerController _playerController;
 
@@ -410,6 +410,10 @@ public class SlimeController : BossController, ISlimeController
             if (currentActionId == SlimeAction.Move)
                 StartCoroutine(HitKnockback());
 
+            BossHP--;
+
+            if (BossHP == 0)
+                Debug.Log("BossDeath");
             Debug.Log("BossHit");
         }
     }
