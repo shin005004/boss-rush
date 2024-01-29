@@ -15,6 +15,6 @@ MonoBehaviour:
   MeleeID: 1
   MaxWeaponHits: 2
   MeleeCoolTime:
-  - 0.5
-  - 0.5
+  - 0.35
+  - 0.35
   WeaponPrefab: {fileID: 1740121988753996321, guid: e0397f2d87cea7849af55781ffc32915, type: 3}
