@@ -57,6 +57,9 @@ public class PlayerController : MonoBehaviour, IPlayerController
     #region UPDATE
     private void FixedUpdate()
     {
+        if (InstanceManager.Instance.GameStateManager.UIOpened)
+            return;
+
         GatherInput();
         HandlePlayerFlipping();
 
