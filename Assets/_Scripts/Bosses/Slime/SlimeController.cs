@@ -11,12 +11,21 @@ public class SlimeController : BossController, ISlimeController
     public event Action<SlimeAction, float> ChangeSlimeAction;
     public event Action<int> BigJumpAnimationEvent;
     public event Action<int> StompAnimationEvent;
+    public event Action<int> ShockwaveAnimationEvent;
+    #endregion
+
+    #region VFX
+    [SerializeField] private GameObject WindShockwave;
+    [SerializeField] private GameObject DustShockwave;
+    [SerializeField] private GameObject FloorCrater;
+    [SerializeField] private GameObject GroundShockwave;
     #endregion
 
     protected int BossHP;
     protected PlayerController _player;
     protected IPlayerController _playerController;
 
+    private SlimeWarner _slimeWarner;
 
     protected override void Start()
     {
@@ -24,6 +33,8 @@ public class SlimeController : BossController, ISlimeController
 
         _player = InstanceManager.Instance.PlayerController;
         _playerController = _player.GetComponent<PlayerController>();
+
+        _slimeWarner = GetComponent<SlimeWarner>();
 
         currentActionId = SlimeAction.BigJump;
     }
@@ -36,6 +47,7 @@ public class SlimeController : BossController, ISlimeController
         MoveTowardPlayer();
         HandleBigJump();
         HandleStomp();
+        HandleShockwave();
     }
 
     #region JUMP_ATTACK
@@ -58,13 +70,14 @@ public class SlimeController : BossController, ISlimeController
         if (direction.magnitude > maxJumpDistance)
             direction = direction.normalized * maxJumpDistance;
 
-        jumpDestination = direction;
-        if (jumpDestination.x == 0f)
-            jumpDestination.x = 0.01f;
+        if (direction.x == 0f)
+            direction.x = 0.01f;
 
-        jumpModifierB = (jumpDestination.y / jumpModifierA - Mathf.Pow(jumpDestination.x, 2f)) / jumpDestination.x;
+        jumpDestination = jumpStartPosition + (Vector2)direction;
+        jumpModifierA = -1.2f;
+        jumpModifierB = (direction.y / jumpModifierA - Mathf.Pow(direction.x, 2f)) / direction.x;
 
-        ChangeSlimeAction?.Invoke(SlimeAction.BigJump, 2f + jumpDestination.magnitude * 0.2f);
+        ChangeSlimeAction?.Invoke(SlimeAction.BigJump, 2f + direction.magnitude * 0.2f);
         StartCoroutine(BigJump());
     }
 
@@ -74,15 +87,17 @@ public class SlimeController : BossController, ISlimeController
 
     private IEnumerator BigJump()
     {
+        var direction = jumpDestination - jumpStartPosition;
+
         BigJumpAnimationEvent?.Invoke(1);
         yield return new WaitForSeconds(1f);
 
         BigJumpAnimationEvent?.Invoke(2);
-        float totalTime = jumpDestination.magnitude * 0.2f;
+        float totalTime = direction.magnitude * 0.2f;
         for (float elapsedTime = 0; elapsedTime < totalTime; elapsedTime += Time.deltaTime)
         {
             Vector3 targetPosition = transform.position;
-            float tempX = jumpDestination.x / totalTime * elapsedTime;
+            float tempX = direction.x / totalTime * elapsedTime;
 
             targetPosition.x = jumpStartPosition.x + tempX;
             targetPosition.y = jumpStartPosition.y + jumpModifierA * (Mathf.Pow(tempX, 2f)
@@ -91,6 +106,8 @@ public class SlimeController : BossController, ISlimeController
 
             yield return null;
         }
+
+        Instantiate(WindShockwave, jumpDestination, Quaternion.identity);
 
         yield return new WaitForSeconds(1f);
 
@@ -150,6 +167,8 @@ public class SlimeController : BossController, ISlimeController
             yield return null;
         }
 
+        Instantiate(DustShockwave, jumpDestination, Quaternion.identity);
+
         StompAnimationEvent?.Invoke(4);
         yield return new WaitForSeconds(3f);
 
@@ -157,6 +176,97 @@ public class SlimeController : BossController, ISlimeController
         chooseNextAction = true;
     }
 
+    #endregion
+
+    #region GROUNDSHOCKWAVE
+    private void HandleShockwave()
+    {
+        if (nextActionId != SlimeAction.GroundShockwave) return;
+        if (isJumping) return;
+        nextActionId = SlimeAction.Idle;
+
+        isJumping = true;
+
+        jumpStartPosition = transform.position;
+        jumpDestination = Vector3.zero;
+
+        var direction = jumpDestination - jumpStartPosition;
+
+        if (direction.x == 0f)
+            direction.x = 0.01f;
+
+        jumpModifierA = -3f;
+        jumpModifierB = (direction.y / jumpModifierA - Mathf.Pow(direction.x, 2f)) / direction.x;
+
+        // Debug.Log("HI");
+        ChangeSlimeAction?.Invoke(SlimeAction.GroundShockwave, 10f);
+        StartCoroutine(GroundSHockwave());
+    }
+
+    private IEnumerator GroundSHockwave()
+    {
+        var direction = jumpDestination - jumpStartPosition;
+
+        ShockwaveAnimationEvent?.Invoke(1);
+        yield return new WaitForSeconds(2f);
+
+        ShockwaveAnimationEvent?.Invoke(2);
+
+        float totalTime = 1f;
+        for (float elapsedTime = 0; elapsedTime < totalTime; elapsedTime += Time.deltaTime)
+        {
+            Vector3 targetPosition = transform.position;
+            float tempX = direction.x / totalTime * elapsedTime;
+
+            targetPosition.x = jumpStartPosition.x + tempX;
+            targetPosition.y = jumpStartPosition.y + jumpModifierA * (Mathf.Pow(tempX, 2f)
+                + jumpModifierB * tempX);
+            transform.position = targetPosition;
+
+            yield return null;
+        }
+
+        Instantiate(FloorCrater, jumpDestination - new Vector2(0f, -0.42f), Quaternion.identity);
+
+        ShockwaveAnimationEvent?.Invoke(3);
+
+        StartCoroutine(SpawnGroundShockwave());
+        yield return new WaitForSeconds(3f);
+
+        isJumping = false;
+        chooseNextAction = true;
+    }
+
+    private IEnumerator SpawnGroundShockwave()
+    {
+        var totalTime = 5f;
+        float objectDistance = 0.7f, lastSpawnTime = 0f;
+        for (float elapsedTime = 0; elapsedTime < totalTime; elapsedTime += Time.deltaTime)
+        {
+            float radius = 1.8f + elapsedTime * 2;
+            if(elapsedTime - lastSpawnTime < 0.3f )
+            {
+                yield return null;
+                continue;
+            }
+
+            Vector2 lastObjectPosition = Vector2.zero;
+            for (float angle = 0; angle < 360f; angle += 1f)
+            {
+                var targetPosition = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad) * 0.8f);
+                targetPosition *= radius;
+
+                if ((targetPosition - lastObjectPosition).magnitude > objectDistance)
+                {
+                    Instantiate(GroundShockwave, targetPosition, Quaternion.identity);
+                    lastObjectPosition = targetPosition;
+                }
+            }
+
+            lastSpawnTime = elapsedTime;
+            yield return null;
+        }
+    }
     #endregion
 
     #region MOVE
@@ -236,6 +346,13 @@ public class SlimeController : BossController, ISlimeController
                 nextActionId = SlimeAction.Move;
 
                 break;
+
+            case SlimeAction.GroundShockwave:
+
+                currentActionId = SlimeAction.Move;
+                nextActionId = SlimeAction.Move;
+
+                break;
         }
 
     }
@@ -250,6 +367,7 @@ public enum SlimeAction
     Attack = 2,
     BigJump = 3,
     Stomp = 4,
+    GroundShockwave = 5,
 }
 
 public interface ISlimeController
@@ -258,6 +376,7 @@ public interface ISlimeController
     public event Action<SlimeAction, float> ChangeSlimeAction;
     public event Action<int> BigJumpAnimationEvent;
     public event Action<int> StompAnimationEvent;
+    public event Action<int> ShockwaveAnimationEvent;
 }
 
 public class BossStatsSO

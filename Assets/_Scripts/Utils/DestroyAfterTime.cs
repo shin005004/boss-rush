@@ -7,7 +7,9 @@ public class DestroyAfterTime : MonoBehaviour
     [SerializeField] private GameObject objectToDestroy;
     [SerializeField] private bool destroyAfterTime;
     [SerializeField] private float destroyTime;
-    [SerializeField] private List<Collider2D> collider2Ds;
+
+    [Header("WeaponHitbox")]
+    public Transform[] colliderTransforms;
 
     private void Start()
     {
@@ -29,17 +31,19 @@ public class DestroyAfterTime : MonoBehaviour
         }
     }
 
-    public void SetColliderOn()
+    public void SetColliderOn(int index)
     {
-        foreach (var collider in collider2Ds)
+        var colliderList = colliderTransforms[index].GetComponents<Collider2D>();
+        foreach (var collider in colliderList)
         {
             collider.enabled = true;
         }
     }
 
-    public void SetColliderOff()
+    public void SetColliderOff(int index)
     {
-        foreach (var collider in collider2Ds)
+        var colliderList = colliderTransforms[index].GetComponents<Collider2D>();
+        foreach (var collider in colliderList)
         {
             collider.enabled = false;
         }

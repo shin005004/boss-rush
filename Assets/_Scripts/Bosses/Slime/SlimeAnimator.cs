@@ -17,6 +17,7 @@ public class SlimeAnimator : MonoBehaviour
         _slimeController.ChangeSlimeAction += OnSlimeActionChanged;
         _slimeController.BigJumpAnimationEvent += BigJumpAnimationChanged;
         _slimeController.StompAnimationEvent += StompAnimationChanged;
+        _slimeController.ShockwaveAnimationEvent += ShockwaveAnimationChanged;
     }
 
     #region UPDATE
@@ -41,6 +42,9 @@ public class SlimeAnimator : MonoBehaviour
                 break;
             case SlimeAction.Stomp:
                 stompAnimationTime = animationTime;
+                break;
+            case SlimeAction.GroundShockwave:
+                shockwaveAnimationTime = animationTime;
                 break;
         }
     }
@@ -70,6 +74,17 @@ public class SlimeAnimator : MonoBehaviour
     }
     #endregion
 
+    #region Shockwave
+
+    private float shockwaveAnimationTime = 1f;
+
+    private void ShockwaveAnimationChanged(int animationNumber)
+    {
+        _anim.SetTrigger("Shockwave");
+    }
+
+    #endregion
+
     #region ANIMATION
     private float lockedTill;
     private int currentState;
@@ -95,6 +110,9 @@ public class SlimeAnimator : MonoBehaviour
             // Stomp
             if (currentAction == SlimeAction.Stomp)
                 return LockState(Jump, stompAnimationTime);
+
+            if (currentAction == SlimeAction.GroundShockwave)
+                return LockState(Jump, shockwaveAnimationTime);
 
 
             // Idle and Run
