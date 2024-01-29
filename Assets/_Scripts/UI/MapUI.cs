@@ -116,7 +116,12 @@ public class MapUI : MonoBehaviour
     private void MapMove(ClickEvent clickEvent, VisualElement visualElement) {
         // Scene moving
         if (_mapUnlocked[_tmpStage]) {    
-            Debug.Log(visualElement.viewDataKey);
+            Debug.Log(visualElement.viewDataKey);   
+        }
+        if (visualElement.viewDataKey == "0") {
+            GameManager.Instance.GameStateManager.UIOpened = false;
+            Debug.Log("ddd: " + GameManager.Instance.GameStateManager.UIOpened);
+            SceneLoader.Instance.LoadBossScene();
         }
     }
 }

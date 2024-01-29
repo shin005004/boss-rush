@@ -67,7 +67,9 @@ public class SceneLoader : MonoBehaviour
     public void LoadBookShelfScene(){
         StartCoroutine(LoadSceneAsync("BookShelfScene"));
     }
-
+    public void LoadBossScene() {
+        StartCoroutine(LoadSceneAsync("BossScene"));
+    }
     IEnumerator LoadSceneAsync(string levelToLoad)
     {
         BlackScreen.SetActive(true);
