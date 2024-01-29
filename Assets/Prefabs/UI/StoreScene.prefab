@@ -226,7 +226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e840e7a815591d54a80d373dd5ce1c84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MapAppear: 0
 --- !u!1 &6389114415319982172
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,7 +437,6 @@ GameObject:
   - component: {fileID: 22529686338280216}
   - component: {fileID: 8947266127017134015}
   - component: {fileID: 5456332413530004447}
-  - component: {fileID: 8138418406179523061}
   m_Layer: 0
   m_Name: StoreSceneUI
   m_TagString: Untagged
@@ -489,25 +487,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 001747684e27893498be9ef2670fb155, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BloodAmount: 0
   MaxBloodAmout: 200
   bookRightTurn: {fileID: 7137501889999519383}
   bookLeftTurn: {fileID: 3471544019804260843}
---- !u!114 &8138418406179523061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8487819970795172595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf15115f050806f41baa47c58b8c7254, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InfoPages: []
-  Pages: 000000000000000000000000
-  SlotNumber: 8
 --- !u!1 &9163721302263755307
 GameObject:
   m_ObjectHideFlags: 0
