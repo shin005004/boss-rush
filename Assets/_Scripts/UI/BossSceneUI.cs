@@ -27,6 +27,7 @@ public class BossSceneUI : MonoBehaviour
     }
     void Start()
     {   
+        GameManager.Instance.GameStateManager.UIOpened = false;
         _equippedCount = BookData.Instance.EquippedBook.Count;
         _tmpBlood = Blood;
         SetBossBlood();

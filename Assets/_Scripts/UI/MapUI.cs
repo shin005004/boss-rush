@@ -51,7 +51,7 @@ public class MapUI : MonoBehaviour
         }
         if (!GameManager.Instance.GameStateManager.UIOpened && _popUpLayer.style.display.Equals(DisplayStyle.Flex)) {
             GameManager.Instance.GameStateManager.UIOpened = true; // to handle overlap problem 
-            Debug.Log(GameManager.Instance.GameStateManager.UIOpened);
+            Debug.Log("1:" + GameManager.Instance.GameStateManager.UIOpened);
         }
     }
     #region //PopUpManagement
@@ -59,7 +59,7 @@ public class MapUI : MonoBehaviour
         _popUpLayer.style.display = DisplayStyle.Flex;
         GameManager.Instance.GameStateManager.UIOpened = true; // UI State Open
 
-        Debug.Log(GameManager.Instance.GameStateManager.UIOpened);
+        Debug.Log("2:" + GameManager.Instance.GameStateManager.UIOpened);
 
         Invoke("ActiveMap", 0.1f);
     }
@@ -120,7 +120,6 @@ public class MapUI : MonoBehaviour
         }
         if (visualElement.viewDataKey == "0") {
             GameManager.Instance.GameStateManager.UIOpened = false;
-            Debug.Log("ddd: " + GameManager.Instance.GameStateManager.UIOpened);
             SceneLoader.Instance.LoadBossScene();
         }
     }

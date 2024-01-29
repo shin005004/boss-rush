@@ -25,7 +25,7 @@ public class StoreSceneUI : MonoBehaviour
     private VisualElement _bookSection, _sectionBookIndex, _sectionBookInfo, _sectionBookEquipped;
     private VisualElement[] _indexs = new VisualElement[3], _indexSlots = new VisualElement[8], _equippedSlots = new VisualElement[8];
     private BookUIPage _bookUIPage = new BookUIPage();
-    private int _baseSection = 1, _basePage = 1, _tmpSection = 1, _tmpPage = 1;
+    private int _baseSection = 2, _basePage = 1, _tmpSection = 2, _tmpPage = 1;
     private BookUIState _tmpState;
     public static string StoreBookName;
     public static int StoreBookLevel;
