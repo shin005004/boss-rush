@@ -10,7 +10,7 @@ public class SlimeWarner : MonoBehaviour
 
     public void ShowBigjumpWarner(Vector2 warnerPosition, bool showWarner)
     {
-        BigJumpWarner.transform.position = warnerPosition;
+        BigJumpWarner.transform.position = warnerPosition + new Vector2(0f, -0.42f);
         BigJumpWarner.SetActive(showWarner);
     }
 
@@ -20,9 +20,10 @@ public class SlimeWarner : MonoBehaviour
         StompWarner.SetActive(showWarner);
     }
 
-    public void ShowShockwaveWarner(Vector2 warnerPosition, bool showWarner)
+    public void ShowShockwaveWarner(Vector2 warnerPosition)
     {
         ShockwaveWarner.transform.position = warnerPosition;
-        ShockwaveWarner.SetActive(showWarner);
+
+        ShockwaveWarner.GetComponent<Animator>().SetTrigger("WarnerActive");
     }
 }

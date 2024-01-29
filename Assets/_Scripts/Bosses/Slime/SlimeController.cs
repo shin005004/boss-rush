@@ -12,6 +12,8 @@ public class SlimeController : BossController, ISlimeController
     public event Action<int> BigJumpAnimationEvent;
     public event Action<int> StompAnimationEvent;
     public event Action<int> ShockwaveAnimationEvent;
+
+    [SerializeField] private Collider2D bossCollider;
     #endregion
 
     #region VFX
@@ -90,7 +92,11 @@ public class SlimeController : BossController, ISlimeController
         var direction = jumpDestination - jumpStartPosition;
 
         BigJumpAnimationEvent?.Invoke(1);
+        _slimeWarner.ShowBigjumpWarner(jumpDestination, true);
+
         yield return new WaitForSeconds(1f);
+
+        bossCollider.enabled = false;
 
         BigJumpAnimationEvent?.Invoke(2);
         float totalTime = direction.magnitude * 0.2f;
@@ -101,12 +107,16 @@ public class SlimeController : BossController, ISlimeController
 
             targetPosition.x = jumpStartPosition.x + tempX;
             targetPosition.y = jumpStartPosition.y + jumpModifierA * (Mathf.Pow(tempX, 2f)
-                + jumpModifierB * tempX);
+                + jumpModifierB * tempX) + 1.25f - (Mathf.Abs(elapsedTime - totalTime / 2f)) *
+                (Mathf.Abs(elapsedTime - totalTime / 2f)) * 5f;
             transform.position = targetPosition;
 
             yield return null;
         }
 
+        bossCollider.enabled = true;
+
+        _slimeWarner.ShowBigjumpWarner(jumpDestination, false);
         Instantiate(WindShockwave, jumpDestination, Quaternion.identity);
 
         yield return new WaitForSeconds(1f);
@@ -137,7 +147,11 @@ public class SlimeController : BossController, ISlimeController
     private IEnumerator StompAttack()
     {
         StompAnimationEvent?.Invoke(1);
+
+        _slimeWarner.ShowStompWarner(jumpDestination + new Vector2(0f, -2.15f), true);
         yield return new WaitForSeconds(1f);
+
+        bossCollider.enabled = false;
 
         StompAnimationEvent?.Invoke(2);
         float totalTime = 2f;
@@ -167,7 +181,10 @@ public class SlimeController : BossController, ISlimeController
             yield return null;
         }
 
-        Instantiate(DustShockwave, jumpDestination, Quaternion.identity);
+        bossCollider.enabled = true;
+
+        _slimeWarner.ShowStompWarner(jumpDestination + new Vector2(0f, -2.15f), false);
+        Instantiate(DustShockwave, jumpDestination + new Vector2(0f, -2.15f), Quaternion.identity);
 
         StompAnimationEvent?.Invoke(4);
         yield return new WaitForSeconds(3f);
@@ -208,9 +225,13 @@ public class SlimeController : BossController, ISlimeController
         var direction = jumpDestination - jumpStartPosition;
 
         ShockwaveAnimationEvent?.Invoke(1);
+        _slimeWarner.ShowShockwaveWarner(jumpDestination);
+
         yield return new WaitForSeconds(2f);
 
         ShockwaveAnimationEvent?.Invoke(2);
+
+        bossCollider.enabled = false;
 
         float totalTime = 1f;
         for (float elapsedTime = 0; elapsedTime < totalTime; elapsedTime += Time.deltaTime)
@@ -220,18 +241,20 @@ public class SlimeController : BossController, ISlimeController
 
             targetPosition.x = jumpStartPosition.x + tempX;
             targetPosition.y = jumpStartPosition.y + jumpModifierA * (Mathf.Pow(tempX, 2f)
-                + jumpModifierB * tempX);
+                + jumpModifierB * tempX) + 1.25f - (Mathf.Abs(elapsedTime - totalTime / 2f)) *
+                (Mathf.Abs(elapsedTime - totalTime / 2f)) * 5f;
             transform.position = targetPosition;
 
             yield return null;
         }
 
-        Instantiate(FloorCrater, jumpDestination - new Vector2(0f, -0.42f), Quaternion.identity);
+        bossCollider.enabled = true;
+        Instantiate(FloorCrater, jumpDestination + new Vector2(0f, -0.42f), Quaternion.identity);
 
         ShockwaveAnimationEvent?.Invoke(3);
 
         StartCoroutine(SpawnGroundShockwave());
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
 
         isJumping = false;
         chooseNextAction = true;
@@ -299,7 +322,7 @@ public class SlimeController : BossController, ISlimeController
 
     private IEnumerator MoveReset()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
 
         chooseNextAction = true;
     }
@@ -310,6 +333,8 @@ public class SlimeController : BossController, ISlimeController
     private SlimeAction nextActionId = 0;
     private SlimeAction currentActionId = 0;
     //private float currentActionTime = 0f;
+
+    private int actionCount = 0;
 
     private void HandleBrain()
     {
@@ -328,8 +353,23 @@ public class SlimeController : BossController, ISlimeController
 
             case SlimeAction.Move:
 
-                currentActionId = SlimeAction.BigJump;
-                nextActionId = SlimeAction.BigJump;
+                if (actionCount < 3)
+                {
+                    int action = UnityEngine.Random.Range(0, 2);
+                    if (action == 0)
+                    {
+                        currentActionId = nextActionId = SlimeAction.BigJump;
+                    }
+                    else
+                        currentActionId = nextActionId = SlimeAction.Stomp;
+
+                    actionCount++;
+                }
+                else
+                {
+                    actionCount = 0;
+                    currentActionId = nextActionId = SlimeAction.GroundShockwave;
+                }
 
                 break;
 
@@ -355,6 +395,42 @@ public class SlimeController : BossController, ISlimeController
                 break;
         }
 
+    }
+
+    #endregion
+
+    #region HIT
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log(collision.transform.name);
+        if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerHitbox"))
+        {
+            _playerController.OnBossHit();
+            if (currentActionId == SlimeAction.Move)
+                StartCoroutine(HitKnockback());
+
+            Debug.Log("BossHit");
+        }
+    }
+
+    private float knockbackStartVelocity = 6f;
+
+    private float knockbackElapsedTime = 0f;
+    private float knockbackLengthTime = 0.1f;
+
+    private IEnumerator HitKnockback()
+    {
+        Vector3 knockbackDirection = (transform.position - _player.transform.position).normalized;
+
+        knockbackElapsedTime = 0f;
+        while (knockbackElapsedTime < knockbackLengthTime)
+        {
+            float rollMovement = Mathf.Lerp(knockbackStartVelocity, knockbackStartVelocity * 0.2f, knockbackElapsedTime / knockbackLengthTime);
+            transform.position += knockbackDirection * rollMovement * Time.deltaTime;
+            knockbackElapsedTime += Time.deltaTime;
+            yield return null;
+        }
     }
 
     #endregion

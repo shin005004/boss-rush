@@ -19,16 +19,16 @@ public class JustRollDummy : MonoBehaviour
     private void Update()
     {
         rollElapsedTime += Time.deltaTime;
-        if (_rollStartUpTime + _rollInvulnTime < rollElapsedTime)
+        if (_rollInvulnTime < rollElapsedTime)
             Destroy(gameObject);
     }
 
     private bool isRollSuccess = false;
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.layer == LayerMask.NameToLayer("DeathHitBox"))
+        if (col.gameObject.layer == LayerMask.NameToLayer("BossHitbox"))
         {
-            if (rollElapsedTime > _rollStartUpTime && rollElapsedTime < _rollStartUpTime + _rollInvulnTime && !isRollSuccess)
+            if (rollElapsedTime > _rollStartUpTime && rollElapsedTime < _rollInvulnTime && !isRollSuccess)
             {   
                 isRollSuccess = true;
                 _playerController.OnRollSuccess();

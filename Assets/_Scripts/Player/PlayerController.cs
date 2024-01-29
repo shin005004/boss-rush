@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerController : MonoBehaviour, IPlayerController
 {
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     public event Action<bool, Vector2> RollingChanged;
 
     public event Action<Vector2> Attacked;
-    public event Action AttackEnd;
+    // public event Action AttackEnd;
 
     //public event Action<bool> ShootStanceChanged;
     //public event Action<bool, Vector2> Shotted;
@@ -47,14 +48,14 @@ public class PlayerController : MonoBehaviour, IPlayerController
         _rollLengthTime = PlayerStats.RollLengthTime;
         _rollCoolTime = PlayerStats.RollCoolTime;
         _rollStartUp = PlayerStats.RollStartUp;
-        _rollInvlunTime = PlayerStats.RollInvlunTime;
+        _rollInvulnTime = PlayerStats.RollInvulnTime;
 
         _justRollPrefab = PlayerStats.JustRollPrefab;
     }
     #endregion
 
     #region UPDATE
-    private void Update()
+    private void FixedUpdate()
     {
         GatherInput();
         HandlePlayerFlipping();
@@ -122,7 +123,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     private float _rollCoolTime;        // 구르기 시작부터 쿨다운
 
     private float _rollStartUp;
-    private float _rollInvlunTime;
+    private float _rollInvulnTime;
 
     private bool canRoll = true;            // 외적으로 구르기 가능한지?
     private bool rollToConsume = false;     // 대쉬 입력이 들어왔는가?
@@ -151,14 +152,17 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
     private void ResetRoll()
     {
+        isRollSuccessFlag = false;
         rollCoolDownFlag = true;
     }
 
     private IEnumerator Roll()
     {
+        IsRolling = true;
+
         GameObject rollDummyObject = Instantiate(_justRollPrefab, transform.position, Quaternion.identity);
         JustRollDummy rollDummyComponent = rollDummyObject.GetComponent<JustRollDummy>();
-        rollDummyComponent.StartUp(_rollStartUp, _rollInvlunTime, this);
+        rollDummyComponent.StartUp(_rollStartUp, _rollInvulnTime, this);
 
         Vector3 rollDirection = new Vector3(cachedPlayerDirection.x, cachedPlayerDirection.y, 0f);
         rollElapsedTime = 0f;
@@ -179,6 +183,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     {
         if (!isRollSuccessFlag)
         {
+            Debug.Log("RollSuccess");
             isRollSuccessFlag = true;
         }
     }
@@ -194,6 +199,8 @@ public class PlayerController : MonoBehaviour, IPlayerController
     private bool canAttack = true;          // 외적으로 공격이 가능한가?
     private bool canAttackFlag = true;     // 쿨타임적으로 공격이 가능한지?
 
+    private Vector2 attackDirection;
+
     private void HandleAttacking()
     {
         if (!attackToConsume) return;
@@ -202,7 +209,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
         
         if (canAttack && canAttackFlag)
         {
-            var attackDirection = new Vector2(_frameInput.MousePosition.x - transform.position.x, _frameInput.MousePosition.y - transform.position.y).normalized;
+            attackDirection = new Vector2(_frameInput.MousePosition.x - transform.position.x, _frameInput.MousePosition.y - transform.position.y).normalized;
             Attacked?.Invoke(attackDirection);
         }
 
@@ -216,6 +223,80 @@ public class PlayerController : MonoBehaviour, IPlayerController
     }
 
     #endregion
+
+    #region HIT
+    private int playerHP = 3;
+    private float lastHitTime = 0f;
+    private float hitInvulnTime = 3f;
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // Debug.Log(collision.transform.name);
+        if (collision.gameObject.layer == LayerMask.NameToLayer("BossHitbox"))
+        {
+            if (Time.time - lastHitTime < hitInvulnTime)
+                return;
+
+            if (IsRolling && rollElapsedTime > _rollStartUp && rollElapsedTime < _rollInvulnTime)
+                OnRollSuccess();
+            else
+            {
+                playerHP -= 1;
+                Debug.Log("PlayerHit");
+
+                lastHitTime = Time.time;
+
+                if(playerHP == 0)
+                    Debug.Log("Death");
+            }
+        }
+    }
+
+    private float knockbackStartVelocity = 8f;
+
+    private float knockbackElapsedTime = 0f;
+    private float knockbackLengthTime = 0.1f;
+
+    public void OnBossHit()
+    {
+        StartCoroutine(HitKnockback());
+    }
+
+    private IEnumerator HitKnockback()
+    {
+        Vector3 knockbackDirection = -attackDirection;
+
+        knockbackElapsedTime = 0f;
+        while (knockbackElapsedTime < knockbackLengthTime)
+        {
+            float rollMovement = Mathf.Lerp(knockbackStartVelocity, knockbackStartVelocity * 0.2f, knockbackElapsedTime / knockbackLengthTime);
+            transform.position += knockbackDirection * rollMovement * Time.deltaTime;
+            knockbackElapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    public void OnWeaponSwing()
+    {
+        StartCoroutine(WeaponSwing());
+    }
+
+    private float forceLengthTime = 0.25f;
+    private float forceStartVelocity = 12f;
+    private IEnumerator WeaponSwing()
+    {
+        Vector3 forceDirection = attackDirection;
+
+        float forceElapsedTime = 0f;
+        while (forceElapsedTime < forceLengthTime)
+        {
+            float rollMovement = Mathf.Lerp(forceStartVelocity, forceStartVelocity * 0.2f, forceLengthTime / forceElapsedTime);
+            transform.position += forceDirection * rollMovement * Time.deltaTime;
+            forceElapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+    #endregion
 }
 
 public interface IPlayerController
@@ -225,7 +306,6 @@ public interface IPlayerController
 
     // Direction
     public event Action<Vector2> Attacked;
-    public event Action AttackEnd;
 
     // IsStance
     // haveBullet, Direction
@@ -241,4 +321,6 @@ public interface IPlayerController
 
     public void OnRollSuccess();
     public void ChangePlayerStateAttack(bool canMove, bool canRoll);
+    public void OnBossHit();
+    public void OnWeaponSwing();
 }

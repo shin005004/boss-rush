@@ -191,6 +191,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SlimeVisualTransform: {fileID: 6819716259916040350}
+  WindShockwave: {fileID: 4218057944487899508, guid: df8e99b9c9c9ff849994d8b9e0a0c821, type: 3}
+  DustShockwave: {fileID: 2422280212593669442, guid: f8dae53cc1ca1d44f89e45c5f0f5796f, type: 3}
+  FloorCrater: {fileID: 3159186158493770165, guid: 6146610d47fcb6f42a33f4db00734b9a, type: 3}
+  GroundShockwave: {fileID: 3178616594695298612, guid: 95be75ff2ba2d1642a58fc49fbedbd07, type: 3}
   bossSpeed: 1
 --- !u!114 &1662877381173936726
 MonoBehaviour:
@@ -217,6 +221,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac5853533992ad4f9eb9208b4d5fc66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BigJumpWarner: {fileID: 0}
+  StompWarner: {fileID: 0}
+  ShockwaveWarner: {fileID: 0}
 --- !u!50 &1739866798762060631
 Rigidbody2D:
   serializedVersion: 4

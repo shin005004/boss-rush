@@ -19,7 +19,7 @@ MonoBehaviour:
   RollLengthTime: 0.5
   RollCoolTime: 0.75
   RollStartUp: 0
-  RollInvlunTime: 0.25
+  RollInvlunTime: 0.4
   JustRollPrefab: {fileID: 1944093440038011308, guid: 9c3388fcf931f6748ab37067cf0b8b5d, type: 3}
   MeleeStats: {fileID: 11400000, guid: 355f6b3c9ccb53d4ea593b18c078a3e7, type: 2}
   RangedStats: {fileID: 11400000, guid: 6e20ffe50dccd14499a5cdff34e3171b, type: 2}

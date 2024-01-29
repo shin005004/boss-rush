@@ -82,7 +82,7 @@ public class WeaponController : MonoBehaviour
         attackPreInputFlag = true;
         _swordWeapon.WeaponAnimator.SetBool(boolName, false);
 
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.3f);
         attackCoolFlag = true;        
     }
 
@@ -106,6 +106,7 @@ public class WeaponController : MonoBehaviour
         //string boolName = "Attack" + isAttacking.ToString();
         //_swordWeapon.WeaponAnimator.SetBool(boolName, true);
 
+        _playerController.OnWeaponSwing();
         StartCoroutine(AttackInputDelay(_meleeStatsSO.MeleeCoolTime[isAttacking - 1]));
 
         if (isAttacking == 1)

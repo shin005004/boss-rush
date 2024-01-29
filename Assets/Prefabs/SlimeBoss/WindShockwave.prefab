@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4305247429836764456}
   - component: {fileID: 2816336423553463772}
   - component: {fileID: 8964044823423920596}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WindShockwave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,8 @@ MonoBehaviour:
   objectToDestroy: {fileID: 4218057944487899508}
   destroyAfterTime: 1
   destroyTime: 0.5
-  colliderTransforms: []
+  colliderTransforms:
+  - {fileID: 2607152488457530037}
 --- !u!1 &9040905993368502280
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,7 +136,7 @@ GameObject:
   - component: {fileID: 2607152488457530037}
   - component: {fileID: 4502766326015927194}
   - component: {fileID: 7670402865883162847}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +165,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9040905993368502280}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -216,7 +217,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9040905993368502280}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:

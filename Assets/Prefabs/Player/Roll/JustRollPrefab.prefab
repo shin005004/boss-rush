@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -1783950039821923683}
   - component: {fileID: 5225024022749868659}
   - component: {fileID: 4973224342365315169}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: JustRollPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

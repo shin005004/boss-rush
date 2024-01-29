@@ -18,7 +18,7 @@ public class PlayerStatSO : ScriptableObject
     public float RollCoolTime = 0.75f;
 
     public float RollStartUp = 0.0f;
-    public float RollInvlunTime = 0.25f;
+    public float RollInvulnTime = 0.25f;
 
     public GameObject JustRollPrefab;
 

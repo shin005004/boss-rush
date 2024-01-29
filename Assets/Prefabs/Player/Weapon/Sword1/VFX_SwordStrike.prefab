@@ -72,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1304592531
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 1104988558, guid: 78269a15a873b634f82c87c7ed119c64, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -122,4 +122,4 @@ MonoBehaviour:
   objectToDestroy: {fileID: 9000257579443338074}
   destroyAfterTime: 1
   destroyTime: 1
-  collider2Ds: []
+  colliderTransforms: []
