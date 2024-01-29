@@ -9,7 +9,7 @@ public class StoreSceneUI : MonoBehaviour
 {
     #region //variables
 
-    public int BloodAmount = 0;
+    //public int BloodAmount = 0;
     public int MaxBloodAmout = 200;
     // Those will be changed when the whole blood management structure is completed
     [SerializeField] GameObject bookRightTurn, bookLeftTurn;
@@ -80,7 +80,7 @@ public class StoreSceneUI : MonoBehaviour
             _equippedSlots[i - 1].RegisterCallback<ClickEvent, VisualElement>(EquippedToInfoSection, _equippedSlots[i - 1]);
         }
 
-        _tmpBloodAmout = BloodAmount;
+        _tmpBloodAmout = GameManager.Instance.BloodManager.Blood;
         ChangeBlood();
 
         _tmpState = GameManager.Instance.GameStateManager.BookUIState;
@@ -97,8 +97,8 @@ public class StoreSceneUI : MonoBehaviour
         //GameManager.Instance.GameStateManager.ChangeBookUIState();
     }
     void Update() {
-        if (_tmpBloodAmout != BloodAmount) {
-            _tmpBloodAmout = BloodAmount;
+        if (_tmpBloodAmout != GameManager.Instance.BloodManager.Blood) {
+            _tmpBloodAmout = GameManager.Instance.BloodManager.Blood;
             ChangeBlood();
         }
         if (bookRightTurn.gameObject.activeSelf) {
@@ -175,18 +175,18 @@ public class StoreSceneUI : MonoBehaviour
         {
             int unit = MaxBloodAmout / _bloodSpriteCount;
             if (i == _bloodSpriteCount - 1) {
-                if (BloodAmount >= unit * i && BloodAmount <= MaxBloodAmout) {
+                if (GameManager.Instance.BloodManager.Blood >= unit * i && GameManager.Instance.BloodManager.Blood <= MaxBloodAmout) {
                     _bloodSprite.style.backgroundImage = new StyleBackground(_bloodSprites[i]);
                 }
             }
-            if (BloodAmount >= unit * i && BloodAmount < unit * (i + 1)) 
+            if (GameManager.Instance.BloodManager.Blood >= unit * i && GameManager.Instance.BloodManager.Blood < unit * (i + 1)) 
             {
                 _bloodSprite.style.backgroundImage = new StyleBackground(_bloodSprites[i]);
             }
         }
-        string tmpBloodText = BloodAmount.ToString();
+        string tmpBloodText = GameManager.Instance.BloodManager.Blood.ToString();
         _bloodText.text = tmpBloodText;
-        if (BloodAmount == MaxBloodAmout) {
+        if (GameManager.Instance.BloodManager.Blood == MaxBloodAmout) {
             _bloodText.style.color = new Color(255/255f, 137/255f, 137/255f);
         }
         else {
