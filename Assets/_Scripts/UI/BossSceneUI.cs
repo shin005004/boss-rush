@@ -10,6 +10,8 @@ public class BossSceneUI : MonoBehaviour
     [SerializeField] GameObject _bulletPrefab, _bulletCanvas;
     private VisualElement _bossBlood, _bloodBar_Forward;
     private Label _bossNameText, _equippedCountText;
+    private VisualElement[] _questPanels = new VisualElement[3];
+    private Label[] _questPanelTexts = new Label[3];
     #endregion
     #region //variables
     public string BossName = "Boss"; // need to be connected to map data
@@ -24,6 +26,10 @@ public class BossSceneUI : MonoBehaviour
         _bloodBar_Forward = root.Q<VisualElement>("BloodBar_Forward");
         _bossNameText = root.Q<Label>("BossName");
         _equippedCountText = root.Q<Label>("EquippedCount");
+        for (int i = 0; i < 3; i++) {
+            _questPanels[i] = root.Q<VisualElement>("Panel" + (i + 1).ToString());
+            _questPanelTexts[i] = _questPanels[i].Q<Label>("PanelText");
+        }
     }
     void Start()
     {   
@@ -34,6 +40,10 @@ public class BossSceneUI : MonoBehaviour
         SetBossSceneUI();
 
         Invoke("BossBloodAppear", 0.5f);
+
+        //for test
+        //ReadyToWriteBook("Slime1");
+        //ReadyToWriteBook("Slime2");
     }
     void Update()
     {
@@ -45,7 +55,11 @@ public class BossSceneUI : MonoBehaviour
             _tmpBullet = Bullet;
             SetBullet();
         }
+        if (Input.GetKey(KeyCode.F)) {
+            WriteBook();
+        }
     }
+    #region //base
     private void BossBloodAppear() {
         _bossBlood.AddToClassList("BossBlood--Opened");
     }
@@ -69,7 +83,26 @@ public class BossSceneUI : MonoBehaviour
             else { bullet.GetComponent<UnityEngine.UI.Image>().color = Color.grey; }
         }
     }
+    #endregion
     #region //quest
-    
+    private Stack<string> _booksToWrite = new Stack<string>();
+    public void ReadyToWriteBook(string bookName) {
+        if (BookData.Instance.UnlockedBookLevel[bookName] == 1) return;
+        for (int i = 0; i < _questPanels.Length; i++) {
+            if (_questPanels[i].ClassListContains("Panel--Opened")) continue;
+            else {
+                _questPanels[i].AddToClassList("Panel--Opened");
+                _questPanelTexts[i].AddToClassList("PanelText--Opened");
+                _booksToWrite.Push(bookName);
+                break;
+            }
+        }
+    }
+    public void WriteBook() {
+        if (_booksToWrite.Count == 0) return;
+        _questPanels[_booksToWrite.Count - 1].RemoveFromClassList("Panel--Opened");
+        _questPanelTexts[_booksToWrite.Count - 1].RemoveFromClassList("PanelText--Opened");
+        BookData.Instance.UnlockedBookLevel[_booksToWrite.Pop()] = 1;
+    }
     #endregion
 }
