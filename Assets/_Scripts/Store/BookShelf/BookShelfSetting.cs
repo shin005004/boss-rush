@@ -6,11 +6,14 @@ public class BookShelfSetting : MonoBehaviour
 {
     [SerializeField] private GameObject bookPrefab;
     [SerializeField] private GameObject bookObjects;
+    [SerializeField] private Transform canvasTransform;
     [SerializeField] private int bookShelfLevel;
     [SerializeField] private int maxBookLevel;
     // [SerializeField] private GameObject bookShelfLevelObject;
     // [SerializeField] private Sprite[] bookShelfLevelSprites;
     // public int BookShelfLevel => bookShelfLevel;
+
+    private RectTransform bookTransform;
 
     private string roomSetting;
     private List<string> roomBossList;
@@ -25,30 +28,25 @@ public class BookShelfSetting : MonoBehaviour
     private float bookY, bookX;
     private GameObject bookObject;
     private void Start(){
-        bookY = 3f;
+        bookY = 115f;
         bookShelfLevel = 1;
 
         foreach(string boss in roomBossList){
-            bookX = -6.5f;
+            bookX = -200f;
             foreach(string book in BookData.Instance.BookList[roomSetting][boss]){
-                bookObject = Instantiate(bookPrefab);
+                bookObject = Instantiate(bookPrefab, bookObjects.transform, false);
                 bookObject.name = book;
                 bookObjectList.Add(bookObject);
                 bookObject.SetActive(false);
-                bookObject.transform.SetParent(bookObjects.transform, false);
 
-                if(BookData.Instance.UnlockedBookLevel[book] > 0){
-                    if(BookData.Instance.UnlockedBookLevel[book] > bookShelfLevel){
-                        bookShelfLevel = BookData.Instance.UnlockedBookLevel[book];
-                    }
+                bookTransform = bookObject.GetComponent<RectTransform>();
+                bookTransform.anchoredPosition = new Vector2(bookX, bookY);
 
-                    bookObject.SetActive(true);
-                    bookObject.transform.position = new Vector3(bookX, bookY, 0f);
-                    
-                }
-                bookX += 1.3f;
+                if(BookData.Instance.UnlockedBookLevel[book] > 0){ bookObject.SetActive(true); }
+
+                bookX += 60f;
             }
-            bookY -= 1.6f;
+            bookY -= 60f;
         }
 
         SetBookActive();
