@@ -1,14 +1,20 @@
 Unlocked Book List
-Thor1: 1
+Slime1: 1
+Slime2: 1
+Slime3: 1
+Thor1: 0
 Thor2: 0
-Thor3: 1
+Thor3: 0
 Thor4: 0
 Surtur1: 0
-Surtur2: 1
+Surtur2: 0
 Surtur3: 0
-Surtur4: 1
+Surtur4: 0
 
 Equipped Book List
+Slime1: 0
+Slime2: 0
+Slime3: 0
 Thor1: 0
 Thor2: 0
 Thor3: 0

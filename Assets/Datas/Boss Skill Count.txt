@@ -1,2 +1,3 @@
 Thor 4
 Surtur 4
+Slime 3

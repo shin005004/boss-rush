@@ -1,3 +1,18 @@
+Slime1
+Name: Slime 1
+Blood: 50
+Description: This is Slime 1 Book
+
+Slime2
+Name: Slime 2
+Blood: 50
+Description: This is Slime 2 Book
+
+Slime3
+Name: Slime 3
+Blood: 50
+Description: This is Slime 3 Book
+
 Thor1
 Name: Thor 1
 Blood: 100
