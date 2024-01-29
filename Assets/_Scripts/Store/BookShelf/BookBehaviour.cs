@@ -11,16 +11,26 @@ public class BookBehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 {
     public string BookName;
     private Image image;
+    private Transform bookShelf;
+    private BookShelfSetting bookShelfSetting;
+    private RectTransform rectTransform;
 
     private void Start()
     {
         BookName = gameObject.name;
         image = gameObject.GetComponent<Image>();
+        bookShelf = transform.parent.parent;
+        bookShelfSetting = bookShelf.GetComponent<BookShelfSetting>();
+        rectTransform = GetComponent<RectTransform>();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         image.color = new Color(169 / 255f, 169 / 255f, 169 / 255f, 1f);
+        bookShelfSetting.BookName = BookName;
+        bookShelfSetting.BookX = rectTransform.anchoredPosition.x;
+        bookShelfSetting.BookY = rectTransform.anchoredPosition.y;
+        bookShelfSetting.ShowBookName = true;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -49,9 +59,13 @@ public class BookBehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (BookData.Instance.EquippedBookLevel[BookName] < 1)
+        if (BookData.Instance.EquippedBookLevel[BookName] < 1){
             image.color = Color.white;
-        else
+        }
+        else{
             image.color = new Color(169 / 255f, 169 / 255f, 169 / 255f, 1f);
+        }
+        
+        bookShelfSetting.ShowBookName = false;
     }
 }

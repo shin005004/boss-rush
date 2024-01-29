@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BookShelfSetting : MonoBehaviour
 {
@@ -15,6 +17,14 @@ public class BookShelfSetting : MonoBehaviour
 
     private RectTransform bookTransform;
 
+    [SerializeField] private GameObject bookNameObject;
+    [SerializeField] private TextMeshProUGUI bookNameText;
+    private RectTransform bookNameTransform;
+    public float BookX, BookY;
+    public string BookName;
+    public bool ShowBookName;
+
+
     private string roomSetting;
     private List<string> roomBossList;
     [SerializeField] private List<GameObject> bookObjectList = new List<GameObject>();
@@ -23,6 +33,7 @@ public class BookShelfSetting : MonoBehaviour
     {
         roomSetting = GameManager.Instance.BookManager.BookRoomType;
         roomBossList = BookData.Instance.BossList[roomSetting];
+        bookNameTransform = bookNameObject.GetComponent<RectTransform>();
     }
 
     private float bookY, bookX;
@@ -61,22 +72,17 @@ public class BookShelfSetting : MonoBehaviour
                 bookObject.SetActive(false);
             }
         }
-
-        // bookShelfLevelObject.GetComponent<SpriteRenderer>().sprite = bookShelfLevelSprites[bookShelfLevel-1];
     }
-
-    // public void IncreaseBookLevel(){
-    //     if(bookShelfLevel != maxBookLevel){
-    //         bookShelfLevel += 1;
-    //         SetBookLevel();
-    //     }
-    // }
-
-    // public void DecreaseBookLevel(){
-    //     if(bookShelfLevel != 1){
-    //         bookShelfLevel -= 1;
-    //         SetBookLevel();
-    //     }
-    // }
+    
+    private void Update(){
+        if(ShowBookName){
+            bookNameObject.SetActive(true);
+            bookNameTransform.anchoredPosition = new Vector2(BookX, BookY + 30f);
+            bookNameText.text = BookName;
+        }
+        else{
+            bookNameObject.SetActive(false);
+        }
+    }
 
 }
