@@ -1,7 +1,7 @@
 Unlocked Book List
-Slime1: 0
-Slime2: 0
-Slime3: 0
+Slime1: 1
+Slime2: 1
+Slime3: 1
 Thor1: 0
 Thor2: 0
 Thor3: 0

@@ -61,6 +61,7 @@ public class BookShelfSetting : MonoBehaviour
         }
 
         SetBookActive();
+        SetEquippedBookInActive();
     }
 
     private void SetBookActive(){
@@ -74,6 +75,13 @@ public class BookShelfSetting : MonoBehaviour
         }
     }
     
+    private void SetEquippedBookInActive() {
+        foreach (GameObject bookObject in bookObjectList) {
+            if (BookData.Instance.EquippedBookLevel[bookObject.name] == 1) {
+                bookObject.GetComponent<Image>().color = new Color(169 / 255f, 169 / 255f, 169 / 255f, 1f);
+            }
+        }
+    }
     private void Update(){
         if(ShowBookName){
             bookNameObject.SetActive(true);

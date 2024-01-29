@@ -46,6 +46,7 @@ public class BookBehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
+            if (BookData.Instance.EquippedBookLevel[BookName] == 1) return;
             if(BookData.Instance.EquippedBookLevel[BookName] == 0){
                 int neededBlood = Convert.ToInt32(BookData.Instance.BookDetails[BookName]["Blood"]);
                 if(GameManager.Instance.BloodManager.Blood >= neededBlood){
