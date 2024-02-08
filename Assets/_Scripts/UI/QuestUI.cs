@@ -12,10 +12,6 @@ public class QuestUI : MonoBehaviour
     void Awake() {
         QuestPanels = new List<GameObject>(QuestCount);
     }
-    void Start()
-    {
-        
-    }
     void Update()
     {
         for (int i = 0; i < QuestPanels.Count; i++) {
@@ -59,6 +55,9 @@ public class QuestUI : MonoBehaviour
         ReadjustPanelsPosition();
     }
     private void ReadjustPanelsPosition() {
-
+        for (int i = 0; i < QuestPanels.Count; i++) {
+            Vector3 panelPosition = new Vector3(PanelX, PanelY + Margin * i, 0f);
+            QuestPanels[i].GetComponent<RectTransform>().anchoredPosition = panelPosition;
+        }
     }
 }
