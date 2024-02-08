@@ -59,7 +59,7 @@ public class StoreSceneUI : MonoBehaviour
         _popUpLayer.style.display = DisplayStyle.None;
         _bag.RegisterCallback<ClickEvent>(OnOpenBookForClick);
         _scrim.RegisterCallback<ClickEvent>(OnCloseBook);
-        _book.RegisterCallback<TransitionEndEvent>(ClosePopUp);
+        _scrim.RegisterCallback<TransitionEndEvent>(ClosePopUp);
         _rightArrow.RegisterCallback<ClickEvent>(RightPageTurn);
         _leftArrow.RegisterCallback<ClickEvent>(LeftPageTurn);
 
@@ -86,10 +86,10 @@ public class StoreSceneUI : MonoBehaviour
         _tmpState = GameManager.Instance.GameStateManager.BookUIState;
 
         // for test
-        //BookData.Instance.EquippedBook.Add("Thor1");
-        //BookData.Instance.EquippedBook.Add("Surtur3");
-        //BookData.Instance.EquippedBookLevel["Thor1"] = 2;
-        //BookData.Instance.EquippedBookLevel["Surtur3"] = 1;
+        //BookData.Instance.EquippedBook.Add("Slime1");
+        //BookData.Instance.EquippedBook.Add("Slime3");
+        //BookData.Instance.EquippedBookLevel["Slime1"] = 1;
+        //BookData.Instance.EquippedBookLevel["Slime3"] = 1;
 
         // for test
         //StoreBookName = "Thor2";
@@ -119,7 +119,7 @@ public class StoreSceneUI : MonoBehaviour
             _tmpState = GameManager.Instance.GameStateManager.BookUIState;
             switch (_tmpState) {
                 case BookUIState.Guide:
-                    Invoke("InformToGuide", 0.5f);
+                    InformToGuide();
                     break;
                 case BookUIState.Inform:
                     GuideToInform();
@@ -148,9 +148,6 @@ public class StoreSceneUI : MonoBehaviour
         _bag.RemoveFromClassList("BagSprite--Opened");
         _scrim.RemoveFromClassList("Scrim--FadeIn");
         _book.RemoveFromClassList("BookSprite--Opened");
-        if (GameManager.Instance.GameStateManager.BookUIState == BookUIState.Inform) {
-            GameManager.Instance.GameStateManager.ChangeBookUIState();
-        }
     }
     private void ActiveBook() 
     {
@@ -159,12 +156,14 @@ public class StoreSceneUI : MonoBehaviour
     }
     private void ClosePopUp(TransitionEndEvent evt)
     {
-        if (!_book.ClassListContains("BookSprite--Opened")) 
+        if (!_scrim.ClassListContains("Scrim--FadeIn")) 
         {
             _popUpLayer.style.display = DisplayStyle.None;
 
-            GameManager.Instance.GameStateManager.UIOpened = false; // UI State Close
-            Debug.Log(GameManager.Instance.GameStateManager.UIOpened);
+            GameManager.Instance.GameStateManager.UIOpened = false;
+            if (GameManager.Instance.GameStateManager.BookUIState == BookUIState.Inform) {
+                GameManager.Instance.GameStateManager.ChangeBookUIState();
+            }
         }
     }
     #endregion
