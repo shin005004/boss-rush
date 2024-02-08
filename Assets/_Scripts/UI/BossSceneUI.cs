@@ -56,7 +56,7 @@ public class BossSceneUI : MonoBehaviour
             SetBullet();
         }
         if (Input.GetKey(KeyCode.F)) {
-            WriteBook();
+            //WriteBook();
         }
     }
     #region //base
@@ -84,6 +84,7 @@ public class BossSceneUI : MonoBehaviour
         }
     }
     #endregion
+    /*
     #region //quest
     private Stack<string> _booksToWrite = new Stack<string>();
     public void ReadyToWriteBook(string bookName) {
@@ -105,4 +106,5 @@ public class BossSceneUI : MonoBehaviour
         BookData.Instance.UnlockedBookLevel[_booksToWrite.Pop()] = 1;
     }
     #endregion
+    */
 }

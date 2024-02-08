@@ -28,7 +28,6 @@ public class StoreSceneUI : MonoBehaviour
     private int _baseSection = 2, _basePage = 1, _tmpSection = 2, _tmpPage = 1;
     private BookUIState _tmpState;
     public static string StoreBookName;
-    public static int StoreBookLevel;
     // for interaction with gameobject in store scene
     
     #endregion
@@ -433,14 +432,7 @@ public class StoreSceneUI : MonoBehaviour
             _indexs[i].style.display = DisplayStyle.None;
         }
         _tmpSection = 1;
-        string bookFullName = StoreBookName;
-        if (StoreBookLevel == 1) {
-            bookFullName += "_1";
-        }
-        else if (StoreBookLevel == 2) {
-            bookFullName += "_2";
-        }
-        _tmpPage = _bookUIPage.InfoPages.IndexOf(bookFullName) + 1;
+        _tmpPage = _bookUIPage.InfoPages.IndexOf(StoreBookName) + 1;
         ChangeSectionUI();
     }
     private void InformToGuide() {
