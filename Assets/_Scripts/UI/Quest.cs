@@ -17,8 +17,6 @@ public class Quest : MonoBehaviour
         WritingSlider = gameObject.transform.GetChild(2).gameObject;
         _waitingSlider = WaitingSlider.transform.GetChild(0).GetComponent<Slider>();
         _writingSlider = WritingSlider.transform.GetChild(0).GetComponent<Slider>();
-        WaitingSlider.SetActive(true);
-        WritingSlider.SetActive(false);
         _tmpWaitingTime = 0.0f;
         _tmpWritingTime = 0.0f;
         StartCoroutine(WaitingSliderStart());

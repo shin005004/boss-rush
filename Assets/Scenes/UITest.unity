@@ -542,6 +542,8 @@ MonoBehaviour:
   PanelX: -170
   PanelY: 110
   Margin: 200
+  TransitionMargin: 50
+  TransitionSpeed: 100
 --- !u!1001 &3476826422222355286
 PrefabInstance:
   m_ObjectHideFlags: 0
