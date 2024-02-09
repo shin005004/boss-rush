@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Quest : MonoBehaviour
 {
     public string BookName;
     public bool QuestFail = false, QuestSucceed = false, IsWriting = false;
     public float WaitingTime = 15.0f, WritingTime = 5.0f;
-    private GameObject WaitingSlider, WritingSlider;
+    private GameObject WaitingSlider, WritingSlider, PanelText;
     private Slider _waitingSlider, _writingSlider;
     private float _tmpWaitingTime = 0.0f, _tmpWritingTime = 0.0f;
     void Start() {
+        PanelText = gameObject.transform.GetChild(0).gameObject;
+        PanelText.GetComponent<TextMeshProUGUI>().text += " <color=#B21515>" + BookName + "</color>";
         WaitingSlider = gameObject.transform.GetChild(1).gameObject;
         WritingSlider = gameObject.transform.GetChild(2).gameObject;
         _waitingSlider = WaitingSlider.transform.GetChild(0).GetComponent<Slider>();

@@ -642,6 +642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BookName: 
+  QuestStr: 
   QuestFail: 0
   QuestSucceed: 0
   IsWriting: 0
@@ -786,7 +787,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Press <color=#1C9122>[F]</color> to
 
-    write book'
+    write'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 399c9a7953cc64a4bb03741fcd89edc3, type: 2}
   m_sharedMaterial: {fileID: -6184699509115046053, guid: 399c9a7953cc64a4bb03741fcd89edc3, type: 2}
