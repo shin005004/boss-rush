@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,12 +8,14 @@ public class QuestUI : MonoBehaviour
 {
     // key function = NewQuest() 
     [HideInInspector] public static List<GameObject> QuestPanels;
+    [HideInInspector] public static List<string> QuestStrings;
     public GameObject PanelPrefab;
     public int QuestCount = 3;
     public float PanelX = -170f, PanelY = 110f, Margin = 200f, TransitionMargin = 50f, TransitionSpeed = 5f;
     private bool _isTransitioning = false;
     void Awake() {
         QuestPanels = new List<GameObject>(QuestCount);
+        QuestStrings = new List<string>(QuestCount);
         _isTransitioning = false;
     }
     void Update()
@@ -31,16 +34,13 @@ public class QuestUI : MonoBehaviour
         }
 
         // for test
-        if (Input.GetKeyUp(KeyCode.Space)) {
-            NewQuest("Thor1");
-        }
-        if (Input.GetKeyUp(KeyCode.A)) {
-            NewQuest("Thor2");
-        }
+        //if (Input.GetKeyUp(KeyCode.Space)) NewQuest("Thor1");
+        //if (Input.GetKeyUp(KeyCode.S)) NewQuest("Thor2");
     }
     public void NewQuest(string bookName) {
         if (BookData.Instance.UnlockedBookLevel[bookName] == 1) return;
         if (QuestPanels.Count == QuestCount) return;
+        if (QuestStrings.Contains(bookName)) return;
         OpenQuestPanel(bookName);
     }
     private void OpenQuestPanel(string bookName) {
@@ -51,6 +51,7 @@ public class QuestUI : MonoBehaviour
         questPanel.GetComponent<RectTransform>().anchoredPosition = panelPosition;
 
         QuestPanels.Add(questPanel);
+        QuestStrings.Add(bookName);
         int count = QuestPanels.IndexOf(questPanel);
         quest.BookName = bookName;
 
@@ -87,7 +88,7 @@ public class QuestUI : MonoBehaviour
         }
 
         panelPosition.y = PanelY + Margin * count;
-        panelColor.a = 255f;
+        panelColor.a = 1f;
         panelRect.anchoredPosition = panelPosition;
         panelImage.color = panelColor;
         panel.transform.GetChild(0).gameObject.SetActive(true);
@@ -98,16 +99,22 @@ public class QuestUI : MonoBehaviour
     }
     IEnumerator PanelCloseTransition(GameObject panel) {
         RectTransform panelRect = panel.GetComponent<RectTransform>();
+        Image panelImage = panel.GetComponent<Image>();
         _isTransitioning = true;
 
         Vector2 panelPosition = panelRect.anchoredPosition;
+        Color panelColor = panelImage.color;
+
         while (panelRect.anchoredPosition.x < - PanelX) {
             panelPosition.x += Time.deltaTime * TransitionSpeed * 8;
             panelRect.anchoredPosition = panelPosition;
-
+            panelColor.a -= 1f / (- PanelX * 2 / (Time.deltaTime * TransitionSpeed * 8));
+            panelImage.color = panelColor;
+            
             yield return null;
         }
-
+        
+        QuestStrings.Remove(panel.GetComponent<Quest>().BookName);
         QuestPanels.Remove(panel);
         Destroy(panel);
         _isTransitioning = false;

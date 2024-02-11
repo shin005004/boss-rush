@@ -20,6 +20,7 @@ public class BloodManager : MonoBehaviour
 
     public void AddBlood(int amount){
         blood += amount;
+        BossSceneUI.EarnBlood += amount;
     }
     public void UseBlood(int amount){
         blood -= amount;

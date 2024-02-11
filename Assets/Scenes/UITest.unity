@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &60672236 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7164164044030314241, guid: 61825855ab831984f99e7085ea401c7d, type: 3}
+  m_PrefabInstance: {fileID: 4136565629890620178}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &622268332
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -492,6 +497,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5444284036163840608, guid: 61825855ab831984f99e7085ea401c7d, type: 3}
+      propertyPath: _questPanelCanvas
+      value: 
+      objectReference: {fileID: 60672236}
     - target: {fileID: 6913987275266161372, guid: 61825855ab831984f99e7085ea401c7d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

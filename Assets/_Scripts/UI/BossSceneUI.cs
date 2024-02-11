@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
+using UnityEditor.SearchService;
 
 public class BossSceneUI : MonoBehaviour
 {
     #region //element
     [SerializeField] GameObject _bulletPrefab, _bulletCanvas;
-    private VisualElement _bossBlood, _bloodBar_Forward;
-    private Label _bossNameText, _equippedCountText;
-    private VisualElement[] _questPanels = new VisualElement[3];
-    private Label[] _questPanelTexts = new Label[3];
+    private VisualElement _bossBlood, _bloodBar_Forward, _result, _scrim;
+    private Label _bossNameText, _equippedCountText, _resultText, _earnBloodText, _earnBookText;
     #endregion
     #region //variables
     public string BossName = "Boss"; // need to be connected to map data
+    public static int EarnBlood = 0, EarnBook = 0;
     public int FullBlood = 200, Blood = 200; // need to be connected to map data
     public int FullBullet = 4, Bullet = 1; // need to be connected to bullet data
     public int Margin = 70; // this is for UI position adjusting
-    private int _tmpBlood, _equippedCount, _tmpBullet, _bulletX = -50, _bulletY = 50;
+    private int _tmpBlood, _equippedCount, _tmpBullet, _bulletX = -50, _bulletY = 50, _tmpResultState;
     #endregion
     void Awake() {
         var root = GetComponent<UIDocument>().rootVisualElement;
@@ -26,24 +26,27 @@ public class BossSceneUI : MonoBehaviour
         _bloodBar_Forward = root.Q<VisualElement>("BloodBar_Forward");
         _bossNameText = root.Q<Label>("BossName");
         _equippedCountText = root.Q<Label>("EquippedCount");
-        for (int i = 0; i < 3; i++) {
-            _questPanels[i] = root.Q<VisualElement>("Panel" + (i + 1).ToString());
-            _questPanelTexts[i] = _questPanels[i].Q<Label>("PanelText");
-        }
+
+        _result = root.Q<VisualElement>("Result");
+        _scrim = _result.Q<VisualElement>("Scrim");
+        _resultText = _scrim.Q<Label>("ResultText");
+        _earnBloodText = _scrim.Q<Label>("EarnBloodText");
+        _earnBookText = _scrim.Q<Label>("EarnBookText");
+        _scrim.AddToClassList("Scrim--Closed");
+
+        EarnBlood = 0;
+        EarnBook = 0;
     }
     void Start()
     {   
         GameManager.Instance.GameStateManager.UIOpened = false;
         _equippedCount = BookData.Instance.EquippedBook.Count;
         _tmpBlood = Blood;
+        _tmpResultState = 0;
         SetBossBlood();
         SetBossSceneUI();
 
         Invoke("BossBloodAppear", 0.5f);
-
-        //for test
-        //ReadyToWriteBook("Slime1");
-        //ReadyToWriteBook("Slime2");
     }
     void Update()
     {
@@ -55,9 +58,18 @@ public class BossSceneUI : MonoBehaviour
             _tmpBullet = Bullet;
             SetBullet();
         }
-        if (Input.GetKey(KeyCode.F)) {
-            //WriteBook();
+        if (GameManager.Instance.GameStateManager.ResultState != 0 && 
+        GameManager.Instance.GameStateManager.ResultState != _tmpResultState) {
+            _tmpResultState = GameManager.Instance.GameStateManager.ResultState;
+            SetResult(GameManager.Instance.GameStateManager.ResultState);
         }
+        if (GameManager.Instance.GameStateManager.UIOpened && Input.GetKeyDown(KeyCode.E)) {
+            GoReborn();
+        }
+
+        // for test
+        //if (Input.GetKeyDown(KeyCode.A)) GameManager.Instance.GameStateManager.ResultState = 1;
+        //if (Input.GetKeyDown(KeyCode.B)) GameManager.Instance.GameStateManager.ResultState = 2;
     }
     #region //base
     private void BossBloodAppear() {
@@ -84,27 +96,25 @@ public class BossSceneUI : MonoBehaviour
         }
     }
     #endregion
-    /*
-    #region //quest
-    private Stack<string> _booksToWrite = new Stack<string>();
-    public void ReadyToWriteBook(string bookName) {
-        if (BookData.Instance.UnlockedBookLevel[bookName] == 1) return;
-        for (int i = 0; i < _questPanels.Length; i++) {
-            if (_questPanels[i].ClassListContains("Panel--Opened")) continue;
-            else {
-                _questPanels[i].AddToClassList("Panel--Opened");
-                _questPanelTexts[i].AddToClassList("PanelText--Opened");
-                _booksToWrite.Push(bookName);
-                break;
-            }
-        }
+    #region //result
+    const string LoseText = "<color=#CA0D0D>You Died</color>";
+    const string WinText = "<color=#E1B41B>You Win!</color>";
+    private void SetResult(int resultState) {
+        if (resultState == 1) _resultText.text = LoseText; // TODO: change map data
+        else if (resultState == 2) _resultText.text = WinText; // TODO: change map data
+        _earnBloodText.text = "x " + EarnBlood.ToString();
+        _earnBookText.text = "x " + EarnBook.ToString();
+        ShowResult();
     }
-    public void WriteBook() {
-        if (_booksToWrite.Count == 0) return;
-        _questPanels[_booksToWrite.Count - 1].RemoveFromClassList("Panel--Opened");
-        _questPanelTexts[_booksToWrite.Count - 1].RemoveFromClassList("PanelText--Opened");
-        BookData.Instance.UnlockedBookLevel[_booksToWrite.Pop()] = 1;
+    private void ShowResult() {
+        GameManager.Instance.GameStateManager.UIOpened = true;
+        _scrim.RemoveFromClassList("Scrim--Closed");
+    }
+    private void GoReborn() {
+        GameManager.Instance.GameStateManager.UIOpened = false;
+        GameManager.Instance.GameStateManager.ResultState = 0;
+        _tmpResultState = 0;
+        SceneLoader.Instance.LoadMainStoreScene();
     }
     #endregion
-    */
 }

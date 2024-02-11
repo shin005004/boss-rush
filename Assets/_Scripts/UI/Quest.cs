@@ -42,6 +42,7 @@ public class Quest : MonoBehaviour
     }
     public void CompleteWriting() {
         BookData.Instance.UnlockedBookLevel[BookName] = 1;
+        BossSceneUI.EarnBook++;
     }
     public void WaitingToWriting() {
         StopCoroutine(nameof(WaitingSliderStart));

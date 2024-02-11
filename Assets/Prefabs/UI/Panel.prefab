@@ -642,7 +642,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BookName: 
-  QuestStr: 
   QuestFail: 0
   QuestSucceed: 0
   IsWriting: 0

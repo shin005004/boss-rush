@@ -14,6 +14,7 @@ public class GameStateManager : MonoBehaviour
 {   
     public BookUIState BookUIState {get; private set;}
     public bool UIOpened = false;
+    public int ResultState = 0; // 0: None, 1: Lose, 2: Win
     void Start()
     {
         BookUIState = BookUIState.Guide;
