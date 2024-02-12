@@ -1,0 +1,17 @@
+Slime
+Name: Slime
+Health: 100
+SkillCount: 3
+Description: Just a Slime
+
+Thor
+Name: Thor
+Health: 100
+SkillCount: 4
+Description: The Mighty Thor
+
+Surtur
+Name: Surtur
+Health: 100
+SkillCount: 4
+Description: Just a Surtur
