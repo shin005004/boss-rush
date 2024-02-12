@@ -14,7 +14,7 @@ public class MiniBookShelf : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         unlockedBoss = 0;
-        foreach(string boss in BookData.Instance.BossList[destination]){
+        foreach(string boss in BossData.Instance.BossList[destination]){
             foreach(string book in BookData.Instance.BookList[destination][boss]){
                 if(BookData.Instance.UnlockedBookLevel[book] > 0) { unlockedBoss++; break; }
             }

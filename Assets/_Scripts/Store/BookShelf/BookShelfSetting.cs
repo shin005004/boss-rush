@@ -32,7 +32,7 @@ public class BookShelfSetting : MonoBehaviour
     private void Awake()
     {
         roomSetting = GameManager.Instance.BookManager.BookRoomType;
-        roomBossList = BookData.Instance.BossList[roomSetting];
+        roomBossList = BossData.Instance.BossList[roomSetting];
         bookNameTransform = bookNameObject.GetComponent<RectTransform>();
     }
 

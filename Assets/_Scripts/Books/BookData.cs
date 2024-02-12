@@ -12,10 +12,21 @@ using System.Diagnostics.Tracing;
 public class BookData: MonoBehaviour
 {
     public static BookData Instance { get; private set; }    
-    private string bossListFilePath, bossSkillCountFilePath, bookDetailsFilePath; 
-    private string currentType, currentBook;
-    private string[] bossListLines, bossSkillCountLines, bookDetailsLines;
+    private string currentBook;
+    private string bookDetailsFilePath; 
+    private string[] bookDetailsLines;
     private int bloodPrice;
+
+    #region Public Dictionary / List
+    public List<string> BookType = new List<string>() {"Asia", "Europe", "NorthAmerica", "SouthAmerica", "Africa", "Oceania"};
+    public Dictionary<string, Dictionary<string, List<string>>> BookList = new Dictionary<string, Dictionary<string, List<string>>>();
+    public List<string> BookNameList = new List<string>();
+
+    public Dictionary<string, int> UnlockedBookLevel = new Dictionary<string, int>();
+    public Dictionary<string, int> EquippedBookLevel = new Dictionary<string, int>();
+    public List<string> EquippedBook = new List<string>();
+    public Dictionary<string, Dictionary<string, object>> BookDetails = new Dictionary<string, Dictionary<string, object>>();
+    #endregion
 
     private void Awake()
     {
@@ -30,37 +41,21 @@ public class BookData: MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
 
-        bossListFilePath = Path.Combine(Application.dataPath, "Datas", "Boss List.txt");
-        bossSkillCountFilePath = Path.Combine(Application.dataPath, "Datas", "Boss Skill Count.txt");
         bookDetailsFilePath = Path.Combine(Application.dataPath, "Datas", "Book Details.txt");
 
 
-        ReadFiles();
         LoadSaveFile();
     }
 
 
     
-    #region Public Dictionary / List
-    public List<string> BookType = new List<string>() {"Asia", "Europe", "NorthAmerica", "SouthAmerica", "Africa", "Oceania"};
 
-    public Dictionary<string, List<string>> BossList = new Dictionary<string, List<string>>();
-    public Dictionary<string, Dictionary<string, List<string>>> BookList = new Dictionary<string, Dictionary<string, List<string>>>();
-    public List<string> BookNameList = new List<string>();
-
-    public Dictionary<string, int> UnlockedBookLevel = new Dictionary<string, int>();
-    public Dictionary<string, int> EquippedBookLevel = new Dictionary<string, int>();
-    public List<string> EquippedBook = new List<string>();
-    public Dictionary<string, Dictionary<string, object>> BookDetails = new Dictionary<string, Dictionary<string, object>>();
-
-    public Dictionary<string, int> BossSkillCount = new Dictionary<string, int>();
-    #endregion
 
     #region Reset Equipped Books
     public void ResetEquippedBook(){
         foreach(string bookType in BookType){
-            foreach(string boss in BossList[bookType]){
-                for(int i = 1; i <= BossSkillCount[boss]; i++){
+            foreach(string boss in BossData.Instance.BossList[bookType]){
+                for(int i = 1; i <= BossData.Instance.BossSkillCount[boss]; i++){
                     string skillCount = i.ToString();
                     string bookName = $"{boss}{skillCount}";
                     EquippedBookLevel[bookName] = 0;
@@ -73,34 +68,8 @@ public class BookData: MonoBehaviour
     #endregion
 
     #region Reading Boss Data Text Files
-    private void ReadFiles(){
-        foreach(string bookType in BookType){ BossList[bookType] = new List<string>() {}; }
-
-        bossListLines = File.ReadAllLines(bossListFilePath);
-        bossSkillCountLines = File.ReadAllLines(bossSkillCountFilePath);
+    public void ReadFiles(){
         bookDetailsLines = File.ReadAllLines(bookDetailsFilePath);
-
-        currentType = "";
-        foreach(string line in bossListLines){
-            if(string.IsNullOrWhiteSpace(line) || (currentType == "" && !BookType.Contains(line))){
-                
-            }
-            else if(BookType.Contains(line)){
-                currentType = line;
-            }
-            else{
-                BossList[currentType].Add(line);
-            }
-        }
-
-        foreach(string line in bossSkillCountLines){
-            string[] parts = line.Split(' ');
-
-            if (parts.Length == 2 && int.TryParse(parts[1], out int count))
-            {
-                BossSkillCount[parts[0]] = count;
-            }
-        }
 
         SetBookList();
 
@@ -118,13 +87,6 @@ public class BookData: MonoBehaviour
                 string detailKey = detail[0];
                 if(detailKey == "Blood"){
                     BookDetails[currentBook].Add("Blood", detail[1]);
-                    // BookDetails[currentBook]["Blood"] = new List<int>() {};
-                    // string[] bloodPrices = detail[1].Split(' ');
-                    // foreach(string bloodPriceString in bloodPrices){
-                    //     if(int.TryParse(bloodPriceString, out bloodPrice)){
-                    //         ((List<int>)BookDetails[currentBook]["Blood"]).Add(bloodPrice);
-                    //     }
-                    // }
                 }
                 else if(detailKey == "Description"){
                     BookDetails[currentBook].Add("Description", detail[1]);
@@ -136,12 +98,12 @@ public class BookData: MonoBehaviour
         }
     }
 
-    public void SetBookList(){
+    private void SetBookList(){
         foreach(string bookType in BookType){
             BookList[bookType] = new Dictionary<string, List<string>>();
-            foreach(string boss in BossList[bookType]){
+            foreach(string boss in BossData.Instance.BossList[bookType]){
                 BookList[bookType][boss] = new List<string>();
-                for(int i = 1; i <= BossSkillCount[boss]; i++){
+                for(int i = 1; i <= BossData.Instance.BossSkillCount[boss]; i++){
                     string skillCount = i.ToString();
                     string bookName = $"{boss}{skillCount}";
                     BookList[bookType][boss].Add(bookName);
