@@ -53,7 +53,7 @@
 }
 
 .Scrim--FadeIn {
-    background-color: rgba(0, 0, 0, 0.47);
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 .BookSprite--Opened {
@@ -181,9 +181,9 @@
 .Slot_BookName {
     width: 100%;
     height: 15%;
-    -unity-font: url('project://database/Assets/Fonts/Materials/ThaleahFat_TTF.ttf?fileID=12800000&guid=585188cdc4600544eb408bee749e4b3a&type=3#ThaleahFat_TTF');
-    -unity-font-definition: url('project://database/Assets/Fonts/Materials/ThaleahFat_TTF%20SDF.asset?fileID=11400000&guid=821ae0e5d801212488aa17896de90cce&type=2#ThaleahFat_TTF SDF');
-    font-size: 50px;
+    -unity-font: url('project://database/Assets/Fonts/DungGeunMo.ttf?fileID=12800000&guid=629257550dea9294ca8b34ce6c0f2884&type=3#DungGeunMo');
+    -unity-font-definition: url('project://database/Assets/Fonts/DungGeunMo%20SDF2.asset?fileID=11400000&guid=44d1c7621806dc846a5700dd3aa70e31&type=2#DungGeunMo SDF2');
+    font-size: 40px;
     -unity-text-align: upper-center;
 }
 

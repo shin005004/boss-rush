@@ -1,0 +1,122 @@
+.Continent0 {
+    flex-grow: 0;
+    background-image: url('project://database/Assets/Sprites/UI/WorldMapUI/Continent0.png?fileID=2800000&guid=a2a43d6074d34d9428daf452a8582cbd&type=3#Continent0');
+    -unity-background-scale-mode: scale-to-fit;
+    flex-shrink: 0;
+    height: 80%;
+    width: 35%;
+    left: 10%;
+    top: 10%;
+    position: absolute;
+}
+
+.Continent1 {
+    flex-grow: 0;
+    -unity-background-scale-mode: scale-to-fit;
+    background-image: url('project://database/Assets/Sprites/UI/WorldMapUI/Continent1.png?fileID=2800000&guid=e05e63672b0d4fb4fa0c4192390fd0f0&type=3#Continent1');
+    height: 40%;
+    width: 23%;
+    flex-shrink: 0;
+    left: 40%;
+    top: 45%;
+    position: absolute;
+}
+
+.Continent2 {
+    flex-grow: 0;
+    flex-shrink: 0;
+    background-image: url('project://database/Assets/Sprites/UI/WorldMapUI/Continent2.png?fileID=2800000&guid=6bff8723cbaf4774cb420f7bedfd4c59&type=3#Continent2');
+    width: 28%;
+    -unity-background-scale-mode: scale-to-fit;
+    height: 80%;
+    top: 12%;
+    left: 62%;
+    position: absolute;
+}
+
+.Continent0--Selected {
+    flex-grow: 1;
+    transition-duration: 0.4s;
+    scale: 1.15 1.15;
+    translate: 55% 0;
+}
+
+.Continent1--Selected {
+    flex-grow: 1;
+    transition-duration: 0.4s;
+    scale: 1.3 1.3;
+    translate: 0 -30%;
+}
+
+.Continent2--Selected {
+    flex-grow: 1;
+    scale: 1.2 1.2;
+    translate: -100% 0;
+    transition-duration: 0.4s;
+}
+
+.Stage {
+    flex-grow: 0;
+    position: absolute;
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    background-image: url('project://database/Assets/Sprites/UI/WorldMapUI/Stage1.png?fileID=2800000&guid=a1a9620aac567be48a73f6d40c211078&type=3#Stage1');
+}
+
+.Scrim {
+    flex-grow: 0;
+    position: absolute;
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    flex-direction: row;
+    display: flex;
+    transition-duration: 0.3s;
+}
+
+.Scrim--Closed {
+    opacity: 0;
+}
+
+.MapInfo {
+    flex-grow: 1;
+    position: absolute;
+    height: 90%;
+    width: 30%;
+    background-image: url('project://database/Assets/Sprites/UI/WorldMapUI/StageInfo.png?fileID=2800000&guid=28553b411bc1e754b9db4af3d94bb875&type=3#StageInfo');
+    -unity-background-scale-mode: scale-to-fit;
+    left: 55%;
+    transition-duration: 0.3s;
+}
+
+.MapInfo--Closed {
+    translate: 0 -100%;
+}
+
+.Continent0--Info {
+    translate: 10% 0;
+}
+
+.Continent1--Info {
+    translate: -95% -30%;
+}
+
+.Continent2--Info {
+    translate: -168% 0;
+}
+
+.MapBaseContinent {
+}
+
+.MapBaseContinent:hover {
+    scale: 1.05 1.05;
+    transition-duration: 0.3s;
+    -unity-background-image-tint-color: rgb(208, 208, 208);
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.Stage:hover {
+    -unity-background-image-tint-color: rgb(205, 205, 205);
+}
