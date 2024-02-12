@@ -74,6 +74,7 @@ public class BossData : MonoBehaviour
         }
 
         BookData.Instance.ReadFiles();
+        BookData.Instance.LoadSaveFile();
     }
     #endregion
 

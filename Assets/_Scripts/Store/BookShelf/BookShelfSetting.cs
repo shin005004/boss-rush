@@ -60,7 +60,6 @@ public class BookShelfSetting : MonoBehaviour
             bookY -= 60f;
         }
 
-        SetBookActive();
         SetEquippedBookInActive();
     }
 
