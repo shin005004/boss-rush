@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &60672236 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7164164044030314241, guid: 61825855ab831984f99e7085ea401c7d, type: 3}
-  m_PrefabInstance: {fileID: 4136565629890620178}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &622268332
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -182,10 +177,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 811363102376428054, guid: 5ed90f4b94690c0458f87e7fe1b9ac3b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1225192673}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ed90f4b94690c0458f87e7fe1b9ac3b, type: 3}
 --- !u!1 &1023215382
@@ -325,51 +317,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!1 &1225192672
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1225192673}
-  - component: {fileID: 1225192674}
-  m_Layer: 0
-  m_Name: GameStateManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1225192673
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1225192672}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1597014230}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1225192674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1225192672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8abcdac8e5475d64bbb32e600896c226, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UIOpened: 0
 --- !u!1 &1381744736
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,11 +370,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1597014230 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 811363102376428054, guid: 5ed90f4b94690c0458f87e7fe1b9ac3b, type: 3}
-  m_PrefabInstance: {fileID: 622268332}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3476826422222355286
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -480,10 +422,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: StoreScene
       objectReference: {fileID: 0}
-    - target: {fileID: 9163721302263755307, guid: ea4665bb19a855741ac1673db3ea0b49, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -497,10 +435,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5444284036163840608, guid: 61825855ab831984f99e7085ea401c7d, type: 3}
-      propertyPath: _questPanelCanvas
-      value: 
-      objectReference: {fileID: 60672236}
     - target: {fileID: 6913987275266161372, guid: 61825855ab831984f99e7085ea401c7d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -544,6 +478,10 @@ PrefabInstance:
     - target: {fileID: 8825736077523708593, guid: 61825855ab831984f99e7085ea401c7d, type: 3}
       propertyPath: m_Name
       value: BossScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 8825736077523708593, guid: 61825855ab831984f99e7085ea401c7d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

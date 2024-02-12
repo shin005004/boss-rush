@@ -14,7 +14,7 @@ public class StoreSceneUI : MonoBehaviour
     // Those will be changed when the whole blood management structure is completed
     [SerializeField] GameObject bookRightTurn, bookLeftTurn;
     private Animator _bookRightTurnAnim, _bookLeftTurnAnim;
-    private VisualElement _popUpLayer, _bag, _scrim, _book, _bloodSprite, _rightArrow, _leftArrow;
+    private VisualElement _popUpLayer, _bag, _scrim, _book, _bloodSprite, _rightArrow, _leftArrow, _closeButton;
     private Label _bloodText;
     private Sprite[] _bloodSprites;
     private int _bloodSpriteCount = 15, _tmpBloodAmout = 0, _turningDirection = -1;
@@ -49,6 +49,7 @@ public class StoreSceneUI : MonoBehaviour
         _bloodText = root.Q<Label>("BloodText");
         _rightArrow = root.Q<VisualElement>("RightArrow");
         _leftArrow = root.Q<VisualElement>("LeftArrow");
+        _closeButton = root.Q<VisualElement>("CloseButton");
 
         _bookSection = root.Q<VisualElement>("BookSection");
         _sectionBookIndex = _bookSection.Q<VisualElement>("Section_BookIndex");
@@ -57,7 +58,7 @@ public class StoreSceneUI : MonoBehaviour
 
         _popUpLayer.style.display = DisplayStyle.None;
         _bag.RegisterCallback<ClickEvent>(OnOpenBookForClick);
-        _scrim.RegisterCallback<ClickEvent>(OnCloseBook);
+        _closeButton.RegisterCallback<ClickEvent>(OnCloseBook);
         _scrim.RegisterCallback<TransitionEndEvent>(ClosePopUp);
         _rightArrow.RegisterCallback<ClickEvent>(RightPageTurn);
         _leftArrow.RegisterCallback<ClickEvent>(LeftPageTurn);

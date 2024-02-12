@@ -46,7 +46,7 @@ public class BossSceneUI : MonoBehaviour
         SetBossBlood();
         SetBossSceneUI();
 
-        Invoke("BossBloodAppear", 0.5f);
+        Invoke(nameof(BossBloodAppear), 0.5f);
     }
     void Update()
     {
@@ -68,8 +68,8 @@ public class BossSceneUI : MonoBehaviour
         }
 
         // for test
-        //if (Input.GetKeyDown(KeyCode.A)) GameManager.Instance.GameStateManager.ResultState = 1;
-        //if (Input.GetKeyDown(KeyCode.B)) GameManager.Instance.GameStateManager.ResultState = 2;
+        if (Input.GetKeyDown(KeyCode.A)) GameManager.Instance.GameStateManager.ResultState = 1;
+        if (Input.GetKeyDown(KeyCode.B)) GameManager.Instance.GameStateManager.ResultState = 2;
     }
     #region //base
     private void BossBloodAppear() {
@@ -97,8 +97,8 @@ public class BossSceneUI : MonoBehaviour
     }
     #endregion
     #region //result
-    const string LoseText = "<color=#CA0D0D>You Died</color>";
-    const string WinText = "<color=#E1B41B>You Win!</color>";
+    const string LoseText = "<color=#CA0D0D>죽었습니다</color>";
+    const string WinText = "<color=#E1B41B>승리했습니다!</color>";
     private void SetResult(int resultState) {
         if (resultState == 1) _resultText.text = LoseText; // TODO: change map data
         else if (resultState == 2) _resultText.text = WinText; // TODO: change map data

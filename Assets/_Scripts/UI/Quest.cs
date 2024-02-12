@@ -15,7 +15,7 @@ public class Quest : MonoBehaviour
     private float _tmpWaitingTime = 0.0f, _tmpWritingTime = 0.0f;
     void Start() {
         PanelText = gameObject.transform.GetChild(0).gameObject;
-        PanelText.GetComponent<TextMeshProUGUI>().text += " <color=#B21515>" + BookName + "</color>";
+        PanelText.GetComponent<TextMeshProUGUI>().text = "<color=#127A0D>[F]키</color>로 <color=#882828>" + BookName + "</color>\n책을 기록하세요";
         WaitingSlider = gameObject.transform.GetChild(1).gameObject;
         WritingSlider = gameObject.transform.GetChild(2).gameObject;
         _waitingSlider = WaitingSlider.transform.GetChild(0).GetComponent<Slider>();
