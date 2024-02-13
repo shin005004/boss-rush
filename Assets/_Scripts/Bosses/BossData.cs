@@ -12,8 +12,8 @@ using System.Diagnostics.Tracing;
 public class BossData : MonoBehaviour
 {
     public static BossData Instance { get; private set; }    
-    private string bossListFilePath, bossDetailsFilePath; 
-    private string[] bossListLines, bossDetailsLines;
+    private string bossListFilePath, bossDetailsFilePath, bossClearFilePath; 
+    private string[] bossListLines, bossDetailsLines, bossClearLines;
     private string currentType, currentBoss;
 
     private void Awake()
@@ -31,6 +31,7 @@ public class BossData : MonoBehaviour
 
         bossListFilePath = Path.Combine(Application.dataPath, "Datas", "Boss List.txt");
         bossDetailsFilePath = Path.Combine(Application.dataPath, "Datas", "Boss Details.txt");
+        bossClearFilePath = Path.Combine(Application.dataPath, "Datas", "Boss Clear.txt");
 
 
         ReadFiles();
@@ -43,6 +44,7 @@ public class BossData : MonoBehaviour
     public Dictionary<string, List<string>> BossList = new Dictionary<string, List<string>>();
     public Dictionary<string, int> BossSkillCount = new Dictionary<string, int>();
     public Dictionary<string, Dictionary<string, object>> BossDetails = new Dictionary<string, Dictionary<string, object>>();
+    public Dictionary<string, bool> BossClear = new Dictionary<string, bool>();
     #endregion
 
     #region Reading Boss Data Text Files
@@ -51,6 +53,7 @@ public class BossData : MonoBehaviour
 
         bossListLines = File.ReadAllLines(bossListFilePath);
         bossDetailsLines = File.ReadAllLines(bossDetailsFilePath);
+        bossClearLines = File.ReadAllLines(bossClearFilePath);
 
         currentType = "";
         foreach(string line in bossListLines){
@@ -97,9 +100,30 @@ public class BossData : MonoBehaviour
             }
         }
 
+        foreach(string boss in TotalBossList){
+            BossClear[boss] = false;
+        }
+        foreach(string line in bossClearLines){
+            string[] detail = line.Split(':').Select(s => s.Trim()).ToArray();
+            if(detail[1] == "O"){
+                BossClear[detail[0]] = true;
+            }
+        }
+
         BookData.Instance.ReadFiles();
         BookData.Instance.LoadSaveFile();
     }
     #endregion
+
+    private List<string> newSaveFileLines = new List<string>();
+    public void UpdateBossClear(string boss){
+        BossClear[boss] = true;
+
+        newSaveFileLines = new List<string>();
+        foreach(string bossString in TotalBossList){
+            if(BossClear[bossString]) { newSaveFileLines.Add(bossString + ": O"); }
+            else { newSaveFileLines.Add(bossString + ": X"); }
+        }
+    }
 
 }
