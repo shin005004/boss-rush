@@ -18,7 +18,7 @@ public class ThorController : MonoBehaviour, IThorController
     #region VFX
     #endregion
 
-    private int BossHP = 100;
+    private int BossHP = 70;
     private PlayerController _player;
     private IPlayerController _playerController;
 
