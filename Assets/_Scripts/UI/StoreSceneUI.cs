@@ -135,7 +135,7 @@ public class StoreSceneUI : MonoBehaviour
         OnOpenBook();
     }
     private void OnOpenBook() {
-        _bag.AddToClassList("BagSprite--Opened");
+        if (_tmpState == BookUIState.Guide) _bag.AddToClassList("BagSprite--Opened");
         _popUpLayer.style.display = DisplayStyle.Flex;
 
         GameManager.Instance.GameStateManager.UIOpened = true; // UI State Open

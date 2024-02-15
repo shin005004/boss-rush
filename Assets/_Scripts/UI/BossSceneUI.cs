@@ -108,6 +108,7 @@ public class BossSceneUI : MonoBehaviour
     }
     private void ShowResult() {
         GameManager.Instance.GameStateManager.UIOpened = true;
+        Time.timeScale = 0f;
         _scrim.RemoveFromClassList("Scrim--Closed");
     }
     private void GoReborn() {
@@ -115,6 +116,7 @@ public class BossSceneUI : MonoBehaviour
         GameManager.Instance.GameStateManager.ResultState = 0;
         _tmpResultState = 0;
         SceneLoader.Instance.LoadMainStoreScene();
+        Time.timeScale = 1f;
     }
     #endregion
 }

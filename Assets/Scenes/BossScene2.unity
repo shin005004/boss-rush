@@ -384,7 +384,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5444284036163840608, guid: 61825855ab831984f99e7085ea401c7d, type: 3}
       propertyPath: BossName
-      value: BIGSLIME
+      value: Thor
       objectReference: {fileID: 0}
     - target: {fileID: 5444284036163840608, guid: 61825855ab831984f99e7085ea401c7d, type: 3}
       propertyPath: FullBlood
