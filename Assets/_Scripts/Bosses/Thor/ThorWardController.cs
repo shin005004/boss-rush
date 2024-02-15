@@ -47,6 +47,7 @@ public class ThorWardController : MonoBehaviour
 
             if (Id == 0)
             {
+                AudioManager.Instance.PlaySfx(2);
                 Instantiate(BlueBeam, transform.position, Quaternion.Euler(0f, 0f, 0f));
                 Instantiate(BlueBeam, transform.position, Quaternion.Euler(0f, 0f, 90f));
                 Instantiate(BlueBeam, transform.position, Quaternion.Euler(0f, 0f, 180f));
@@ -55,6 +56,7 @@ public class ThorWardController : MonoBehaviour
 
             if (Id == 1)
             {
+                AudioManager.Instance.PlaySfx(2);
                 Instantiate(BlueBeam, transform.position, Quaternion.Euler(0f, 0f, 45f));
                 Instantiate(BlueBeam, transform.position, Quaternion.Euler(0f, 0f, 135f));
                 Instantiate(BlueBeam, transform.position, Quaternion.Euler(0f, 0f, 225f));

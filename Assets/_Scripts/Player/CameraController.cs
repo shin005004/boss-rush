@@ -20,13 +20,18 @@ public class CameraController : MonoBehaviour
     private Vector3 _mousePosition;
     private Vector3 _lookAheadOffset;
 
+    private StressReceiver stressReceiver;
+
     private void Start()
     {
+        stressReceiver = GetComponent<StressReceiver>();
         _frameInput = _player.GetComponent<PlayerInput>();
     }
 
     private void LateUpdate()
     {
+        if (Input.GetKeyDown(KeyCode.K)) stressReceiver.InduceStress(1f);
+
         _mousePosition = _frameInput.FrameInput.MousePosition;
 
         if (_player != null)
@@ -50,4 +55,5 @@ public class CameraController : MonoBehaviour
         var goal = _player.position + _offset + _lookAheadOffset + _bossOffset;
         transform.position = Vector3.SmoothDamp(transform.position, goal, ref _vel, time);
     }
+
 }

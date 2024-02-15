@@ -94,6 +94,7 @@ public class ThorController : MonoBehaviour, IThorController
             yield return null;
         }
 
+        stressReceiver.InduceStress(1f);
         if (BookData.Instance.EquippedBookLevel["Thor2"] == 1)
             ThrowWarners[0].SetActive(false);
 
@@ -181,6 +182,7 @@ public class ThorController : MonoBehaviour, IThorController
             ChantWarners[0].SetActive(false);
 
         AudioManager.Instance.PlaySfx(2);
+        stressReceiver.InduceStress(1f);
         Instantiate(ChantAttacks[0], transform.position + new Vector3(0f, -0.4f, 0f), ChantWarners[0].transform.rotation);
 
 
@@ -207,6 +209,7 @@ public class ThorController : MonoBehaviour, IThorController
         if (BookData.Instance.EquippedBookLevel["Thor1"] == 1)
             ChantWarners[0].SetActive(false);
 
+        stressReceiver.InduceStress(1f);
         AudioManager.Instance.PlaySfx(2);
         Instantiate(ChantAttacks[0], transform.position + new Vector3(0f, -0.4f, 0f), ChantWarners[0].transform.rotation);
 
@@ -233,6 +236,7 @@ public class ThorController : MonoBehaviour, IThorController
             ChantWarners[0].SetActive(false);
 
         AudioManager.Instance.PlaySfx(2);
+        stressReceiver.InduceStress(1f);
         Instantiate(ChantAttacks[0], transform.position + new Vector3(0f, -0.4f, 0f), ChantWarners[0].transform.rotation);
 
         yield return new WaitForSeconds(3.5f);
@@ -255,6 +259,7 @@ public class ThorController : MonoBehaviour, IThorController
             ChantWarners[1].SetActive(false);
 
         AudioManager.Instance.PlaySfx(11);
+        stressReceiver.InduceStress(1f);
         Instantiate(ChantAttacks[1], transform.position + new Vector3(0f, -0.7f, 0f), Quaternion.identity);
 
         yield return new WaitForSeconds(5f);
@@ -397,8 +402,10 @@ public class ThorController : MonoBehaviour, IThorController
         }
 
         AudioManager.Instance.PlaySfx(3);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
+        stressReceiver.InduceStress(1f);
 
+        yield return new WaitForSeconds(2f);
 
         isFloor = false;
         chooseNextAction = true;
@@ -522,6 +529,9 @@ public class ThorController : MonoBehaviour, IThorController
     #endregion
 
     #region HIT
+    [Header("HitEFFECT")]
+    [SerializeField] private GameObject HitEffect;
+    [SerializeField] private StressReceiver stressReceiver;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -532,6 +542,11 @@ public class ThorController : MonoBehaviour, IThorController
 
             OnBossHit();
             BossHP--;
+
+            Vector3 knockbackDirection = (transform.position - _player.transform.position).normalized;
+            float weaponAngle = Mathf.Atan2(knockbackDirection.y, knockbackDirection.x) * Mathf.Rad2Deg + -50f;
+            Quaternion weaponRotation = Quaternion.AngleAxis(weaponAngle, Vector3.forward);
+            GameObject vfx = Instantiate(HitEffect, transform.position + new Vector3(0, -1f, 0), weaponRotation);
 
             if (BossHP == 0)
             {

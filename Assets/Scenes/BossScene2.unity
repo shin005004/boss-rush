@@ -328,6 +328,7 @@ GameObject:
   m_Component:
   - component: {fileID: 722522533}
   - component: {fileID: 722522532}
+  - component: {fileID: 722522534}
   m_Layer: 0
   m_Name: CameraHolder
   m_TagString: Untagged
@@ -370,6 +371,21 @@ Transform:
   - {fileID: 1309000860}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &722522534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722522531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1ee1c62c905bb24ea7c9cf3d9d40b56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TraumaExponent: 1
+  MaximumAngularShake: {x: 0, y: 0, z: 0}
+  MaximumTranslationShake: {x: 0.15, y: 0.15, z: 0}
 --- !u!1001 &810186073
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1557,6 +1573,10 @@ PrefabInstance:
       value: Boss_Thor
       objectReference: {fileID: 0}
     - target: {fileID: 3746493962320329987, guid: 4435f1b3564b8fc4da7c42edce8ed7df, type: 3}
+      propertyPath: HitEffect
+      value: 
+      objectReference: {fileID: 171300882447779884, guid: f39a390af3833c949b7a4e1c6eb5dbfd, type: 3}
+    - target: {fileID: 3746493962320329987, guid: 4435f1b3564b8fc4da7c42edce8ed7df, type: 3}
       propertyPath: bossSceneUI
       value: 
       objectReference: {fileID: 224014414}
@@ -1564,6 +1584,10 @@ PrefabInstance:
       propertyPath: QuestManager
       value: 
       objectReference: {fileID: 810186074}
+    - target: {fileID: 3746493962320329987, guid: 4435f1b3564b8fc4da7c42edce8ed7df, type: 3}
+      propertyPath: stressReceiver
+      value: 
+      objectReference: {fileID: 722522534}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

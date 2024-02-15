@@ -849,6 +849,7 @@ GameObject:
   m_Component:
   - component: {fileID: 722522533}
   - component: {fileID: 722522532}
+  - component: {fileID: 722522534}
   m_Layer: 0
   m_Name: CameraHolder
   m_TagString: Untagged
@@ -891,6 +892,21 @@ Transform:
   - {fileID: 1309000860}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &722522534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722522531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1ee1c62c905bb24ea7c9cf3d9d40b56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TraumaExponent: 1
+  MaximumAngularShake: {x: 0, y: 0, z: 0}
+  MaximumTranslationShake: {x: 0.15, y: 0.15, z: 0.15}
 --- !u!1001 &810186073
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1102,17 +1118,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: VFX_HitEffect
       objectReference: {fileID: 0}
-    - target: {fileID: 171300882447779884, guid: f39a390af3833c949b7a4e1c6eb5dbfd, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7150606027053993319, guid: f39a390af3833c949b7a4e1c6eb5dbfd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.61
+      value: 2.365
       objectReference: {fileID: 0}
     - target: {fileID: 7150606027053993319, guid: f39a390af3833c949b7a4e1c6eb5dbfd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.409
+      value: -0.719
       objectReference: {fileID: 0}
     - target: {fileID: 7150606027053993319, guid: f39a390af3833c949b7a4e1c6eb5dbfd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1120,7 +1132,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7150606027053993319, guid: f39a390af3833c949b7a4e1c6eb5dbfd, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9063079
       objectReference: {fileID: 0}
     - target: {fileID: 7150606027053993319, guid: f39a390af3833c949b7a4e1c6eb5dbfd, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1132,7 +1144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7150606027053993319, guid: f39a390af3833c949b7a4e1c6eb5dbfd, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0.42261827
       objectReference: {fileID: 0}
     - target: {fileID: 7150606027053993319, guid: f39a390af3833c949b7a4e1c6eb5dbfd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1144,7 +1156,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7150606027053993319, guid: f39a390af3833c949b7a4e1c6eb5dbfd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3051,6 +3063,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 859424234627145502, guid: 7576dcf471752f84093ac2f2ffc67fb9, type: 3}
+      propertyPath: HitEffect
+      value: 
+      objectReference: {fileID: 171300882447779884, guid: f39a390af3833c949b7a4e1c6eb5dbfd, type: 3}
+    - target: {fileID: 859424234627145502, guid: 7576dcf471752f84093ac2f2ffc67fb9, type: 3}
       propertyPath: bossSpeed
       value: 0.5
       objectReference: {fileID: 0}
@@ -3066,6 +3082,10 @@ PrefabInstance:
       propertyPath: bossCollider
       value: 
       objectReference: {fileID: 1291479777}
+    - target: {fileID: 859424234627145502, guid: 7576dcf471752f84093ac2f2ffc67fb9, type: 3}
+      propertyPath: stressReceiver
+      value: 
+      objectReference: {fileID: 722522534}
     - target: {fileID: 1662877381173936726, guid: 7576dcf471752f84093ac2f2ffc67fb9, type: 3}
       propertyPath: m_Enabled
       value: 1

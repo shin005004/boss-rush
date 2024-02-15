@@ -80,6 +80,7 @@ public class SlimeController : BossController, ISlimeController
         jumpModifierA = -1.2f;
         jumpModifierB = (direction.y / jumpModifierA - Mathf.Pow(direction.x, 2f)) / direction.x;
 
+        stressReceiver.InduceStress(1f);
         ChangeSlimeAction?.Invoke(SlimeAction.BigJump, 2f + direction.magnitude * 0.2f);
         StartCoroutine(BigJump());
     }
@@ -117,6 +118,7 @@ public class SlimeController : BossController, ISlimeController
 
         bossCollider.enabled = true;
 
+        stressReceiver.InduceStress(1f);
         _slimeWarner.ShowBigjumpWarner(jumpDestination, false);
         Instantiate(WindShockwave, jumpDestination, Quaternion.identity);
 
@@ -184,6 +186,7 @@ public class SlimeController : BossController, ISlimeController
 
         bossCollider.enabled = true;
 
+        stressReceiver.InduceStress(1f);
         _slimeWarner.ShowStompWarner(jumpDestination + new Vector2(0f, -1.4f), false);
         Instantiate(DustShockwave, jumpDestination + new Vector2(0f, -1.4f), Quaternion.identity);
 
@@ -416,6 +419,10 @@ public class SlimeController : BossController, ISlimeController
 
     #region HIT
 
+    [Header("HitEFFECT")]
+    [SerializeField] private GameObject HitEffect;
+    [SerializeField] private StressReceiver stressReceiver;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log(collision.transform.name);
@@ -427,6 +434,11 @@ public class SlimeController : BossController, ISlimeController
 
             OnBossHit();
             BossHP--;
+
+            Vector3 knockbackDirection = (transform.position - _player.transform.position).normalized;
+            float weaponAngle = Mathf.Atan2(knockbackDirection.y, knockbackDirection.x) * Mathf.Rad2Deg + -50f;
+            Quaternion weaponRotation = Quaternion.AngleAxis(weaponAngle, Vector3.forward);
+            GameObject vfx = Instantiate(HitEffect, transform.position + knockbackDirection + new Vector3(0, -1f, 0), weaponRotation);
 
             if (BossHP == 0)
             {
