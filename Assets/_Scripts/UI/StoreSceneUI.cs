@@ -10,7 +10,7 @@ public class StoreSceneUI : MonoBehaviour
     #region //variables
 
     //public int BloodAmount = 0;
-    public int MaxBloodAmout = 200;
+    private int MaxBloodAmout;
     // Those will be changed when the whole blood management structure is completed
     [SerializeField] GameObject bookRightTurn, bookLeftTurn;
     private Animator _bookRightTurnAnim, _bookLeftTurnAnim;
@@ -80,6 +80,7 @@ public class StoreSceneUI : MonoBehaviour
             _equippedSlots[i - 1].RegisterCallback<ClickEvent, VisualElement>(EquippedToInfoSection, _equippedSlots[i - 1]);
         }
 
+        MaxBloodAmout = GameManager.Instance.BloodManager.MaxBlood;
         _tmpBloodAmout = GameManager.Instance.BloodManager.Blood;
         ChangeBlood();
 

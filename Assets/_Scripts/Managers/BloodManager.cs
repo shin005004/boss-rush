@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class BloodManager : MonoBehaviour
 {
+    public int MaxBlood = 200;
     private int blood;
     public int Blood => blood;
 
@@ -19,6 +20,11 @@ public class BloodManager : MonoBehaviour
     }
 
     public void AddBlood(int amount){
+        if (blood + amount >= MaxBlood) {
+            BossSceneUI.EarnBlood += (MaxBlood - blood);
+            blood = MaxBlood;
+            return;
+        }
         blood += amount;
         BossSceneUI.EarnBlood += amount;
     }

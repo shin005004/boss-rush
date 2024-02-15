@@ -1,38 +1,37 @@
 Slime1
-Name: Slime 1
+Name: 슬라임 1권
 Blood: 50
-Description: This is Slime 1 Book
+Description: 슬라임의 <color=#9C1E1E>첫번째 패턴</color>을\n예측할 수 있다
 
 Slime2
-Name: Slime 2
+Name: 슬라임 2권
 Blood: 50
-Description: This is Slime 2 Book
+Description: 슬라임의 <color=#9C1E1E>두번째 패턴</color>을\n예측할 수 있다
 
 Slime3
-Name: Slime 3
+Name: 슬라임 3권
 Blood: 50
-Description: This is Slime 3 Book
+Description: 슬라임의 <color=#9C1E1E>세번째 패턴</color>을\n예측할 수 있다
 
 Thor1
-Name: Thor 1
-Blood: 100
-Description: This is Thor 1 Book\nand this is the line\nbreak for testing
-
+Name: 토르 1권
+Blood: 50
+Description: 토르의 <color=#9C1E1E>첫번째 패턴</color>을\n예측할 수 있다
 
 Thor2
-Name: Thor 2
-Blood: 100
-Description: This is Thor 2 Book
+Name: 토르 2권
+Blood: 50
+Description: 토르의 <color=#9C1E1E>두번째 패턴</color>을\n예측할 수 있다
 
 Thor3
-Name: Thor 3
-Blood: 100
-Description: This is Thor 3 Book
+Name: 토르 3권
+Blood: 50
+Description: 토르의 <color=#9C1E1E>세번째 패턴</color>을\n예측할 수 있다
 
 Thor4
-Name: Thor 4
-Blood: 100
-Description: This is Thor 4 Book
+Name: 토르 4권
+Blood: 50
+Description: 토르의 <color=#9C1E1E>네번째 패턴</color>을\n예측할 수 있다
 
 
 

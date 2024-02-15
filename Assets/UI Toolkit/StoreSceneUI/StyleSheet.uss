@@ -183,7 +183,7 @@
     height: 15%;
     -unity-font: url('project://database/Assets/Fonts/DungGeunMo.ttf?fileID=12800000&guid=629257550dea9294ca8b34ce6c0f2884&type=3#DungGeunMo');
     -unity-font-definition: url('project://database/Assets/Fonts/DungGeunMo%20SDF2.asset?fileID=11400000&guid=44d1c7621806dc846a5700dd3aa70e31&type=2#DungGeunMo SDF2');
-    font-size: 40px;
+    font-size: 32px;
     -unity-text-align: upper-center;
 }
 
