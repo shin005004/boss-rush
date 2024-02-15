@@ -142,11 +142,13 @@ public class MapUI : MonoBehaviour
         if (_tmpStage == 0) {
             _mapName.text = "Slime";
             _mapDescription.text = "슬라임";
+            if (BossData.Instance.BossClear["Slime"]) _mapDescription.text = "슬라임(클리어)";
             _mapInfoButton.viewDataKey = "BossScene";
         }
         else if (_tmpStage == 1) {
             _mapName.text = "Thor";
             _mapDescription.text = "토르";
+            if (BossData.Instance.BossClear["Thor"]) _mapDescription.text = "토르(클리어)";
             _mapInfoButton.viewDataKey = "BossScene2";
         }
     }
