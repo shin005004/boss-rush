@@ -34,8 +34,8 @@ public class QuestUI : MonoBehaviour
         }
 
         // for test
-        if (Input.GetKeyUp(KeyCode.Space)) NewQuest("Thor1");
-        if (Input.GetKeyUp(KeyCode.S)) NewQuest("Thor2");
+        //if (Input.GetKeyUp(KeyCode.Space)) NewQuest("Slime1");
+        //if (Input.GetKeyUp(KeyCode.S)) NewQuest("Thor2");
     }
     public void NewQuest(string bookName) {
         if (BookData.Instance.UnlockedBookLevel[bookName] == 1) return;

@@ -28,6 +28,7 @@ public class ThorController : MonoBehaviour, IThorController
     {
         _player = InstanceManager.Instance.PlayerController;
         _playerController = _player.GetComponent<PlayerController>();
+        _player.RollSuccess += OnRollSuccess;
 
         _thorWarner = GetComponent<ThorWarner>();
 
@@ -78,8 +79,8 @@ public class ThorController : MonoBehaviour, IThorController
         float totalTime = 1f;
 
         Quaternion weaponRotation = Quaternion.identity;
-
-        ThrowWarners[0].SetActive(true);
+        if (BookData.Instance.EquippedBookLevel["Thor2"] == 1)
+            ThrowWarners[0].SetActive(true);
 
         for (float elapsedTime = 0; elapsedTime < totalTime; elapsedTime += Time.deltaTime)
         {
@@ -92,7 +93,9 @@ public class ThorController : MonoBehaviour, IThorController
             yield return null;
         }
 
-        ThrowWarners[0].SetActive(false);
+        if (BookData.Instance.EquippedBookLevel["Thor2"] == 1)
+            ThrowWarners[0].SetActive(false);
+
         if ((_player.transform.position - transform.position).y > 0)
             AnimationEvent?.Invoke(0, 1);
         else
@@ -157,7 +160,8 @@ public class ThorController : MonoBehaviour, IThorController
 
         Quaternion weaponRotation = Quaternion.identity;
 
-        ChantWarners[0].SetActive(true);
+        if (BookData.Instance.EquippedBookLevel["Thor1"] == 1)
+            ChantWarners[0].SetActive(true);
 
         for (float elapsedTime = 0; elapsedTime < totalTime; elapsedTime += Time.deltaTime)
         {
@@ -172,7 +176,8 @@ public class ThorController : MonoBehaviour, IThorController
 
         yield return new WaitForSeconds(0.5f);
 
-        ChantWarners[0].SetActive(false);
+        if (BookData.Instance.EquippedBookLevel["Thor1"] == 1)
+            ChantWarners[0].SetActive(false);
 
         Instantiate(ChantAttacks[0], transform.position + new Vector3(0f, -0.4f, 0f), ChantWarners[0].transform.rotation);
 
@@ -181,7 +186,8 @@ public class ThorController : MonoBehaviour, IThorController
 
         // ------------------------------------------------------
 
-        ChantWarners[0].SetActive(true);
+        if (BookData.Instance.EquippedBookLevel["Thor1"] == 1)
+            ChantWarners[0].SetActive(true);
 
         for (float elapsedTime = 0; elapsedTime < 0.25f; elapsedTime += Time.deltaTime)
         {
@@ -196,14 +202,16 @@ public class ThorController : MonoBehaviour, IThorController
 
         yield return new WaitForSeconds(0.25f);
 
-        ChantWarners[0].SetActive(false);
+        if (BookData.Instance.EquippedBookLevel["Thor1"] == 1)
+            ChantWarners[0].SetActive(false);
 
         Instantiate(ChantAttacks[0], transform.position + new Vector3(0f, -0.4f, 0f), ChantWarners[0].transform.rotation);
 
 
         // ------------------------------------------------------------------------
 
-        ChantWarners[0].SetActive(true);
+        if (BookData.Instance.EquippedBookLevel["Thor1"] == 1)
+            ChantWarners[0].SetActive(true);
 
         for (float elapsedTime = 0; elapsedTime < 0.25f; elapsedTime += Time.deltaTime)
         {
@@ -218,7 +226,8 @@ public class ThorController : MonoBehaviour, IThorController
 
         yield return new WaitForSeconds(0.25f);
 
-        ChantWarners[0].SetActive(false);
+        if (BookData.Instance.EquippedBookLevel["Thor1"] == 1)
+            ChantWarners[0].SetActive(false);
 
         Instantiate(ChantAttacks[0], transform.position + new Vector3(0f, -0.4f, 0f), ChantWarners[0].transform.rotation);
 
@@ -232,11 +241,13 @@ public class ThorController : MonoBehaviour, IThorController
     
     private IEnumerator ChantAttack2()
     {
-        ChantWarners[1].SetActive(true);
+        if (BookData.Instance.EquippedBookLevel["Thor1"] == 1)
+            ChantWarners[1].SetActive(true);
 
         yield return new WaitForSeconds(1f);
 
-        ChantWarners[1].SetActive(false);
+        if (BookData.Instance.EquippedBookLevel["Thor1"] == 1)
+            ChantWarners[1].SetActive(false);
 
         Instantiate(ChantAttacks[1], transform.position + new Vector3(0f, -0.7f, 0f), Quaternion.identity);
 
@@ -443,6 +454,8 @@ public class ThorController : MonoBehaviour, IThorController
 
     private int lastActionId = 0;
 
+    public int[] questActionCount = new int[3] { 0, 0, 0 };
+
     private void HandleBrain()
     {
         if (!chooseNextAction) return;
@@ -474,12 +487,24 @@ public class ThorController : MonoBehaviour, IThorController
                 break;
 
             case ThorAction.ChantAttack:
+                questActionCount[0]++;
+                if (questActionCount[0] >= 3)
+                    QuestManager.NewQuest("Thor1");
+
                 currentActionId = nextActionId = ThorAction.Move;
                 break;
             case ThorAction.ThrowAttack:
+                questActionCount[1]++;
+                if (questActionCount[1] >= 3)
+                    QuestManager.NewQuest("Thor2");
+
                 currentActionId = nextActionId = ThorAction.Move;
                 break;
             case ThorAction.FloorAttack:
+                questActionCount[2]++;
+                if (questActionCount[2] >= 3)
+                    QuestManager.NewQuest("Thor3");
+
                 currentActionId = nextActionId = ThorAction.Move;
                 break;
         }
@@ -500,7 +525,11 @@ public class ThorController : MonoBehaviour, IThorController
             BossHP--;
 
             if (BossHP == 0)
+            {
                 Debug.Log("BossDeath");
+                GameManager.Instance.GameStateManager.ResultState = 2;
+            }
+               
             Debug.Log("BossHit");
         }
     }
@@ -534,6 +563,28 @@ public class ThorController : MonoBehaviour, IThorController
         }
     }
 
+    #endregion
+
+    #region QUEST
+
+    [SerializeField] private QuestUI QuestManager;
+    private void OnRollSuccess()
+    {
+        if (currentActionId == ThorAction.ThrowAttack)
+        {
+            QuestManager.NewQuest("Thor2");
+        }
+        else if (currentActionId == ThorAction.ChantAttack)
+        {
+            QuestManager.NewQuest("Thor1");
+        }
+        else
+        {
+            QuestManager.NewQuest("Thor3");
+        }
+
+
+    }
     #endregion
 }
 

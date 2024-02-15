@@ -68,8 +68,8 @@ public class BossSceneUI : MonoBehaviour
         }
 
         // for test
-        if (Input.GetKeyDown(KeyCode.A)) GameManager.Instance.GameStateManager.ResultState = 1;
-        if (Input.GetKeyDown(KeyCode.B)) GameManager.Instance.GameStateManager.ResultState = 2;
+        //if (Input.GetKeyDown(KeyCode.A)) GameManager.Instance.GameStateManager.ResultState = 1;
+        //if (Input.GetKeyDown(KeyCode.B)) GameManager.Instance.GameStateManager.ResultState = 2;
     }
     #region //base
     private void BossBloodAppear() {

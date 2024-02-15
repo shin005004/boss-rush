@@ -24,7 +24,7 @@ public class SlimeController : BossController, ISlimeController
     [SerializeField] private GameObject GroundShockwave;
     #endregion
 
-    protected int BossHP = 100;
+    protected int BossHP = 80;
     protected PlayerController _player;
     protected IPlayerController _playerController;
 
@@ -37,15 +37,15 @@ public class SlimeController : BossController, ISlimeController
         _player = InstanceManager.Instance.PlayerController;
         _playerController = _player.GetComponent<PlayerController>();
 
+        _player.RollSuccess += OnRollSuccess;
+
         _slimeWarner = GetComponent<SlimeWarner>();
 
         currentActionId = SlimeAction.BigJump;
     }
 
-    protected override void Update()
+    private void FixedUpdate()
     {
-        base.Update();
-
         HandleBrain();
         MoveTowardPlayer();
         HandleBigJump();
@@ -337,6 +337,8 @@ public class SlimeController : BossController, ISlimeController
 
     private int actionCount = 0;
 
+    private int[] questActionCount = new int[3] { 0, 0, 0 };
+
     private void HandleBrain()
     {
         if (!chooseNextAction) return;
@@ -376,6 +378,10 @@ public class SlimeController : BossController, ISlimeController
 
             case SlimeAction.BigJump:
 
+                questActionCount[0]++;
+                if (questActionCount[0] >= 2)
+                    QuestManager.NewQuest("Slime1");
+
                 currentActionId = SlimeAction.Move;
                 nextActionId = SlimeAction.Move;
 
@@ -383,12 +389,20 @@ public class SlimeController : BossController, ISlimeController
 
             case SlimeAction.Stomp:
 
+                questActionCount[1]++;
+                if (questActionCount[1] >= 2)
+                    QuestManager.NewQuest("Slime2");
+
                 currentActionId = SlimeAction.Move;
                 nextActionId = SlimeAction.Move;
 
                 break;
 
             case SlimeAction.GroundShockwave:
+
+                questActionCount[2]++;
+                if (questActionCount[2] >= 2)
+                    QuestManager.NewQuest("Slime3");
 
                 currentActionId = SlimeAction.Move;
                 nextActionId = SlimeAction.Move;
@@ -415,7 +429,11 @@ public class SlimeController : BossController, ISlimeController
             BossHP--;
 
             if (BossHP == 0)
+            {
                 Debug.Log("BossDeath");
+                GameManager.Instance.GameStateManager.ResultState = 2;
+            }
+                
             Debug.Log("BossHit");
         }
     }
@@ -427,8 +445,6 @@ public class SlimeController : BossController, ISlimeController
         bossSceneUI.Blood -= 2;
         GameManager.Instance.BloodManager.AddBlood(5);
     }
-
-
 
     private float knockbackStartVelocity = 6f;
 
@@ -449,6 +465,28 @@ public class SlimeController : BossController, ISlimeController
         }
     }
 
+    #endregion
+
+    #region QUEST
+
+    [SerializeField] private QuestUI QuestManager;
+    private void OnRollSuccess()
+    {
+        if (currentActionId == SlimeAction.BigJump)
+        {
+            QuestManager.NewQuest("Slime1");
+        }
+        else if (currentActionId == SlimeAction.Stomp)
+        {
+            QuestManager.NewQuest("Slime2");
+        }
+        else
+        {
+            QuestManager.NewQuest("Slime3");
+        }
+        
+        
+    }
     #endregion
 }
 

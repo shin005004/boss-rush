@@ -16,16 +16,20 @@ public class ThorWardController : MonoBehaviour
     GameObject warner1, warner2;
     private void Start()
     {
-        if (Id == 0)
+        if (BookData.Instance.EquippedBookLevel["Thor3"] == 1)
         {
-            warner1 = Instantiate(Warner, transform.position, Quaternion.Euler(0f, 0f, 0f));
-            warner2 = Instantiate(Warner, transform.position, Quaternion.Euler(0f, 0f, 90f));
+            if (Id == 0)
+            {
+                warner1 = Instantiate(Warner, transform.position, Quaternion.Euler(0f, 0f, 0f));
+                warner2 = Instantiate(Warner, transform.position, Quaternion.Euler(0f, 0f, 90f));
+            }
+            if (Id == 1)
+            {
+                warner1 = Instantiate(Warner, transform.position, Quaternion.Euler(0f, 0f, 45f));
+                warner2 = Instantiate(Warner, transform.position, Quaternion.Euler(0f, 0f, 135f));
+            }
         }
-        if (Id == 1)
-        {
-            warner1 = Instantiate(Warner, transform.position, Quaternion.Euler(0f, 0f, 45f));
-            warner2 = Instantiate(Warner, transform.position, Quaternion.Euler(0f, 0f, 135f));
-        }
+        
     }
 
     private void FixedUpdate()
@@ -35,8 +39,11 @@ public class ThorWardController : MonoBehaviour
 
         if (HoldTime < totalTime && setFlag)
         {
-            Destroy(warner1);
-            Destroy(warner2);
+            if (BookData.Instance.EquippedBookLevel["Thor3"] == 1)
+            {
+                Destroy(warner1);
+                Destroy(warner2);
+            }
 
             if (Id == 0)
             {

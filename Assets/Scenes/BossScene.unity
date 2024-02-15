@@ -573,6 +573,17 @@ Transform:
   - {fileID: 4004962}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &541748397 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 803731087667861153, guid: 61825855ab831984f99e7085ea401c7d, type: 3}
+  m_PrefabInstance: {fileID: 810186073}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5e5a216664e3de4a89c85e8950825f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &600198078
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,8 +843,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5444284036163840608, guid: 61825855ab831984f99e7085ea401c7d, type: 3}
+      propertyPath: Blood
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 5444284036163840608, guid: 61825855ab831984f99e7085ea401c7d, type: 3}
       propertyPath: BossName
       value: BIGSLIME
+      objectReference: {fileID: 0}
+    - target: {fileID: 5444284036163840608, guid: 61825855ab831984f99e7085ea401c7d, type: 3}
+      propertyPath: FullBlood
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 6913987275266161372, guid: 61825855ab831984f99e7085ea401c7d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2982,6 +3001,10 @@ PrefabInstance:
       propertyPath: bossSceneUI
       value: 
       objectReference: {fileID: 224014414}
+    - target: {fileID: 859424234627145502, guid: 7576dcf471752f84093ac2f2ffc67fb9, type: 3}
+      propertyPath: QuestManager
+      value: 
+      objectReference: {fileID: 541748397}
     - target: {fileID: 859424234627145502, guid: 7576dcf471752f84093ac2f2ffc67fb9, type: 3}
       propertyPath: bossCollider
       value: 

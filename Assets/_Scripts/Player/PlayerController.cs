@@ -182,12 +182,14 @@ public class PlayerController : MonoBehaviour, IPlayerController
         ResetRoll();
     }
 
+    public event Action RollSuccess;
     public void OnRollSuccess()
     {
         if (!isRollSuccessFlag)
         {
             Debug.Log("RollSuccess");
             isRollSuccessFlag = true;
+            RollSuccess?.Invoke();
         }
     }
     #endregion
@@ -250,7 +252,11 @@ public class PlayerController : MonoBehaviour, IPlayerController
                 lastHitTime = Time.time;
 
                 if(playerHP == 0)
+                {
+                    GameManager.Instance.GameStateManager.ResultState = 1;
                     Debug.Log("Death");
+                }
+                    
             }
         }
     }
@@ -306,6 +312,7 @@ public interface IPlayerController
 {
     // Rolling, Direction
     public event Action<bool, Vector2> RollingChanged;
+    public event Action RollSuccess;
 
     // Direction
     public event Action<Vector2> Attacked;
