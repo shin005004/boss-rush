@@ -67,8 +67,8 @@ public class SceneLoader : MonoBehaviour
     public void LoadBookShelfScene(){
         StartCoroutine(LoadSceneAsync("BookShelfScene"));
     }
-    public void LoadBossScene() {
-        StartCoroutine(LoadSceneAsync("BossScene"));
+    public void LoadBossScene(string sceneName) {
+        StartCoroutine(LoadSceneAsync(sceneName));
     }
     IEnumerator LoadSceneAsync(string levelToLoad)
     {

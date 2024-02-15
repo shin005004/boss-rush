@@ -8,14 +8,20 @@
         <ui:VisualElement name="ScrimContinent" style="flex-grow: 1; position: absolute; width: 100%; height: 100%;">
             <ui:VisualElement name="Scrim" class="Scrim Scrim--Closed" />
             <ui:VisualElement name="Continent0" class="Continent0">
-                <ui:VisualElement name="Stage0" class="Stage" style="top: 594px; left: 308px; -unity-background-scale-mode: scale-to-fit;" />
-                <ui:VisualElement name="Stage1" class="Stage" style="flex-grow: 1; top: 186px; left: 392px; background-image: url(&apos;project://database/Assets/Sprites/UI/WorldMapUI/Stage0.png?fileID=2800000&amp;guid=6ad8a02562fd55a42a0b9d99e92819e9&amp;type=3#Stage0&apos;);" />
+                <ui:VisualElement name="Stage0" view-data-key="Slime" class="Stage" style="top: 594px; left: 308px; -unity-background-scale-mode: scale-to-fit;" />
+                <ui:VisualElement name="Stage1" view-data-key="Thor" class="Stage" style="flex-grow: 1; top: 186px; left: 392px; background-image: url(&apos;project://database/Assets/Sprites/UI/WorldMapUI/Stage1.png?fileID=2800000&amp;guid=a1a9620aac567be48a73f6d40c211078&amp;type=3#Stage1&apos;);" />
             </ui:VisualElement>
             <ui:VisualElement name="Continent1" class="Continent1">
                 <ui:VisualElement name="Stage0" class="Stage" style="flex-grow: 1; top: 175px; left: 246px; background-image: url(&apos;project://database/Assets/Sprites/UI/WorldMapUI/Stage0.png?fileID=2800000&amp;guid=6ad8a02562fd55a42a0b9d99e92819e9&amp;type=3#Stage0&apos;);" />
             </ui:VisualElement>
             <ui:VisualElement name="Continent2" class="Continent2" />
-            <ui:VisualElement name="MapInfo" class="MapInfo MapInfo--Closed" />
+            <ui:VisualElement name="MapInfo" class="MapInfo MapInfo--Closed">
+                <ui:Label tabindex="-1" text="MapName" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MapName" style="width: 100%; height: 10%; -unity-text-align: middle-center; top: 9%; -unity-font: url(&apos;project://database/Assets/Fonts/DungGeunMo.ttf?fileID=12800000&amp;guid=629257550dea9294ca8b34ce6c0f2884&amp;type=3#DungGeunMo&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/DungGeunMo%20SDF2.asset?fileID=11400000&amp;guid=44d1c7621806dc846a5700dd3aa70e31&amp;type=2#DungGeunMo SDF2&apos;); font-size: 80px;" />
+                <ui:Label tabindex="-1" text="Map Description" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MapDescription" style="width: 100%; height: 30%; top: 24%; -unity-font: url(&apos;project://database/Assets/Fonts/DungGeunMo.ttf?fileID=12800000&amp;guid=629257550dea9294ca8b34ce6c0f2884&amp;type=3#DungGeunMo&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/DungGeunMo%20SDF2.asset?fileID=11400000&amp;guid=44d1c7621806dc846a5700dd3aa70e31&amp;type=2#DungGeunMo SDF2&apos;); -unity-text-align: middle-center; font-size: 60px;" />
+                <ui:VisualElement name="MoveButton" class="MoveButton">
+                    <ui:Label tabindex="-1" text="이동한다" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MoveText" enable-rich-text="false" style="width: 100%; height: 85%; -unity-font: url(&apos;project://database/Assets/Fonts/DungGeunMo.ttf?fileID=12800000&amp;guid=629257550dea9294ca8b34ce6c0f2884&amp;type=3#DungGeunMo&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/DungGeunMo%20SDF2.asset?fileID=11400000&amp;guid=44d1c7621806dc846a5700dd3aa70e31&amp;type=2#DungGeunMo SDF2&apos;); -unity-text-align: middle-center; font-size: 50px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -93,6 +93,7 @@
 
 .MapInfo--Closed {
     translate: 0 -100%;
+    transition-duration: 0.3s;
 }
 
 .Continent0--Info {
@@ -119,4 +120,17 @@
 
 .Stage:hover {
     -unity-background-image-tint-color: rgb(205, 205, 205);
+}
+
+.MoveButton {
+    flex-grow: 0;
+    width: 75%;
+    align-self: center;
+    height: 15%;
+    top: 30%;
+    background-image: url('project://database/Assets/Sprites/UI/WorldMapUI/StageInfoButton.png?fileID=2800000&guid=3635fe2c577033349afb2bc24095b910&type=3#StageInfoButton');
+}
+
+.MoveButton:hover {
+    background-image: url('project://database/Assets/Sprites/UI/WorldMapUI/StageInfoButton_Clicked.png?fileID=2800000&guid=35889b403d1514347a552439b2f00807&type=3#StageInfoButton_Clicked');
 }

@@ -7,15 +7,14 @@ using UnityEngine.UIElements;
 public class MapUI : MonoBehaviour
 {
     #region //variables
-    private VisualElement _map, _closeButton, _scrim, _scrimContinent, _mapInfo;
+    private VisualElement _map, _closeButton, _scrim, _scrimContinent, _mapInfo, _mapInfoButton;
     private VisualElement[] _continents = new VisualElement[3], _scrimContinents = new VisualElement[3];
     private int _tmpContinent;
     //
     private int[] _stageCounts = {2, 1, 0};
     private List<VisualElement> _stages = new List<VisualElement>();
     //
-    private VisualElement _popUpLayer, _mapInfoButton;
-    private Label _mapNameElement;
+    private Label _mapName, _mapDescription;
     private int _tmpStage = 0;
     private bool _stageChange = false;
     private List<string> _mapNames = new List<string>() {"tutorial", "Thor", "Surtur"}; // this may be expanded as data file
@@ -31,6 +30,9 @@ public class MapUI : MonoBehaviour
         _scrim = _map.Q<VisualElement>("Scrim");
         _scrimContinent = _map.Q<VisualElement>("ScrimContinent");
         _mapInfo = _map.Q<VisualElement>("MapInfo");
+        _mapName = _mapInfo.Q<Label>("MapName");
+        _mapDescription = _mapInfo.Q<Label>("MapDescription");
+        _mapInfoButton = _mapInfo.Q<VisualElement>("MoveButton");
 
         for (int i = 0; i < _continents.Length; i++) {
             _continents[i] = _map.Q<VisualElement>("Continent" + i.ToString());
@@ -48,30 +50,7 @@ public class MapUI : MonoBehaviour
         _scrim.RegisterCallback<TransitionEndEvent>(ContinentAppear);
         _closeButton.RegisterCallback<ClickEvent>(OnCloseMap);
         _mapInfo.RegisterCallback<TransitionEndEvent>(MapInfoStageChange);
-
-        //
-        /*
-        _popUpLayer = root.Q<VisualElement>("PopUpLayer");
-        _scrim = root.Q<VisualElement>("Scrim");
-        _map = root.Q<VisualElement>("Map");
-        _mapInfo = root.Q<VisualElement>("MapInfo");
-
-        for (int i = 0; i < 3; i++) {
-            _stages[i] = _map.Q<VisualElement>("Stage" + i.ToString());
-            _stages[i].RegisterCallback<ClickEvent, VisualElement>(OnOpenMapInfo, _stages[i]);
-        }
-
-
-        _closeButton = _mapInfo.Q<VisualElement>("CloseButton");
-        _mapInfoButton = _mapInfo.Q<VisualElement>("MapInfoButton");
-        _mapNameElement = _mapInfo.Q<Label>("MapName");
-
-        _scrim.RegisterCallback<ClickEvent>(OnCloseMap);
-        _closeButton.RegisterCallback<ClickEvent>(OnCloseMapInfo);
         _mapInfoButton.RegisterCallback<ClickEvent, VisualElement>(MapMove, _mapInfoButton);
-
-        _popUpLayer.style.display = DisplayStyle.None;
-        */
     }
     void Update()
     {
@@ -138,6 +117,7 @@ public class MapUI : MonoBehaviour
         }
     }
     private void OnOpenMapInfo(ClickEvent clickEvent, VisualElement visualElement) {
+        if (_tmpContinent != 0) return;
         if (!_mapInfo.ClassListContains("MapInfo--Closed") && _stages.IndexOf(visualElement) != _tmpStage) {
             _tmpStage = _stages.IndexOf(visualElement);
             _mapInfo.AddToClassList("MapInfo--Closed");
@@ -145,8 +125,8 @@ public class MapUI : MonoBehaviour
             return;
         }
         else if (_mapInfo.ClassListContains("MapInfo--Closed")) {
-            SetMapInfo();
             _tmpStage = _stages.IndexOf(visualElement);
+            SetMapInfo();
             _scrimContinents[_tmpContinent].AddToClassList("Continent" + _tmpContinent.ToString() + "--Info");
             _mapInfo.RemoveFromClassList("MapInfo--Closed");
         }
@@ -159,28 +139,20 @@ public class MapUI : MonoBehaviour
         }
     }
     private void SetMapInfo() {
-        // Change Map Information
-        /*
-        _mapInfoButton.viewDataKey = _tmpStage.ToString();
-        if (_mapUnlocked[_tmpStage]) {
-            _mapNameElement.text = "???";
+        if (_tmpStage == 0) {
+            _mapName.text = "Slime";
+            _mapDescription.text = "슬라임";
+            _mapInfoButton.viewDataKey = "BossScene";
         }
-        else {
-            _mapNameElement.text = _mapNames[_tmpStage];
+        else if (_tmpStage == 1) {
+            _mapName.text = "Thor";
+            _mapDescription.text = "토르";
+            _mapInfoButton.viewDataKey = "BossScene2";
         }
-        */
     }
     private void MapMove(ClickEvent clickEvent, VisualElement visualElement) {
-        // Scene moving
-        /*
-        if (_mapUnlocked[_tmpStage]) {    
-            Debug.Log(visualElement.viewDataKey);   
-        }
-        if (visualElement.viewDataKey == "0") {
-            GameManager.Instance.GameStateManager.UIOpened = false;
-            SceneLoader.Instance.LoadBossScene();
-        }
-        */
+        GameManager.Instance.GameStateManager.UIOpened = false;
+        SceneLoader.Instance.LoadBossScene(visualElement.viewDataKey);
     }
     #endregion
 }
