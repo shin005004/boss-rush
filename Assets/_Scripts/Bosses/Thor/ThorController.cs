@@ -75,6 +75,7 @@ public class ThorController : MonoBehaviour, IThorController
 
     private IEnumerator ThrowAttack1()
     {
+        AudioManager.Instance.PlaySfx(0);
         Instantiate(ThrowObjects[0], transform.position + new Vector3(-0.34f, 1.48f, 0f), Quaternion.identity);
         float totalTime = 1f;
 
@@ -179,6 +180,7 @@ public class ThorController : MonoBehaviour, IThorController
         if (BookData.Instance.EquippedBookLevel["Thor1"] == 1)
             ChantWarners[0].SetActive(false);
 
+        AudioManager.Instance.PlaySfx(2);
         Instantiate(ChantAttacks[0], transform.position + new Vector3(0f, -0.4f, 0f), ChantWarners[0].transform.rotation);
 
 
@@ -205,6 +207,7 @@ public class ThorController : MonoBehaviour, IThorController
         if (BookData.Instance.EquippedBookLevel["Thor1"] == 1)
             ChantWarners[0].SetActive(false);
 
+        AudioManager.Instance.PlaySfx(2);
         Instantiate(ChantAttacks[0], transform.position + new Vector3(0f, -0.4f, 0f), ChantWarners[0].transform.rotation);
 
 
@@ -229,6 +232,7 @@ public class ThorController : MonoBehaviour, IThorController
         if (BookData.Instance.EquippedBookLevel["Thor1"] == 1)
             ChantWarners[0].SetActive(false);
 
+        AudioManager.Instance.PlaySfx(2);
         Instantiate(ChantAttacks[0], transform.position + new Vector3(0f, -0.4f, 0f), ChantWarners[0].transform.rotation);
 
         yield return new WaitForSeconds(3.5f);
@@ -241,6 +245,7 @@ public class ThorController : MonoBehaviour, IThorController
     
     private IEnumerator ChantAttack2()
     {
+        AudioManager.Instance.PlaySfx(3);
         if (BookData.Instance.EquippedBookLevel["Thor1"] == 1)
             ChantWarners[1].SetActive(true);
 
@@ -249,6 +254,7 @@ public class ThorController : MonoBehaviour, IThorController
         if (BookData.Instance.EquippedBookLevel["Thor1"] == 1)
             ChantWarners[1].SetActive(false);
 
+        AudioManager.Instance.PlaySfx(11);
         Instantiate(ChantAttacks[1], transform.position + new Vector3(0f, -0.7f, 0f), Quaternion.identity);
 
         yield return new WaitForSeconds(5f);
@@ -298,6 +304,7 @@ public class ThorController : MonoBehaviour, IThorController
         Instantiate(MoveVFX, transform.position, Quaternion.identity);
         yield return new WaitForSeconds(0.25f);
 
+        //AudioManager.Instance.PlaySfx(8);
         transform.position = moveDestination;
         Instantiate(MoveVFX, transform.position, Quaternion.identity);
 
@@ -389,6 +396,7 @@ public class ThorController : MonoBehaviour, IThorController
             Instantiate(FloorObjects[0], transform.position + spawnDestination, Quaternion.identity);
         }
 
+        AudioManager.Instance.PlaySfx(3);
         yield return new WaitForSeconds(3f);
 
 
@@ -436,6 +444,7 @@ public class ThorController : MonoBehaviour, IThorController
             Instantiate(FloorObjects[1], transform.position + spawnDestination, Quaternion.identity);
         }
 
+        AudioManager.Instance.PlaySfx(3);
         yield return new WaitForSeconds(3f);
 
 

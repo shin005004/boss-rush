@@ -48,18 +48,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmPlayer: {fileID: 1459224605703850648}
   sfxPlayer: {fileID: 6539955535522015484}
-  bgmClip: {fileID: 0}
+  bgmClip: {fileID: 8300000, guid: 2e6e9c2e97f1cad49827b34c96c57bb3, type: 3}
   sfxClips:
-  - {fileID: 8300000, guid: 6f304fc5479f0f146bc5303eeb8686d8, type: 3}
-  - {fileID: 8300000, guid: dd2f552f384509741bce00dbfd3b5fda, type: 3}
-  - {fileID: 8300000, guid: 941a90d5f3ca17d4d95642511f37de59, type: 3}
-  - {fileID: 8300000, guid: c54d36152b4dd8e44b46b9ce231cc134, type: 3}
   - {fileID: 8300000, guid: 32c7a09051fa04741969fe398ff315c0, type: 3}
+  - {fileID: 8300000, guid: dd2f552f384509741bce00dbfd3b5fda, type: 3}
+  - {fileID: 8300000, guid: 38e95baf4b3a43d418a253a087c6f634, type: 3}
+  - {fileID: 8300000, guid: 6f304fc5479f0f146bc5303eeb8686d8, type: 3}
+  - {fileID: 8300000, guid: 941a90d5f3ca17d4d95642511f37de59, type: 3}
   - {fileID: 8300000, guid: cde884c1119c39641a89e3cdeed8d0c9, type: 3}
+  - {fileID: 8300000, guid: c54d36152b4dd8e44b46b9ce231cc134, type: 3}
   - {fileID: 8300000, guid: 0f2e1396e142e4a449c14bdf94f03253, type: 3}
   - {fileID: 8300000, guid: 0b73dfbe26c6fe946b50970ccbb7a44d, type: 3}
   - {fileID: 8300000, guid: 462446efcb27c9143808948b9a86f3e4, type: 3}
   - {fileID: 8300000, guid: 80ee2a0d0053e8b4d8f30b8f6f25ae3b, type: 3}
+  - {fileID: 8300000, guid: 7f9c4c26f65ab3648bae7b926cb4d57a, type: 3}
+  - {fileID: 8300000, guid: 404dac088e2eb8c48844018ef277ac2d, type: 3}
 --- !u!82 &1459224605703850648
 AudioSource:
   m_ObjectHideFlags: 0
@@ -70,9 +73,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 2e6e9c2e97f1cad49827b34c96c57bb3, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.234
+  m_Volume: 0.103
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -168,7 +171,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.412
   m_Pitch: 1
   Loop: 0
   Mute: 0

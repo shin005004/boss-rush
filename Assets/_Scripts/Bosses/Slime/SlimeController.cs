@@ -422,8 +422,8 @@ public class SlimeController : BossController, ISlimeController
         if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerHitbox"))
         {
             _playerController.OnBossHit();
-            if (currentActionId == SlimeAction.Move)
-                StartCoroutine(HitKnockback());
+            //if (currentActionId == SlimeAction.Move)
+            //    StartCoroutine(HitKnockback());
 
             OnBossHit();
             BossHP--;

@@ -147,6 +147,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
         {
             rollCoolDownFlag = false;
             RollingChanged?.Invoke(true, cachedPlayerDirection);
+            AudioManager.Instance.PlaySfx(5);
             StartCoroutine(Roll());
         }
 
@@ -190,6 +191,8 @@ public class PlayerController : MonoBehaviour, IPlayerController
             Debug.Log("RollSuccess");
             isRollSuccessFlag = true;
             RollSuccess?.Invoke();
+
+            AudioManager.Instance.PlaySfx(1);
         }
     }
     #endregion
@@ -250,6 +253,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
                 Debug.Log("PlayerHit");
                 PlayerUI.RemoveHeart();
 
+                AudioManager.Instance.PlaySfx(12);
                 lastHitTime = Time.time;
 
                 if(playerHP == 0)

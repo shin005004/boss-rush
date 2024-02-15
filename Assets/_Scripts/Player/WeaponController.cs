@@ -101,6 +101,7 @@ public class WeaponController : MonoBehaviour
         attackPreInputFlag = false;
         attackCoolFlag = false;
 
+        AudioManager.Instance.PlaySfx(6);
         isAttacking += 1;
 
         //string boolName = "Attack" + isAttacking.ToString();
