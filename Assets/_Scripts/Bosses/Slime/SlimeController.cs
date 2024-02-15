@@ -470,8 +470,3 @@ public interface ISlimeController
     public event Action<int> StompAnimationEvent;
     public event Action<int> ShockwaveAnimationEvent;
 }
-
-public class BossStatsSO
-{
-    public int BossMaxHP;
-}
