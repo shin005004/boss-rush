@@ -101,6 +101,7 @@ public class SlimeController : BossController, ISlimeController
         bossCollider.enabled = false;
 
         BigJumpAnimationEvent?.Invoke(2);
+        AudioManager.Instance.PlaySfx(14);
         float totalTime = direction.magnitude * 0.2f;
         for (float elapsedTime = 0; elapsedTime < totalTime; elapsedTime += Time.deltaTime)
         {
@@ -158,6 +159,7 @@ public class SlimeController : BossController, ISlimeController
 
         StompAnimationEvent?.Invoke(2);
         float totalTime = 2f;
+        AudioManager.Instance.PlaySfx(14);
         for (float elapsedTime = 0; elapsedTime < totalTime; elapsedTime += Time.deltaTime)
         {
             Vector3 targetPosition = transform.position;
@@ -238,6 +240,7 @@ public class SlimeController : BossController, ISlimeController
         bossCollider.enabled = false;
 
         float totalTime = 1f;
+        AudioManager.Instance.PlaySfx(14);
         for (float elapsedTime = 0; elapsedTime < totalTime; elapsedTime += Time.deltaTime)
         {
             Vector3 targetPosition = transform.position;
@@ -266,6 +269,7 @@ public class SlimeController : BossController, ISlimeController
 
     private IEnumerator SpawnGroundShockwave()
     {
+        AudioManager.Instance.PlaySfx(13);
         var totalTime = 5f;
         float objectDistance = 0.7f, lastSpawnTime = 0f;
         for (float elapsedTime = 0; elapsedTime < totalTime; elapsedTime += Time.deltaTime)

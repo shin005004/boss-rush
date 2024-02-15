@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
-using UnityEditor.SearchService;
 
 public class BossSceneUI : MonoBehaviour
 {

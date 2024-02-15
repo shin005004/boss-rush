@@ -1533,6 +1533,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1459224605703850648, guid: 98718369700d13147be254dca2f07ca2, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: a4382c9683fa5e54db00c40b8262fd89, type: 3}
+    - target: {fileID: 5753194233207892767, guid: 98718369700d13147be254dca2f07ca2, type: 3}
+      propertyPath: bgmClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1ca0aa0b2a1a1dd4b82226a47a54fe93, type: 3}
     - target: {fileID: 5867419642158277964, guid: 98718369700d13147be254dca2f07ca2, type: 3}
       propertyPath: m_Name
       value: AudioManager
