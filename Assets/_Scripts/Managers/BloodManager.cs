@@ -14,7 +14,7 @@ public class BloodManager : MonoBehaviour
     private string bloodData;
 
     private void Awake(){
-        bloodFilePath = Path.Combine(Application.dataPath, "Datas", "Save", "Blood Data.txt");
+        bloodFilePath = Path.Combine(Application.streamingAssetsPath, "Datas", "Save", "Blood Data.txt");
         bloodData = File.ReadAllText(bloodFilePath);
         int.TryParse(bloodData, out blood);
     }

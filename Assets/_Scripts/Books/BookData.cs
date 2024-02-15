@@ -41,7 +41,7 @@ public class BookData: MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
 
-        bookDetailsFilePath = Path.Combine(Application.dataPath, "Datas", "Book Details.txt");
+        bookDetailsFilePath = Path.Combine(Application.streamingAssetsPath, "Datas", "Book Details.txt");
 
 
         LoadSaveFile();
@@ -123,7 +123,7 @@ public class BookData: MonoBehaviour
     private int fileBookLevel;
 
     public void LoadSaveFile(){
-        bookSaveFilePath = Path.Combine(Application.dataPath, "Datas", "Save", "Book Save File.txt");
+        bookSaveFilePath = Path.Combine(Application.streamingAssetsPath, "Datas", "Save", "Book Save File.txt");
         bookSaveFileLines = File.ReadAllLines(bookSaveFilePath);
 
         saveFileType = "";

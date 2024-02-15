@@ -29,9 +29,9 @@ public class BossData : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
 
-        bossListFilePath = Path.Combine(Application.dataPath, "Datas", "Boss List.txt");
-        bossDetailsFilePath = Path.Combine(Application.dataPath, "Datas", "Boss Details.txt");
-        bossClearFilePath = Path.Combine(Application.dataPath, "Datas", "Boss Clear.txt");
+        bossListFilePath = Path.Combine(Application.streamingAssetsPath, "Datas", "Boss List.txt");
+        bossDetailsFilePath = Path.Combine(Application.streamingAssetsPath, "Datas", "Boss Details.txt");
+        bossClearFilePath = Path.Combine(Application.streamingAssetsPath, "Datas", "Boss Clear.txt");
 
 
         ReadFiles();

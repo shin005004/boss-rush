@@ -100,7 +100,10 @@ public class BossSceneUI : MonoBehaviour
     const string WinText = "<color=#E1B41B>승리했습니다!</color>";
     private void SetResult(int resultState) {
         if (resultState == 1) _resultText.text = LoseText; // TODO: change map data
-        else if (resultState == 2) _resultText.text = WinText; // TODO: change map data
+        else if (resultState == 2) {
+            _resultText.text = WinText;
+            BossData.Instance.BossClear[BossName] = true;
+        } 
         _earnBloodText.text = "x " + EarnBlood.ToString();
         _earnBookText.text = "x " + EarnBook.ToString();
         ShowResult();
@@ -114,8 +117,15 @@ public class BossSceneUI : MonoBehaviour
         GameManager.Instance.GameStateManager.UIOpened = false;
         GameManager.Instance.GameStateManager.ResultState = 0;
         _tmpResultState = 0;
+        InitializeEquippedBook();
         SceneLoader.Instance.LoadMainStoreScene();
         Time.timeScale = 1f;
+    }
+    private void InitializeEquippedBook() {
+        foreach (string bookName in BookData.Instance.EquippedBook) {
+            BookData.Instance.EquippedBookLevel[bookName] = 0;
+        }
+        BookData.Instance.EquippedBook.Clear();
     }
     #endregion
 }

@@ -152,6 +152,7 @@ public class StoreSceneUI : MonoBehaviour
     }
     private void ActiveBook() 
     {
+        ChangeSectionUI();
         _scrim.AddToClassList("Scrim--FadeIn");
         _book.AddToClassList("BookSprite--Opened");
     }
