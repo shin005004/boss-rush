@@ -369,8 +369,10 @@ public class StoreSceneUI : MonoBehaviour
         string bookDetailedBlood = "???";
         string bookDetailedDescription = "???";
         Sprite bookIcon = Resources.Load<Sprite>("Sprites/InventoryUI/BookUI/Unknown1");
+        Sprite bookIllustration = Resources.Load<Sprite>("Sprites/InventoryUI/Illustration/Unknown");
         if (BookData.Instance.UnlockedBookLevel[bookName] == 1) {
             bookIcon = Resources.Load<Sprite>("Sprites/InventoryUI/BookUI/" + bookName);
+            bookIllustration = Resources.Load<Sprite>("Sprites/InventoryUI/Illustration/" + bookName);
             bookDetailedName = BookData.Instance.BookDetails[bookName]["Name"].ToString();
             bookDetailedBlood = BookData.Instance.BookDetails[bookName]["Blood"].ToString();
             bookDetailedDescription = BookData.Instance.BookDetails[bookName]["Description"].ToString().Replace("\\n", "\n");
@@ -380,9 +382,11 @@ public class StoreSceneUI : MonoBehaviour
         VisualElement bookIconElement = _sectionBookInfo.Q<VisualElement>("BookIcon");
         Label bookNameElement = _sectionBookInfo.Q<Label>("BookName");
         Label priceTextElement = _sectionBookInfo.Q<Label>("PriceText");
+        VisualElement bookIllustrationElement = _sectionBookInfo.Q<VisualElement>("Illustration");
         Label illustrationTextElement = _sectionBookInfo.Q<Label>("IllustrationText");
         bookNumberElement.text = bookNumber;
         bookIconElement.style.backgroundImage = new StyleBackground(bookIcon);
+        bookIllustrationElement.style.backgroundImage = new StyleBackground(bookIllustration);
         bookNameElement.text = bookDetailedName;
         priceTextElement.text = bookDetailedBlood;
         illustrationTextElement.text = bookDetailedDescription;
