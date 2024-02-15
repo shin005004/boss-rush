@@ -121,21 +121,21 @@ public class PlayerController : MonoBehaviour, IPlayerController
     #endregion
 
     #region ROLLING
-    private float _rollStartVelocity;   // ±¸¸£±â ½ÃÀÛ ¼Óµµ
-    private float _rollLengthTime;      // ÀüÃ¼ ±¸¸£±â ½Ã°£
-    private float _rollCoolTime;        // ±¸¸£±â ½ÃÀÛºÎÅÍ Äð´Ù¿î
+    private float _rollStartVelocity;   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½
+    private float _rollLengthTime;      // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+    private float _rollCoolTime;        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ûºï¿½ï¿½ï¿½ ï¿½ï¿½Ù¿ï¿½
 
     private float _rollStartUp;
     private float _rollInvulnTime;
 
-    private bool canRoll = true;            // ¿ÜÀûÀ¸·Î ±¸¸£±â °¡´ÉÇÑÁö?
-    private bool rollToConsume = false;     // ´ë½¬ ÀÔ·ÂÀÌ µé¾î¿Ô´Â°¡?
-    private bool rollCoolDownFlag = true;   // Äð´Ù¿îÀ¸·Î ±¸¸£±â °¡´ÉÇÑÁö?
+    private bool canRoll = true;            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
+    private bool rollToConsume = false;     // ï¿½ë½¬ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô´Â°ï¿½?
+    private bool rollCoolDownFlag = true;   // ï¿½ï¿½Ù¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
 
-    // ±¸¸£±â ½Ã°£ È®ÀÎÇÏ´Â ½Ã°£
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ È®ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ã°ï¿½
     private float rollElapsedTime = 0f;
 
-    // Àú½ºÆ® ±¸¸£±â È®ÀÎ¿ë
+    // ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½Î¿ï¿½
     private GameObject _justRollPrefab;
     private bool isRollSuccessFlag = false;
 
@@ -198,11 +198,11 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
     // private float attackDelay = 0.5f;
 
-    private bool attackToConsume = false;   // °ø°Ý ÀÔ·ÂÀÌ µé¾î¿Ô´Â°¡?
-    // private int isAttacking = 0;            // ¸î¹øÂ° °ø°ÝÁßÀÎ°¡?
+    private bool attackToConsume = false;   // ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô´Â°ï¿½?
+    // private int isAttacking = 0;            // ï¿½ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½?
 
-    private bool canAttack = true;          // ¿ÜÀûÀ¸·Î °ø°ÝÀÌ °¡´ÉÇÑ°¡?
-    private bool canAttackFlag = true;     // ÄðÅ¸ÀÓÀûÀ¸·Î °ø°ÝÀÌ °¡´ÉÇÑÁö?
+    private bool canAttack = true;          // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ°ï¿½?
+    private bool canAttackFlag = true;     // ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
 
     private Vector2 attackDirection;
 
@@ -248,6 +248,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
             {
                 playerHP -= 1;
                 Debug.Log("PlayerHit");
+                PlayerUI.RemoveHeart();
 
                 lastHitTime = Time.time;
 

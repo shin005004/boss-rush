@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/PlayerUI.uss?fileID=7433441132597879392&amp;guid=72a1e9eb77a96ec45acac81c28ae6c42&amp;type=3#PlayerUI" />
+    <ui:VisualElement name="Hearts" style="flex-grow: 0; width: 10%; height: 5%; flex-direction: row; top: 94%; justify-content: space-between; left: 1%;">
+        <ui:VisualElement name="Heart0" class="Heart" />
+        <ui:VisualElement name="Heart1" class="Heart" style="flex-grow: 1;" />
+        <ui:VisualElement name="Heart2" class="Heart" />
+    </ui:VisualElement>
+</ui:UXML>
