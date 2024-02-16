@@ -7,7 +7,7 @@ Description: Just a Slime
 Thor
 Name: Thor
 Health: 100
-SkillCount: 4
+SkillCount: 3
 Description: The Mighty Thor
 
 Surtur

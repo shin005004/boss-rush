@@ -132,7 +132,6 @@ public class BookData: MonoBehaviour
             else if(saveFileType == ""){
                 if(line.Trim() == "Unlocked Book List"){ saveFileType = "Unlocked Book List"; }
                 else if(line.Trim() == "Equipped Book List"){ saveFileType = "Equipped Book List"; }
-                else if(line.Trim() == "Equipped Book"){ saveFileType = "Equipped Book"; }
             }
             else if(saveFileType == "Unlocked Book List"){
                 fileBookName = line.Split(':')[0].Trim();
@@ -143,12 +142,7 @@ public class BookData: MonoBehaviour
                 fileBookName = line.Split(':')[0].Trim();
                 fileBookLevel = Convert.ToInt32(line.Split(':')[1].Trim());
                 EquippedBookLevel[fileBookName] = fileBookLevel;
-            }
-            else if(saveFileType == "Equipped Book"){
-                fileBookList = line.Split(' ');
-                foreach(string fileBookName in fileBookList){
-                    EquippedBook.Add(fileBookName.Trim());
-                }
+                if (fileBookLevel == 1 && !EquippedBook.Contains(fileBookName)) EquippedBook.Add(fileBookName);
             }
         }
     }

@@ -28,11 +28,6 @@ Name: 토르 3권
 Blood: 50
 Description: 토르의 <color=#9C1E1E>세번째 패턴</color>을\n예측할 수 있다
 
-Thor4
-Name: 토르 4권
-Blood: 50
-Description: 토르의 <color=#9C1E1E>네번째 패턴</color>을\n예측할 수 있다
-
 
 
 

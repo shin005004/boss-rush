@@ -5,7 +5,6 @@ Slime3: 0
 Thor1: 0
 Thor2: 0
 Thor3: 0
-Thor4: 0
 Surtur1: 0
 Surtur2: 0
 Surtur3: 0
@@ -18,7 +17,6 @@ Slime3: 0
 Thor1: 0
 Thor2: 0
 Thor3: 0
-Thor4: 0
 Surtur1: 0
 Surtur2: 0
 Surtur3: 0
