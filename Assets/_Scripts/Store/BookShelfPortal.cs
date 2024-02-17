@@ -33,7 +33,7 @@ public class BookShelfPortal : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other){
         if(other.transform.root.name.Equals("Player")){
-            pressE.SetActive(false);
+            if(pressE != null){ pressE.SetActive(false); }
         }
     }
 }
