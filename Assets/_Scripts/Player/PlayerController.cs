@@ -207,7 +207,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     private bool canAttack = true;          // �������� ������ �����Ѱ�?
     private bool canAttackFlag = true;     // ��Ÿ�������� ������ ��������?
     public bool CanAttack => canAttack;
-    public bool CanAttackFlag => CanAttackFlag;
+    public bool CanAttackFlag => canAttackFlag;
 
     private Vector2 attackDirection;
 
