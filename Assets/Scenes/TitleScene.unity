@@ -203,7 +203,7 @@ Transform:
   m_GameObject: {fileID: 120687470}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0712, y: -0.031, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 17.65884, y: 9.859759, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1056,7 +1056,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '- PressAnyKey-'
+  m_text: -Click Anywhere-
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6fddc351c9946274dbe488a246926025, type: 2}
   m_sharedMaterial: {fileID: 3615262146202242480, guid: 6fddc351c9946274dbe488a246926025, type: 2}

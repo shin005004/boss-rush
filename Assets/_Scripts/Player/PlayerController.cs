@@ -84,6 +84,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     private float _rollMovementModifier;
 
     private bool canMove = true;
+    public bool CanMove => canMove;
     private Vector2 currentPlayerDirection = new Vector3(0f, 0f, 0f);
     private Vector2 cachedPlayerDirection = new Vector2(0f, 0f);
 
@@ -205,6 +206,8 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
     private bool canAttack = true;          // �������� ������ �����Ѱ�?
     private bool canAttackFlag = true;     // ��Ÿ�������� ������ ��������?
+    public bool CanAttack => canAttack;
+    public bool CanAttackFlag => CanAttackFlag;
 
     private Vector2 attackDirection;
 

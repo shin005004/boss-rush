@@ -18,7 +18,7 @@ public class BookData: MonoBehaviour
     private int bloodPrice;
 
     #region Public Dictionary / List
-    public List<string> BookType = new List<string>() {"Asia", "Europe", "NorthAmerica", "SouthAmerica", "Africa", "Oceania"};
+    public List<string> BookType = new List<string>() {"Asia", "Europe", "NorthAmerica", "SouthAmerica", "Africa", "Oceania", "Tutorial"};
     public Dictionary<string, Dictionary<string, List<string>>> BookList = new Dictionary<string, Dictionary<string, List<string>>>();
     public List<string> BookNameList = new List<string>();
 

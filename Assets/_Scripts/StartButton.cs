@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
+using UnityEditor.SearchService;
+using UnityEngine.SceneManagement;
 
 public class StartButton : MonoBehaviour
 {
@@ -15,7 +17,8 @@ public class StartButton : MonoBehaviour
     }
 
     private void OnMouseUp(){
-        SceneLoader.Instance.LoadMainStoreScene();
+        SceneManager.LoadScene("TutorialScene");
+        // SceneLoader.Instance.LoadMainStoreScene();
     }
 
     private void OnMouseExit()
