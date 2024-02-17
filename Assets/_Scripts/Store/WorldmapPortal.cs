@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WorldmapPortal : MonoBehaviour
@@ -23,7 +24,7 @@ public class WorldmapPortal : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other){
         if(other.transform.root.name.Equals("Player")){
-            pressE.SetActive(false);
+            if(pressE != null){ pressE.SetActive(false); }
         }
     }
 }
