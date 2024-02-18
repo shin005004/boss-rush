@@ -1326,6 +1326,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: BookData
       objectReference: {fileID: 0}
+    - target: {fileID: 2680406676262114342, guid: 1500773cf86ada24fb868f5310ee28f4, type: 3}
+      propertyPath: BookType.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2680406676262114342, guid: 1500773cf86ada24fb868f5310ee28f4, type: 3}
+      propertyPath: BookType.Array.data[6]
+      value: Tutorial
+      objectReference: {fileID: 0}
     - target: {fileID: 6933588951758610553, guid: 1500773cf86ada24fb868f5310ee28f4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

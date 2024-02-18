@@ -1,3 +1,9 @@
+Scarecrow
+Name: Scarecrow
+Health: 99999
+SkillCount: 1
+Description: Tutorial Scarecrow
+
 Slime
 Name: Slime
 Health: 100

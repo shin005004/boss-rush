@@ -1,4 +1,5 @@
 Unlocked Book List
+Scarecrow1: 0
 Slime1: 0
 Slime2: 0
 Slime3: 0
@@ -11,6 +12,7 @@ Surtur3: 0
 Surtur4: 0
 
 Equipped Book List
+Scarecrow1: 0
 Slime1: 0
 Slime2: 0
 Slime3: 0

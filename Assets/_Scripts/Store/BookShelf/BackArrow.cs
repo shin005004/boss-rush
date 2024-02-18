@@ -28,6 +28,11 @@ public class BackArrow : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        SceneLoader.Instance.LoadMainStoreScene();
+        if(GameManager.Instance.BookManager.BookRoomType == "Tutorial"){
+            SceneLoader.Instance.LoadScene("TutorialStoreScene");
+        }
+        else{
+            SceneLoader.Instance.LoadMainStoreScene();
+        }
     }
 }

@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 
 public class SceneLoader : MonoBehaviour
 {
+    public bool SceneLoading;
     public GameObject BlackScreen;
     public CanvasGroup canvasGroup;
     private static SceneLoader _Instance;
@@ -21,6 +22,8 @@ public class SceneLoader : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        SceneLoading = false;
     }
 
     public static SceneLoader Instance
@@ -72,6 +75,8 @@ public class SceneLoader : MonoBehaviour
     }
     IEnumerator LoadSceneAsync(string levelToLoad)
     {
+        SceneLoading = true;
+
         BlackScreen.SetActive(true);
         var tweening = canvasGroup.DOFade(1f, 0.5f);
 
@@ -87,6 +92,8 @@ public class SceneLoader : MonoBehaviour
 
         yield return tweening.WaitForCompletion();
         BlackScreen.SetActive(false);
+
+        SceneLoading = false;
     }
 
     public void EnableTransition()
