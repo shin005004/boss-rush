@@ -12,10 +12,14 @@ public class Tutorial : MonoBehaviour
     [SerializeField] private PlayerController playerController;
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private QuestUI QuestManager;
-    [SerializeField] private string currentProgress;
+    public static string currentProgress;
+    public static bool TutorialComplete = false;
+    public static bool WorldMapOpened = false;
     private bool textOn;
     private void Start()
     {
+        WorldMapOpened = false;
+        TutorialComplete = false;
         textOn = true;
         currentProgress = "Welcome";
         DontDestroyOnLoad(gameObject);
@@ -34,6 +38,8 @@ public class Tutorial : MonoBehaviour
             blackScreen.SetActive(false);
             Time.timeScale = 1f;
         }
+
+        
     }
     private void ContinueTutorial(){
         switch(currentProgress){
@@ -46,7 +52,7 @@ public class Tutorial : MonoBehaviour
                 StartCoroutine(MoveQuest());
                 break;
             case "Roll":
-                tutorialText.text = "Space로 구를 수 있습니다.\n한번 굴러 보세요.";
+                tutorialText.text = "Space로 구를 수 있습니다.\n구르기를 하는 동안에는 플레이어가 무적 상태가 됩니다.\n한번 굴러 보세요.";
                 StartCoroutine(RollQuest());
                 break;
             case "Attack":
@@ -54,7 +60,7 @@ public class Tutorial : MonoBehaviour
                 StartCoroutine(AttackQuest());
                 break;
             case "WriteBook":
-                tutorialText.text = "특정 조건을 만족하면 보스 공략에\n도움을 주는 역사서를 작성할 수 있습니다.\n한번 F를 눌러 작성해보세요.";
+                tutorialText.text = "특정 조건을 만족하면 보스의 패턴을 예측하기 쉽도록\n도움을 주는 역사서를 작성할 수 있습니다.\n한번 F를 눌러 작성해보세요.";
                 StartCoroutine(WriteBookQuest());
                 break;
             case "GoBookStore":
@@ -73,6 +79,10 @@ public class Tutorial : MonoBehaviour
                 tutorialText.text = "우측 하단의 화살표를 통해 상점으로 다시 돌아갈 수 있습니다.";
                 StartCoroutine(BackToStore());
                 break;
+            case "GoToWorldMap":
+                tutorialText.text = "아래의 문을 통하여 대적할 신을\n고를 수 있는 월드맵으로 갈 수 있습니다.\n한번 이동하여 보세요.";
+                StartCoroutine(GoToWorldMap());
+                break;
             case "Final":
                 tutorialText.text = "이제 진짜 신화와 대적하러 갈 시간입니다.\n행운을 빕니다.";
                 StartCoroutine(Final());
@@ -82,12 +92,14 @@ public class Tutorial : MonoBehaviour
     }
 
     private IEnumerator Welcome(){
+        yield return new WaitForSecondsRealtime(1f);
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
         currentProgress = "Move";
         ContinueTutorial();
     }
     private IEnumerator MoveQuest(){
         yield return new WaitForEndOfFrame();
+        yield return new WaitForSecondsRealtime(1f);
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
         textOn = false;
         yield return new WaitUntil(() => playerInput.FrameInput.Move != Vector2.zero && playerController.CanMove);
@@ -97,6 +109,7 @@ public class Tutorial : MonoBehaviour
         ContinueTutorial();
     }
     private IEnumerator RollQuest(){
+        yield return new WaitForSecondsRealtime(1f);
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
         textOn = false;
         yield return new WaitUntil(() => playerController.IsRolling);
@@ -106,6 +119,7 @@ public class Tutorial : MonoBehaviour
         ContinueTutorial();
     }
     private IEnumerator AttackQuest(){
+        yield return new WaitForSecondsRealtime(1f);
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
         textOn = false;
         yield return new WaitUntil(() => playerInput.FrameInput.AttackDown && playerController.CanAttack && playerController.CanAttackFlag);
@@ -115,6 +129,7 @@ public class Tutorial : MonoBehaviour
         ContinueTutorial();
     }
     private IEnumerator WriteBookQuest(){
+        yield return new WaitForSecondsRealtime(1f);
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
         textOn = false;
         QuestManager.NewQuest("Scarecrow1");
@@ -125,6 +140,7 @@ public class Tutorial : MonoBehaviour
         ContinueTutorial();
     }
     private IEnumerator GoBookStore(){
+        yield return new WaitForSecondsRealtime(1f);
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
         textOn = false;
         currentProgress = "GoBookShelf";
@@ -134,15 +150,18 @@ public class Tutorial : MonoBehaviour
         ContinueTutorial();
     }
     private IEnumerator GoBookShelf(){
+        yield return new WaitForSecondsRealtime(1f);
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
         textOn = false;
         yield return new WaitUntil(() => SceneManager.GetActiveScene().name == "BookShelfScene");
+        MapUI.MapAppear = false;
         yield return new WaitUntil(() => SceneLoader.Instance.SceneLoading == false);
         currentProgress = "BuyBook";
         textOn = true;
         ContinueTutorial();
     }
     private IEnumerator BuyQuest(){
+        yield return new WaitForSecondsRealtime(1f);
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
         textOn = false;
         yield return new WaitUntil(() => BookData.Instance.EquippedBookLevel["Scarecrow1"] == 1);
@@ -151,19 +170,34 @@ public class Tutorial : MonoBehaviour
         ContinueTutorial();
     }
     private IEnumerator BackToStore(){
+        yield return new WaitForSecondsRealtime(1f);
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
         textOn = false;
         yield return new WaitUntil(() => SceneManager.GetActiveScene().name == "TutorialStoreScene");
         yield return new WaitUntil(() => SceneLoader.Instance.SceneLoading == false);
+        currentProgress = "GoToWorldMap";
+        textOn = true;
+        ContinueTutorial();
+    }
+    private IEnumerator GoToWorldMap(){
+        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+        textOn = false;
+        WorldMapOpened = false;
+        yield return new WaitUntil(() => WorldMapOpened == true);
+        yield return new WaitForSecondsRealtime(0.5f);
         currentProgress = "Final";
         textOn = true;
         ContinueTutorial();
     }
     private IEnumerator Final(){
+        yield return new WaitForSecondsRealtime(1f);
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
         textOn = false;
         SceneLoader.Instance.LoadMainStoreScene();
         yield return new WaitUntil(() => SceneLoader.Instance.SceneLoading == false);
+        TutorialComplete = true;
+        GameManager.Instance.GameStateManager.UIOpened = false;
         Destroy(gameObject);
     }
 }

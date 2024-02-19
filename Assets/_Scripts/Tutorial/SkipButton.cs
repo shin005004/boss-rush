@@ -9,6 +9,8 @@ public class SkipButton : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         Time.timeScale = 1f;
+        Tutorial.TutorialComplete = true;
+        GameManager.Instance.GameStateManager.UIOpened = false;
         Destroy(tutorialManager);
         SceneLoader.Instance.LoadMainStoreScene();
     }

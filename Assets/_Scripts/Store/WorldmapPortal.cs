@@ -6,12 +6,14 @@ using UnityEngine;
 public class WorldmapPortal : MonoBehaviour
 {
     [SerializeField] private GameObject pressE;
+    
     private void OnTriggerStay2D(Collider2D other){
         if(other.transform.root.name.Equals("Player")){
             pressE.SetActive(true);
-            if(Input.GetKey(KeyCode.E)){
+            if(Input.GetKey(KeyCode.E) && (Tutorial.TutorialComplete || Tutorial.currentProgress == "GoToWorldMap")){
                 Debug.Log("World Map");
                 MapUI.MapAppear = true;
+                Tutorial.WorldMapOpened = true;
             }
         }
     }
