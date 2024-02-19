@@ -12,6 +12,7 @@
     background-image: url('project://database/Assets/Resources/Sprites/BloodUI/blood00.png?fileID=21300000&guid=d2dece67bc6e89846a34c26fe20d131c&type=3#blood00');
     padding-left: 0;
     margin-left: 1%;
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .BagSprite {
@@ -57,16 +58,6 @@
 }
 
 .BookSprite--Opened {
-    flex-grow: 0;
-    width: 93.72%;
-    height: 99.96%;
-    flex-direction: column-reverse;
-    justify-content: flex-end;
-    align-items: center;
-    align-self: center;
-    top: 100.04%;
-    background-image: url('project://database/Assets/Resources/Sprites/InventoryUI/BookOpened.png?fileID=2800000&guid=8d5638858543d9949aede3f64a0ae00c&type=3#BookOpened');
-    -unity-background-scale-mode: scale-to-fit;
     transition-duration: 0.5s;
     translate: 0 -100%;
 }
@@ -187,20 +178,6 @@
     -unity-text-align: upper-center;
 }
 
-.BookSection--Closed {
-    flex-grow: 0;
-    position: absolute;
-    flex-shrink: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition-duration: 0.3s;
-}
-
-.BookSection--Opened {
-    opacity: 1;
-}
-
 .Slot_BookIcon:hover {
     flex-shrink: 0;
     scale: 1.1 1.1;
@@ -246,4 +223,16 @@
 .Index3:hover {
     -unity-background-scale-mode: scale-to-fit;
     background-image: resource('Sprites/InventoryUI/IndexUI/Index3_Selected');
+}
+
+.BookSection {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition-duration: 0.3s;
+}
+
+.BookSection--Closed {
+    opacity: 0;
+    transition-duration: 0.3s;
 }

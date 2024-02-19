@@ -70,7 +70,6 @@ public class StoreSceneUI : MonoBehaviour
 
         _bookUIPage.SetPageList();
         _bookSection.RegisterCallback<TransitionEndEvent>(BookTurn);
-        _bookSection.AddToClassList("BookSection--Opened");
         ChangeSectionUI();
 
         for (int i = 1; i <= _bookUIPage.SlotNumber; i++) {
@@ -86,7 +85,7 @@ public class StoreSceneUI : MonoBehaviour
 
         _tmpState = GameManager.Instance.GameStateManager.BookUIState;
         _popUpLayer.style.display = DisplayStyle.None;
-        
+
         // for test
         //BookData.Instance.EquippedBook.Add("Slime1");
         //BookData.Instance.EquippedBook.Add("Slime3");
@@ -107,14 +106,14 @@ public class StoreSceneUI : MonoBehaviour
             float animTime = _bookRightTurnAnim.GetCurrentAnimatorStateInfo(0).normalizedTime;
             if (animTime >= 1.0f) {
                 bookRightTurn.gameObject.SetActive(false);
-                _bookSection.AddToClassList("BookSection--Opened");
+                _bookSection.RemoveFromClassList("BookSection--Closed");
             }
         }
         else if (bookLeftTurn.gameObject.activeSelf) {
             float animTime = _bookLeftTurnAnim.GetCurrentAnimatorStateInfo(0).normalizedTime;
             if (animTime >= 1.0f) {
                 bookLeftTurn.gameObject.SetActive(false);
-                _bookSection.AddToClassList("BookSection--Opened");
+                _bookSection.RemoveFromClassList("BookSection--Closed");
             }
         }
         if (_tmpState != GameManager.Instance.GameStateManager.BookUIState) {
@@ -226,7 +225,7 @@ public class StoreSceneUI : MonoBehaviour
         }
         _tmpSection = index;
         _tmpPage = _basePage;
-        _bookSection.RemoveFromClassList("BookSection--Opened");
+        _bookSection.AddToClassList("BookSection--Closed");
     }
     private void BookRightTurn() {
         if (!bookRightTurn.gameObject.activeSelf) {
@@ -243,14 +242,14 @@ public class StoreSceneUI : MonoBehaviour
             return;
         }
         _turningDirection = 1;
-        _bookSection.RemoveFromClassList("BookSection--Opened");
+        _bookSection.AddToClassList("BookSection--Closed");
     }
     private void LeftPageTurn(ClickEvent clickEvent) {
         if (!PageMinus()) {
             return;
         }
         _turningDirection = 0;
-        _bookSection.RemoveFromClassList("BookSection--Opened");
+        _bookSection.AddToClassList("BookSection--Closed");
     }
     #endregion
     #region //PageUI
@@ -420,13 +419,13 @@ public class StoreSceneUI : MonoBehaviour
         _tmpSection = 1;
         _tmpPage = int.Parse(visualElement.viewDataKey);
         _turningDirection = 1;
-        _bookSection.RemoveFromClassList("BookSection--Opened");
+        _bookSection.AddToClassList("BookSection--Closed");
     }
     private void EquippedToInfoSection(ClickEvent clickEvent, VisualElement visualElement) {
         _tmpSection = 1;
         _tmpPage = int.Parse(visualElement.viewDataKey);
         _turningDirection = 0;
-        _bookSection.RemoveFromClassList("BookSection--Opened");
+        _bookSection.AddToClassList("BookSection--Closed");
     }
     #endregion
     #region //BookUI--guide--inform
