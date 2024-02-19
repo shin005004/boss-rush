@@ -131,7 +131,7 @@
     align-self: center;
     align-items: flex-end;
     justify-content: space-between;
-    top: 0;
+    position: absolute;
 }
 
 .RightSide {
@@ -142,6 +142,8 @@
     align-items: flex-start;
     justify-content: space-between;
     align-self: center;
+    position: absolute;
+    left: 50%;
 }
 
 .Slot {
