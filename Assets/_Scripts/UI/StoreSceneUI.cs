@@ -56,7 +56,7 @@ public class StoreSceneUI : MonoBehaviour
         _sectionBookInfo = _bookSection.Q<VisualElement>("Section_BookInfo");
         _sectionBookEquipped = _bookSection.Q<VisualElement>("Section_BookEquipped");
 
-        _popUpLayer.style.display = DisplayStyle.None;
+        _bag.style.display = DisplayStyle.Flex;
         _bag.RegisterCallback<ClickEvent>(OnOpenBookForClick);
         _closeButton.RegisterCallback<ClickEvent>(OnCloseBook);
         _scrim.RegisterCallback<TransitionEndEvent>(ClosePopUp);
@@ -85,7 +85,8 @@ public class StoreSceneUI : MonoBehaviour
         ChangeBlood();
 
         _tmpState = GameManager.Instance.GameStateManager.BookUIState;
-
+        _popUpLayer.style.display = DisplayStyle.None;
+        
         // for test
         //BookData.Instance.EquippedBook.Add("Slime1");
         //BookData.Instance.EquippedBook.Add("Slime3");
@@ -139,8 +140,7 @@ public class StoreSceneUI : MonoBehaviour
         if (_tmpState == BookUIState.Guide) _bag.AddToClassList("BagSprite--Opened");
         _popUpLayer.style.display = DisplayStyle.Flex;
 
-        GameManager.Instance.GameStateManager.UIOpened = true; // UI State Open
-        Debug.Log(GameManager.Instance.GameStateManager.UIOpened);
+        GameManager.Instance.GameStateManager.UIOpened = true;
 
         Invoke("ActiveBook", 0.1f);
     }

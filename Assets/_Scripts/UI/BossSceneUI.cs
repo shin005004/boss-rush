@@ -34,6 +34,8 @@ public class BossSceneUI : MonoBehaviour
         _bossBlood.RemoveFromClassList("BossBlood--Opened");
         _scrim.AddToClassList("Scrim--Closed");
 
+        _scrim.RegisterCallback<TransitionEndEvent>(StopGame);
+
         EarnBlood = 0;
         EarnBook = 0;
     }
@@ -111,8 +113,10 @@ public class BossSceneUI : MonoBehaviour
     }
     private void ShowResult() {
         GameManager.Instance.GameStateManager.UIOpened = true;
-        Time.timeScale = 0f;
         _scrim.RemoveFromClassList("Scrim--Closed");
+    }
+    private void StopGame(TransitionEndEvent transitionEndEvent) {
+        if (!_scrim.ClassListContains("Scrim--Closed")) Time.timeScale = 0f;
     }
     private void GoReborn() {
         GameManager.Instance.GameStateManager.UIOpened = false;

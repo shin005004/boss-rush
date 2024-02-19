@@ -59,9 +59,6 @@ public class MapUI : MonoBehaviour
             OnOpenMap();
             MapAppear = false;
         }
-
-        // for test
-        if (Input.GetKeyDown(KeyCode.M)) MapAppear = true;
     }
     #region //PopUpManagement
     private void OnOpenMap() {
@@ -75,10 +72,10 @@ public class MapUI : MonoBehaviour
     #endregion
     #region //Continent
     private void OnOpenContinent(ClickEvent clickEvent, VisualElement visualElement) {
-        _scrim.style.display = DisplayStyle.Flex;
         _tmpContinent = int.Parse(visualElement.viewDataKey);
-        SetContinent(_tmpContinent);
         _scrimContinent.style.display = DisplayStyle.Flex;
+        _scrim.style.display = DisplayStyle.Flex;
+        SetContinent(_tmpContinent);
         _scrim.RemoveFromClassList("Scrim--Closed");
     }
     private void OnCloseContinent(ClickEvent clickEvent) {
@@ -89,9 +86,9 @@ public class MapUI : MonoBehaviour
             }
         }
         _mapInfo.AddToClassList("MapInfo--Closed");
-        _scrimContinent.style.display = DisplayStyle.None;
         _scrim.AddToClassList("Scrim--Closed");
         _scrim.style.display = DisplayStyle.None;
+        _scrimContinent.style.display = DisplayStyle.None;
     }
     private void SetContinent(int continentIndex) {
         for (int i = 0; i < _scrimContinents.Length; i++) {

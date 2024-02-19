@@ -54,7 +54,7 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Section_BookInfo" class="Section_BookInfo" style="display: flex;">
+                <ui:VisualElement name="Section_BookInfo" class="Section_BookInfo" style="display: flex; align-self: flex-end;">
                     <ui:VisualElement name="LeftSide_BookInfo" class="LeftSide" style="background-image: url(&apos;project://database/Assets/Sprites/UI/SectionSample/SampleLeftSide.png?fileID=2800000&amp;guid=4fee39aa5a83ad94a89b47f707570ad4&amp;type=3#SampleLeftSide&apos;);">
                         <ui:VisualElement name="Continent" style="flex-grow: 0; width: 70%; height: 5%; flex-shrink: 0; flex-direction: row; top: 20%;">
                             <ui:VisualElement name="ContinentIcon" style="flex-grow: 0; width: 9%; height: 100%; background-image: url(&apos;project://database/Assets/Sprites/UI/SectionSample/SampleContinent.png?fileID=2800000&amp;guid=af39ac4702aca1d41a550c6ab5673e76&amp;type=3#SampleContinent&apos;);" />
@@ -74,7 +74,7 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="Section_BookEquipped" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; display: flex; flex-direction: row;">
-                    <ui:VisualElement name="LeftSide_BookEquipped" class="LeftSide" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Sprites/UI/SectionSample/SampleLeftSide2.png?fileID=2800000&amp;guid=ca53e3b57d04e2b48bd3d499ce1b7b36&amp;type=3#SampleLeftSide2&apos;); display: flex;">
+                    <ui:VisualElement name="LeftSide_BookEquipped" class="LeftSide" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Sprites/UI/SectionSample/SampleLeftSide2.png?fileID=2800000&amp;guid=ca53e3b57d04e2b48bd3d499ce1b7b36&amp;type=3#SampleLeftSide2&apos;);">
                         <ui:VisualElement name="Slot1" class="Slot">
                             <ui:Label tabindex="-1" text="001" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BookNumber" class="Slot_BookNumber" />
                             <ui:VisualElement name="BookIcon" class="Slot_BookIcon" />
@@ -120,9 +120,9 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="Index1" class="Index Index1" />
-            <ui:VisualElement name="Index2" class="Index Index2" />
-            <ui:VisualElement name="Index3" class="Index Index3" />
+            <ui:VisualElement name="Index1" class="Index Index1" style="position: absolute; right: 89%;" />
+            <ui:VisualElement name="Index2" class="Index Index2" style="position: absolute; right: 89%; top: 43%;" />
+            <ui:VisualElement name="Index3" class="Index Index3" style="position: absolute; right: 89%; top: 56%;" />
             <ui:VisualElement name="CloseButton" style="flex-grow: 1; position: absolute; width: 5%; height: 8%; background-image: url(&apos;project://database/Assets/Sprites/UI/WorldMapUI/CloseButton.png?fileID=2800000&amp;guid=99885cd39274f354c89e85a65bac2059&amp;type=3#CloseButton&apos;); -unity-background-scale-mode: scale-to-fit; left: 90%; top: 7%;" />
         </ui:VisualElement>
         <ui:VisualElement name="RightArrow" class="RightArrow" />
