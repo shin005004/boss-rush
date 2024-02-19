@@ -44,7 +44,6 @@ public class MapUI : MonoBehaviour
 
         _scrim.AddToClassList("Scrim--Closed");
         _mapInfo.AddToClassList("MapInfo--Closed");
-        _scrim.style.display = DisplayStyle.None;
         _scrimContinent.style.display = DisplayStyle.None;
         _map.style.display = DisplayStyle.None;
         _scrim.RegisterCallback<ClickEvent>(OnCloseContinent);
@@ -74,7 +73,6 @@ public class MapUI : MonoBehaviour
     private void OnOpenContinent(ClickEvent clickEvent, VisualElement visualElement) {
         _tmpContinent = int.Parse(visualElement.viewDataKey);
         _scrimContinent.style.display = DisplayStyle.Flex;
-        _scrim.style.display = DisplayStyle.Flex;
         SetContinent(_tmpContinent);
         _scrim.RemoveFromClassList("Scrim--Closed");
     }
@@ -87,7 +85,6 @@ public class MapUI : MonoBehaviour
         }
         _mapInfo.AddToClassList("MapInfo--Closed");
         _scrim.AddToClassList("Scrim--Closed");
-        _scrim.style.display = DisplayStyle.None;
         _scrimContinent.style.display = DisplayStyle.None;
     }
     private void SetContinent(int continentIndex) {
