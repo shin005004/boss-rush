@@ -198,6 +198,8 @@ public class Tutorial : MonoBehaviour
         yield return new WaitUntil(() => SceneLoader.Instance.SceneLoading == false);
         TutorialComplete = true;
         GameManager.Instance.GameStateManager.UIOpened = false;
+        BookData.Instance.EquippedBookLevel["Scarecrow1"] = 0;
+        BookData.Instance.EquippedBook.Clear();
         Destroy(gameObject);
     }
 }
