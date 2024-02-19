@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.IO;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
-using System;
-using UnityEditor.SearchService;
 using UnityEngine.SceneManagement;
 
 public class StartButton : MonoBehaviour

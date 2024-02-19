@@ -31,6 +31,7 @@ public class BossSceneUI : MonoBehaviour
         _resultText = _scrim.Q<Label>("ResultText");
         _earnBloodText = _scrim.Q<Label>("EarnBloodText");
         _earnBookText = _scrim.Q<Label>("EarnBookText");
+        _bossBlood.RemoveFromClassList("BossBlood--Opened");
         _scrim.AddToClassList("Scrim--Closed");
 
         EarnBlood = 0;

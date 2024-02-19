@@ -38,6 +38,8 @@ public class MapUI : MonoBehaviour
             _continents[i].RegisterCallback<ClickEvent, VisualElement>(OnOpenContinent, _continents[i]);
             _continents[i].viewDataKey = i.ToString();
             _scrimContinents[i] = _scrimContinent.Q<VisualElement>("Continent" + i.ToString());
+            _scrimContinents[i].RemoveFromClassList("Continent" + i.ToString() + "--Info");
+            _scrimContinents[i].RemoveFromClassList("Continent" + i.ToString() + "--Selected");
         }
 
         _scrim.AddToClassList("Scrim--Closed");
