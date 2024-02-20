@@ -85,7 +85,6 @@ public class StoreSceneUI : MonoBehaviour
 
         _tmpState = GameManager.Instance.GameStateManager.BookUIState;
         _popUpLayer.style.display = DisplayStyle.None;
-
         // for test
         //BookData.Instance.EquippedBook.Add("Slime1");
         //BookData.Instance.EquippedBook.Add("Slime3");
@@ -129,6 +128,8 @@ public class StoreSceneUI : MonoBehaviour
                 
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.M)) SceneLoader.Instance.LoadMainStoreScene();
     }
     #region //PopUp
     private void OnOpenBookForClick(ClickEvent evt) 

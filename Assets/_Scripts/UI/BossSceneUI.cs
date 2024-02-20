@@ -68,6 +68,10 @@ public class BossSceneUI : MonoBehaviour
         if (GameManager.Instance.GameStateManager.UIOpened && Input.GetKeyDown(KeyCode.E)) {
             GoReborn();
         }
+        if (Input.GetKeyDown(KeyCode.M)) {
+            if (BossName == "Thor") SceneLoader.Instance.LoadBossScene("BossScene2");
+            if (BossName == "Slime") SceneLoader.Instance.LoadBossScene("BossScene");
+        }
 
         // for test
         //if (Input.GetKeyDown(KeyCode.A)) GameManager.Instance.GameStateManager.ResultState = 1;
